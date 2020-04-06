@@ -35,8 +35,9 @@ LETTRE          [a-zA-Z]
 CHIFFRE 	[0-9]
 IDF             {LETTRE}({LETTRE}|{CHIFFRE}|_)*
 ENTIER          [0-9]+
-CHAINE          [ -!#-[]-~]*
-COMMENTAIRE     A
+CHAINE_CAR      [ -!#-[]-~]*
+CHAINE          (CHAINE_CAR|'\"'|'\n')
+COMMENTAIRE     {/*}{CHAINE}{*/}
 
 %%
 
