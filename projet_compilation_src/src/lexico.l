@@ -32,9 +32,10 @@ extern int yydebug;
 
 LETTRE          [a-zA-Z]
 /* A completer ; fausses definitions pour que lex ne fasse pas d'erreur */
-IDF             A
-ENTIER          0
-CHAINE          A
+CHIFFRE 	[0-9]
+IDF             {LETTRE}({LETTRE}|{CHIFFRE}|_)*
+ENTIER          [0-9]+
+CHAINE          [ -!#-[]-~]*
 COMMENTAIRE     A
 
 %%
