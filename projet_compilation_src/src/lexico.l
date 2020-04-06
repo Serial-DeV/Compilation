@@ -34,10 +34,16 @@ LETTRE          [a-zA-Z]
 /* A completer ; fausses definitions pour que lex ne fasse pas d'erreur */
 CHIFFRE 	[0-9]
 IDF             {LETTRE}({LETTRE}|{CHIFFRE}|_)*
-ENTIER          [0-9]+
+CHIFFRE_NON_NUL	[1-9]
+ENTIER_DEC	0|{CHIFFRE_NON_NUL}({CHIFFRE})*
+LETTRE_HEXA     [a-fA-F]
+ENTIER_HEXA	0x({CHIFFRE}|{LETTRE_HEXA})+
+SIGNE		-| 
+/*ENTIER          {SIGNE}({ENTIER_DEC}|{ENTIER_HEXA})*/
+ENTIER 		0
 CHAINE_CAR      [ -!#-[]-~]*
-CHAINE          (CHAINE_CAR|'\"'|'\n')
-COMMENTAIRE     {/*}{CHAINE}{*/}
+CHAINE          "({CHAINE_CAR}|\"|\n)"
+COMMENTAIRE     "(/*{CHAINE}*/)"
 
 %%
 
