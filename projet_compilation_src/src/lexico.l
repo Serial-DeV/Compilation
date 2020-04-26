@@ -59,12 +59,14 @@ COMMENTAIRE     "(/*{CHAINE}*/)"
 }
 
 {ENTIER} {
-                /* A completer : affecter yylval.intval et faire des verifications */
+		/* A completer : affecter yylval.intval et faire des verifications */
+                yylval.intval = atoi(yytext); // Vérifier ce qu'il faut vérifier
                 return TOK_INTVAL;
 }
 
 {CHAINE} {
                 /* A completer : affecter yylval.strval */
+		yylval.strval = strdup(yytext);
                 return TOK_STRING;
 }
 
