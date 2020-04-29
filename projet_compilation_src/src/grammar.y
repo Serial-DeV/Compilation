@@ -42,13 +42,38 @@ node_t make_node(node_nature nature, int nops, ...);
 
 /* Definir les token ici avec leur associativite, dans le bon ordre */
 %token TOK_VOID TOK_INT TOK_INTVAL TOK_BOOL TOK_TRUE TOK_FALSE
-%token TOK_IDENT
-%token TOK_STRING
+%token TOK_IDENT TOK_IF TOK_ELSE TOK_WHILE TOK_FOR TOK_PRINT
+%token TOK_AFFECT TOK_GE TOK_LE TOK_GT TOK_LT TOK_EQ
+%token TOK_NE TOK_PLUS TOK_MINUS TOK_MUL TOK_DIV TOK_MOD
+%token TOK_UMINUS TOK_SEMICOL TOK_COMMA TOK_LPAR TOK_RPAR TOK_LACC
+%token TOK_RACC TOK_STRING TOK_DO
 
+
+%nonassoc TOK_THEN
+%nonassoc TOK_ELSE
+
+%right TOK_AFFECT
+
+%left TOK_OR
+%left TOK_AND
+%left TOK_BOR
+%left TOK_BXOR
+%left TOK_BAND
+%left TOK_EQ TOK_NE
+%left TOK_GT TOK_LT TOK_GE TOK_LE
+%left TOK_SRL TOK_SRA TOK_SLL
+
+%left TOK_PLUS TOK_MINUS
+%left TOK_MUL TOK_DIV TOK_MOD
+
+%left TOK_UMINUS TOK_NOT TOK_BNOT
 
 %type <intval> TOK_INTVAL
 %type <strval> TOK_IDENT TOK_STRING
-%type <ptr> program listdeclnonnull maindecl
+%type <ptr> program listdecl listdeclnonnull vardecl ident type listtypedecl decl maindecl
+%type <ptr> listinst listinstnonnull inst block expr listparamprint paramprint
+
+
 
 %%
 

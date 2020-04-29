@@ -1,0 +1,39 @@
+digraph global_vars {
+    N1 [shape=record, label="{{NODE PROGRAM|Nb. ops: 2}}"];
+    N2 [shape=record, label="{{NULL}}"];
+    edge[tailclip=true];
+    N1 -> N2
+    N3 [shape=record, label="{{NODE FUNC|Nb. ops: 3}|{stack_size: 0|offset: 0}}"];
+    N4 [shape=record, label="{{NODE TYPE|Type: TYPE VOID}}"];
+    edge[tailclip=true];
+    N3 -> N4
+    N5 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: main|Offset: -1}}"];
+    edge[tailclip=true];
+    N3 -> N5
+    N6 [shape=record, label="{{NODE BLOCK|Nb. ops: 2}}"];
+    N7 [shape=record, label="{{NODE DECLS|Nb. ops: 2}}"];
+    N8 [shape=record, label="{{NODE TYPE|Type: TYPE INT}}"];
+    edge[tailclip=true];
+    N7 -> N8
+    N9 [shape=record, label="{{NODE DECL|Nb. ops: 2}}"];
+    N10 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: n|Offset: -1}}"];
+    edge[tailclip=true];
+    N9 -> N10
+    N11 [shape=record, label="{{NODE INTVAL|Type: TYPE INT}|{Value: 10}}"];
+    edge[tailclip=true];
+    N9 -> N11
+    edge[tailclip=true];
+    N7 -> N9
+    edge[tailclip=true];
+    N6 -> N7
+    N12 [shape=record, label="{{NODE PRINT|Nb. ops: 1}}"];
+    N13 [shape=record, label="{{NODE STRINGVAL|Type: TYPE STRING}|{val: TEST}}"];
+    edge[tailclip=true];
+    N12 -> N13
+    edge[tailclip=true];
+    N6 -> N12
+    edge[tailclip=true];
+    N3 -> N6
+    edge[tailclip=true];
+    N1 -> N3
+}
