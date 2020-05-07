@@ -47,7 +47,46 @@ COMMENTAIRE     "(/*{CHAINE}*/)"
 %%
 
 "void"          return TOK_VOID;
-
+"int"		return TOK_INT;
+"bool"   	return TOK_BOOL;
+"true"    	return TOK_TRUE;
+"false"    	return TOK_FALSE;
+"if"  		return TOK_IF;
+"else"    	return TOK_ELSE;
+"while"   	return TOK_WHILE;
+"for"  		return TOK_FOR;
+"print"   	return TOK_PRINT;
+"="    		return TOK_AFFECT;
+"<"    		return TOK_GE;
+">="    	return TOK_LE;
+">"    		return TOK_GT;
+"<"    		return TOK_LT;
+"=="    	return TOK_EQ;
+"!="    	return TOK_NE;
+"+"    		return TOK_PLUS;
+"-"    		return TOK_MINUS;
+"*"    		return TOK_MUL;
+"/"    		return TOK_DIV;
+"%"    		return TOK_MOD;
+"_"    		return TOK_UMINUS;
+";"    		return TOK_SEMICOL;
+","    		return TOK_COMMA;
+"("    		return TOK_LPAR;
+")"   		return TOK_RPAR;
+"{"    		return TOK_LACC;
+"}"    		return TOK_RACC;
+"do"    	return TOK_DO;
+"then"   	return TOK_THEN;
+"||"		return TOK_OR;
+"&&"  		return TOK_AND;
+"|"    		return TOK_BOR;
+"^"    		return TOK_BXOR;
+"&"    		return TOK_BAND;
+">>"    	return TOK_SRL;
+"<<"    	return TOK_SRA;
+">>>"   	return TOK_SLL;
+"!"    		return TOK_NOT;
+"~"    		return TOK_BNOT;
 
 
 
