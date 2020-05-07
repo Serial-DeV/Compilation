@@ -56,7 +56,43 @@ extern int yydebug;
     TOK_TRUE = 262,
     TOK_FALSE = 263,
     TOK_IDENT = 264,
-    TOK_STRING = 265
+    TOK_IF = 265,
+    TOK_ELSE = 266,
+    TOK_WHILE = 267,
+    TOK_FOR = 268,
+    TOK_PRINT = 269,
+    TOK_AFFECT = 270,
+    TOK_GE = 271,
+    TOK_LE = 272,
+    TOK_GT = 273,
+    TOK_LT = 274,
+    TOK_EQ = 275,
+    TOK_NE = 276,
+    TOK_PLUS = 277,
+    TOK_MINUS = 278,
+    TOK_MUL = 279,
+    TOK_DIV = 280,
+    TOK_MOD = 281,
+    TOK_UMINUS = 282,
+    TOK_SEMICOL = 283,
+    TOK_COMMA = 284,
+    TOK_LPAR = 285,
+    TOK_RPAR = 286,
+    TOK_LACC = 287,
+    TOK_RACC = 288,
+    TOK_STRING = 289,
+    TOK_DO = 290,
+    TOK_THEN = 291,
+    TOK_OR = 292,
+    TOK_AND = 293,
+    TOK_BOR = 294,
+    TOK_BXOR = 295,
+    TOK_BAND = 296,
+    TOK_SRL = 297,
+    TOK_SRA = 298,
+    TOK_SLL = 299,
+    TOK_NOT = 300,
+    TOK_BNOT = 301
   };
 #endif
 /* Tokens.  */
@@ -67,7 +103,43 @@ extern int yydebug;
 #define TOK_TRUE 262
 #define TOK_FALSE 263
 #define TOK_IDENT 264
-#define TOK_STRING 265
+#define TOK_IF 265
+#define TOK_ELSE 266
+#define TOK_WHILE 267
+#define TOK_FOR 268
+#define TOK_PRINT 269
+#define TOK_AFFECT 270
+#define TOK_GE 271
+#define TOK_LE 272
+#define TOK_GT 273
+#define TOK_LT 274
+#define TOK_EQ 275
+#define TOK_NE 276
+#define TOK_PLUS 277
+#define TOK_MINUS 278
+#define TOK_MUL 279
+#define TOK_DIV 280
+#define TOK_MOD 281
+#define TOK_UMINUS 282
+#define TOK_SEMICOL 283
+#define TOK_COMMA 284
+#define TOK_LPAR 285
+#define TOK_RPAR 286
+#define TOK_LACC 287
+#define TOK_RACC 288
+#define TOK_STRING 289
+#define TOK_DO 290
+#define TOK_THEN 291
+#define TOK_OR 292
+#define TOK_AND 293
+#define TOK_BOR 294
+#define TOK_BXOR 295
+#define TOK_BAND 296
+#define TOK_SRL 297
+#define TOK_SRA 298
+#define TOK_SLL 299
+#define TOK_NOT 300
+#define TOK_BNOT 301
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -79,7 +151,7 @@ union YYSTYPE
     char * strval;
     node_t ptr;
 
-#line 83 "y.tab.h"
+#line 155 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
