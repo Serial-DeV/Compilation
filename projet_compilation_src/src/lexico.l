@@ -68,7 +68,7 @@ COMMENTAIRE     "(/*{CHAINE}*/)"
 "*"    		return TOK_MUL;
 "/"    		return TOK_DIV;
 "%"    		return TOK_MOD;
-"_"    		return TOK_UMINUS;
+"-"    		return TOK_UMINUS;
 ";"    		return TOK_SEMICOL;
 ","    		return TOK_COMMA;
 "("    		return TOK_LPAR;
@@ -82,9 +82,9 @@ COMMENTAIRE     "(/*{CHAINE}*/)"
 "|"    		return TOK_BOR;
 "^"    		return TOK_BXOR;
 "&"    		return TOK_BAND;
-">>"    	return TOK_SRL;
-"<<"    	return TOK_SRA;
-">>>"   	return TOK_SLL;
+">>>"    	return TOK_SRL;
+">>"    	return TOK_SRA;
+"<<"   		return TOK_SLL;
 "!"    		return TOK_NOT;
 "~"    		return TOK_BNOT;
 

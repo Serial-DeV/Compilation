@@ -1,3 +1,5 @@
 int main() {
-  return 0;
+	string ma_str = "H";
+	print("Hello world");
+	int i = 6;
 }

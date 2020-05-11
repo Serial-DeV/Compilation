@@ -163,29 +163,29 @@ block:
 	;
 
 expr:
-	expr TOK_MUL expr
-	|expr TOK_DIV expr
-	|expr TOK_PLUS expr
-	|expr TOK_MINUS expr
-	|expr TOK_MOD expr
-	|expr TOK_LT expr
-	|expr TOK_GT expr
-	|TOK_MINUS expr %prec TOK_UMINUS
-	|expr TOK_GE expr
-	|expr TOK_LE expr
-	|expr TOK_EQ expr
-	|expr TOK_NE expr
-	|expr TOK_AND expr
-	|expr TOK_OR expr
-	|expr TOK_BAND expr
-	|expr TOK_BOR expr
-	|expr TOK_BXOR expr
-	|expr TOK_SRL expr
-	|expr TOK_SRA expr
-	|expr TOK_SLL expr
-	|TOK_NOT expr
-	|TOK_BNOT expr
-	|TOK_LPAR expr TOK_RPAR
+	expr TOK_MUL expr { $$ = make_node(NODE_MUL, 2, $1, $3); }
+	|expr TOK_DIV expr { $$ = make_node(NODE_DIV, 2, $1, $3); }
+	|expr TOK_PLUS expr { $$ = make_node(NODE_PLUS, 2, $1, $3); }
+	|expr TOK_MINUS expr { $$ = make_node(NODE_MINUS, 2, $1, $3); }
+	|expr TOK_MOD expr { $$ = make_node(NODE_MOD, 2, $1, $3); }
+	|expr TOK_LT expr { $$ = make_node(NODE_LT, 2, $1, $3); }
+	|expr TOK_GT expr { $$ = make_node(NODE_GT, 2, $1, $3); }
+	|TOK_MINUS expr %prec TOK_UMINUS { $$ = make_node(NODE_UMINUS, 1, $2); }
+	|expr TOK_GE expr { $$ = make_node(NODE_GE, 2, $1, $3); }
+	|expr TOK_LE expr { $$ = make_node(NODE_LE, 2, $1, $3); }
+	|expr TOK_EQ expr { $$ = make_node(NODE_EQ, 2, $1, $3); }
+	|expr TOK_NE expr { $$ = make_node(NODE_NE, 2, $1, $3); }
+	|expr TOK_AND expr { $$ = make_node(NODE_AND, 2, $1, $3); }
+	|expr TOK_OR expr { $$ = make_node(NODE_OR, 2, $1, $3); }
+	|expr TOK_BAND expr { $$ = make_node(NODE_BAND, 2, $1, $3); }
+	|expr TOK_BOR expr { $$ = make_node(NODE_BOR, 2, $1, $3); }
+	|expr TOK_BXOR expr { $$ = make_node(NODE_BXOR, 2, $1, $3); }
+	|expr TOK_SRL expr { $$ = make_node(NODE_SRL, 2, $1, $3); }
+	|expr TOK_SRA expr { $$ = make_node(NODE_SRA, 2, $1, $3); }
+	|expr TOK_SLL expr { $$ = make_node(NODE_SLL, 2, $1, $3); }
+	|TOK_NOT expr { $$ = make_node(NODE_NOT, 1, $2); }
+	|TOK_BNOT expr { $$ = make_node(NODE_BNOT, 1, $2); }
+	|TOK_LPAR expr TOK_RPAR { $$ = $2; }
 	|ident TOK_AFFECT expr
 	|TOK_INTVAL
 	|TOK_TRUE
