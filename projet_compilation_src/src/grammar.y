@@ -91,43 +91,35 @@ program:
         }
         ;
 
-listdeclnonnull:
-            { $$ = NULL; }
-        ;
-
-maindecl:
-            { $$ = NULL; }
-        ;
-
 
 listdecl: 
-	listdeclnonnull
-	|
+	listdeclnonnull { $$ = $1; }
+	| { $$ = NULL; }
 	;
 
 listdeclnonnull:
-	vardecl
-	| listdeclnonnull vardecl
+	vardecl { $$ = $1; }
+	| listdeclnonnull vardecl { $$ = make_node(NODE_LIST, 2, $1, $2); }
 	;
 
 vardecl: 
-	type listtypedecl TOK_SEMICOL
+	type listtypedecl TOK_SEMICOL { $$ = make_node(NODE_DECLS, 2, $1, $2); }
 	;
 
 type:
-	TOK_INT
-	| TOK_BOOL
-	| TOK_VOID
+	TOK_INT { $$ = make_node(NODE_TYPE, 1, TYPE_INT); }
+	| TOK_BOOL { $$ = make_node(NODE_TYPE, 1, TYPE_BOOL); }
+	| TOK_VOID { $$ = make_node(NODE_TYPE, 1, TYPE_VOID); }
 	;
 
 listtypedecl:
-	decl
-	| listtypedecl TOK_COMMA decl
+	decl { $$ = $1; }
+	| listtypedecl TOK_COMMA decl { $$ = make_node(NODE_LIST, 2, $1, $3); }
 	;
 
 decl:
-	ident
-	| ident TOK_AFFECT expr
+	ident { $$ = $1; }
+	| ident TOK_AFFECT expr { $$ = make_node(NODE_DECL, 2, $1, $3); }
 	;
 
 maindecl:
@@ -135,31 +127,43 @@ maindecl:
 	;
 
 listinst:
-	listinstnonnull
-	|
+	listinstnonnull { $$ = $1; }
+	| { $$ = NULL; }
 	;
 
 listinstnonnull:
-	inst
-	| listinstnonnull inst
+	inst { $$ = $1; }
+	| listinstnonnull inst { $$ = make_node(NODE_LIST, 2, $1, $2); }
 	;
 
 
 
 inst:
-	expr TOK_SEMICOL
-	|TOK_IF TOK_LPAR expr TOK_RPAR inst TOK_ELSE inst
-	|TOK_IF TOK_LPAR expr TOK_RPAR inst %prec TOK_THEN
-	|TOK_WHILE TOK_LPAR expr TOK_RPAR inst
+	expr TOK_SEMICOL { $$ = $1; }
+	|TOK_IF TOK_LPAR expr TOK_RPAR inst TOK_ELSE inst { $$ = make_node(NODE_IF, 3, $3, $5, $7); }
+	|TOK_IF TOK_LPAR expr TOK_RPAR inst %prec TOK_THEN { $$ = make_node(NODE_IF, 2, $3, $5); }
+	|TOK_WHILE TOK_LPAR expr TOK_RPAR inst { $$ = make_node(NODE_WHILE, 2, $3, $5); }
+
 	|TOK_FOR TOK_LPAR expr TOK_SEMICOL expr TOK_SEMICOL expr TOK_RPAR inst
+	{
+		$$ = make_node(NODE_FOR, 4, $3, $5, $7, $9);
+	}
+
 	|TOK_DO inst TOK_WHILE TOK_LPAR expr TOK_RPAR TOK_SEMICOL
-	|block
+	{
+		$$ = make_node(NODE_DOWHILE, 2, $2, $5);
+	}
+
+	|block  { $$ = $1; }
 	|TOK_SEMICOL
 	|TOK_PRINT TOK_LPAR listparamprint TOK_RPAR TOK_SEMICOL
+	{
+		$$ = make_node(NODE_PRINT, 1, $3);
+	}
 	;
 
 block:
-	TOK_LACC listdecl listinst TOK_RACC
+	TOK_LACC listdecl listinst TOK_RACC { $$ = make_node(NODE_BLOCK, 2, $2, $3); }
 	;
 
 expr:
@@ -186,25 +190,25 @@ expr:
 	|TOK_NOT expr { $$ = make_node(NODE_NOT, 1, $2); }
 	|TOK_BNOT expr { $$ = make_node(NODE_BNOT, 1, $2); }
 	|TOK_LPAR expr TOK_RPAR { $$ = $2; }
-	|ident TOK_AFFECT expr
-	|TOK_INTVAL
-	|TOK_TRUE
-	|TOK_FALSE
-	|ident
+	|ident TOK_AFFECT expr { $$ = make_node(NODE_AFFECT, 2, $1, $3); }
+	|TOK_INTVAL { $$ = make_node(NODE_INTVAL, 1, yylval.intval); }
+	|TOK_TRUE { $$ = make_node(NODE_BOOLVAL, 1, yylval.strval); }
+	|TOK_FALSE { $$ = make_node(NODE_BOOLVAL, 1, yylval.strval); }
+	|ident  { $$ = $1;}
 	;
 
 listparamprint:
-	listparamprint TOK_COMMA paramprint
-	| paramprint
+	listparamprint TOK_COMMA paramprint { $$ = make_node(NODE_LIST, 2, $1, $3); }
+	| paramprint  { $$ = $1; }
 	;
 
 paramprint:
-	ident
-	| TOK_STRING
+	ident  { $$ = $1; }
+	| TOK_STRING { $$ = make_node(NODE_STRINGVAL, 1, yyval.strval); }
 	;
 
 ident:
-	TOK_IDENT
+	TOK_IDENT { $$ = make_node(NODE_IDENT, 1, yylval.strval); }
 	;
 
 
