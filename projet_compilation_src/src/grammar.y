@@ -216,7 +216,24 @@ ident:
 
 /* A completer et/ou remplacer avec d'autres fonctions */
 node_t make_node(node_nature nature, int nops, ...) {
-    va_list ap;
+	va_list ap;
+	node_t nt;
+
+	// Opérations entre 2 nombres qui retournent un nombre
+	if(nature == NODE_PLUS || nature == NODE_MINUS || nature == NODE_MUL || nature == NODE_DIV || nature == NODE_MOD)
+	{
+
+  		nt->type = nature;
+  		nt->nops = nops;
+  		va_start(ap, nops);
+  		nt->opr[0] = va_arg(ap, node_t);
+		nt->opr[1] = va_arg(ap, node_t);
+  		va_end(ap);
+  		return nt;
+	}
+
+	//Autres (unaires,...)
+
 
     return NULL;
 }

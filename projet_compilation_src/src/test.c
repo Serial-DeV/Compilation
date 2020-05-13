@@ -6,7 +6,8 @@ void main() {
 	//Ceci est un commentaire
 	int xnb = 0;
 	bool testb = false;
-	print("Hello world \" ");
-	bool b = false;
+	//print("Hello world \" ");
+	//bool b = false;
 	int i = 6;
+	//print(" ");
 }

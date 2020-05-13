@@ -2105,7 +2105,49 @@ yyreturn:
 
 /* A completer et/ou remplacer avec d'autres fonctions */
 node_t make_node(node_nature nature, int nops, ...) {
-    va_list ap;
+	va_list ap;
+	node_t nt;
+
+	// Opérations entre 2 nombres qui retourne un nombre
+	if(nature == NODE_PLUS || nature == NODE_MINUS || nature == NODE_MUL || nature == NODE_DIV || nature == NODE_MOD)
+	{
+
+  		nt->type = nature;
+  		nt->nops = nops;
+  		va_start(ap, nops);
+  		nt->opr[0] = va_arg(ap, node_t);
+		nt->opr[1] = va_arg(ap, node_t);
+  		va_end(ap);
+  		return nt;
+	}
+
+
+/*
+nodeType *p;
+  int i;
+
+  // allocate node
+  if ((p = (nodeType*)malloc(sizeof(nodeType))) == NULL)
+    {
+      printf("out of memory error\n");
+      exit(1);
+    }
+  if ((p->t_oper.op = (nodeType**)malloc(nops * sizeof(nodeType))) == NULL)
+    {
+      printf("out of memory error\n");
+      exit(1);
+    }
+
+  // copy information
+  p->type = typeOperator;
+  p->t_oper.oper = oper;
+  p->t_oper.nOperands = nops;
+  va_start(ap, nops);
+  for (i = 0; i < nops; i++)
+    p->t_oper.op[i] = va_arg(ap, nodeType*);
+  va_end(ap);
+  return p;*/
+
 
     return NULL;
 }
