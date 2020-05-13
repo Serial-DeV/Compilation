@@ -138,10 +138,12 @@ int main(int argc, char ** argv) {
     /* A completer */	
     node_t program_root;
     parse_args(argc, argv);
+    printf("\nSortie de parse\n\n");
     #if YYDEBUG
     yydebug = 1;
     #endif
-
+   
+    printf("\nVerification lexicale\n\n");
     yyin = fopen(infile, "r");
     while(yylex());
     yyparse(&program_root);
