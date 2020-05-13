@@ -40,14 +40,16 @@ LETTRE_HEXA     [a-fA-F]
 ENTIER_HEXA	0x({CHIFFRE}|{LETTRE_HEXA})+
 SIGNE		\-|\+
 ENTIER          {SIGNE}?({ENTIER_DEC}|{ENTIER_HEXA})
-CHAINE_CAR      [ -!#-[]-~]*
-CHAINE          "({CHAINE_CAR}|\"|\n)"
-COMMENTAIRE     "(/*{CHAINE}*/)"
+/*CHAINE_CAR      [ -!#-[]-~]* */		
+CHAINE_CAR	([\040-\176])+
+
+CHAINE          ["]({CHAINE_CAR}|[\"]|[\n])*["]
+COMMENTAIRE     "//"({CHAINE_CAR})*"\n"
 
 %%
 
-"void"          return TOK_VOID;
-"int"		return TOK_INT;
+"void"          {printf("void détecté\n");return TOK_VOID;}
+"int"		{printf("int détecté\n");return TOK_INT;}
 "bool"   	return TOK_BOOL;
 "true"    	return TOK_TRUE;
 "false"    	return TOK_FALSE;
@@ -55,7 +57,7 @@ COMMENTAIRE     "(/*{CHAINE}*/)"
 "else"    	return TOK_ELSE;
 "while"   	return TOK_WHILE;
 "for"  		return TOK_FOR;
-"print"   	return TOK_PRINT;
+"print"   	{printf("print détecté\n");return TOK_PRINT;}
 "="    		return TOK_AFFECT;
 "<"    		return TOK_GE;
 ">="    	return TOK_LE;
@@ -69,12 +71,12 @@ COMMENTAIRE     "(/*{CHAINE}*/)"
 "/"    		return TOK_DIV;
 "%"    		return TOK_MOD;
 "-"    		return TOK_UMINUS;
-";"    		return TOK_SEMICOL;
+";"    		{printf(" ; détecté\n");return TOK_SEMICOL;}
 ","    		return TOK_COMMA;
-"("    		return TOK_LPAR;
-")"   		return TOK_RPAR;
-"{"    		return TOK_LACC;
-"}"    		return TOK_RACC;
+"("    		{printf(" ( détecté\n");return TOK_LPAR;}
+")"   		{printf(" ) détecté\n");return TOK_RPAR;}
+"{"    		{printf(" { détecté\n");return TOK_LACC;}
+"}"    		{printf(" } détecté\n");return TOK_RACC;}
 "do"    	return TOK_DO;
 "then"   	return TOK_THEN;
 "||"		return TOK_OR;
@@ -93,23 +95,27 @@ COMMENTAIRE     "(/*{CHAINE}*/)"
 
 
 {IDF} {
-                yylval.strval = strdup(yytext);
+		printf("IDF détecté\n");                
+		yylval.strval = strdup(yytext);
                 return TOK_IDENT;
 }
 
 {ENTIER} {
 		/* A completer : affecter yylval.intval et faire des verifications */
-                yylval.intval = atoi(yytext); // Vérifier ce qu'il faut vérifier
+		printf("Entier détecté\n");                
+		yylval.intval = atoi(yytext); // Vérifier ce qu'il faut vérifier
                 return TOK_INTVAL;
 }
 
 {CHAINE} {
                 /* A completer : affecter yylval.strval */
+		printf("Chaine détectée\n");
 		yylval.strval = strdup(yytext);
                 return TOK_STRING;
 }
 
 {COMMENTAIRE} {
+	printf("Commentaire détecté\n");
 }
 
 
@@ -128,25 +134,19 @@ int yywrap(void) {
 }
 
 
-int main(int argc, char ** argv) 
-{
-    /* A completer */
+int main(int argc, char ** argv) {
+    /* A completer */	
     node_t program_root;
-    
-    //Traitement des arguments en ligne de commande
     parse_args(argc, argv);
-    printf("\nSorti de parse\n");
-
-    
     #if YYDEBUG
     yydebug = 1;
     #endif
 
     yyin = fopen(infile, "r");
+    while(yylex());
     yyparse(&program_root);
     fclose(yyin);
     analyse_tree(program_root);
     yylex_destroy();
-    
     return 0;
 }

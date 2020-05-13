@@ -2,8 +2,8 @@ int test = 3;
 bool test2 = true;
 int test3 = 456;
 
-int main()
-{
-	print("Hello world");
+void main() {
+	//Ceci est un commentaire
+	print("Hello world \" ");
 	int i = 6;
 }
