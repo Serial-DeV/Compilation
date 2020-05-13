@@ -863,17 +863,17 @@ YY_RULE_SETUP
 case 3:
 YY_RULE_SETUP
 #line 53 "lexico.l"
-return TOK_BOOL;
+{printf("bool détecté\n");return TOK_BOOL;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 54 "lexico.l"
-return TOK_TRUE;
+{printf("true détecté\n");return TOK_TRUE;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 55 "lexico.l"
-return TOK_FALSE;
+{printf("false détecté\n");return TOK_FALSE;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP

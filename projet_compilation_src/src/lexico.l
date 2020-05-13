@@ -50,9 +50,9 @@ COMMENTAIRE     "//"({CHAINE_CAR})*"\n"
 
 "void"          {printf("void détecté\n");return TOK_VOID;}
 "int"		{printf("int détecté\n");return TOK_INT;}
-"bool"   	return TOK_BOOL;
-"true"    	return TOK_TRUE;
-"false"    	return TOK_FALSE;
+"bool"   	{printf("bool détecté\n");return TOK_BOOL;}
+"true"    	{printf("true détecté\n");return TOK_TRUE;}
+"false"    	{printf("false détecté\n");return TOK_FALSE;}
 "if"  		return TOK_IF;
 "else"    	return TOK_ELSE;
 "while"   	return TOK_WHILE;
