@@ -59,7 +59,7 @@ COMMENTAIRE     "//"({CHAINE_CAR})*"\n"
 "for"  		return TOK_FOR;
 "print"   	{printf("print détecté\n");return TOK_PRINT;}
 "="    		return TOK_AFFECT;
-"<"    		return TOK_GE;
+"<="    		return TOK_GE;
 ">="    	return TOK_LE;
 ">"    		return TOK_GT;
 "<"    		return TOK_LT;
