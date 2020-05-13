@@ -15,11 +15,96 @@
 extern char * infile;
 extern char * outfile;
 /* A completer */
+int nb_registres, niveau_trace = 0;
 
-
-void parse_args(int argc, char ** argv) {
+void parse_args(int argc, char ** argv)
+{
     /* A corriger et completer */
+    if (argc <= 1)  //
+    {
+      printf("\nAffichage des options disponibles : \n\n");
+      printf("-b : Affiche une bannière indiquant le nom du compilateur et des membres du binôme.\n");
+      printf("-o <filename> : Définit le nom du fichier assembleur produit (défaut : out.s).\n");
+      printf("-t <int> : Définit le niveau de trace à utiliser entre 0 et 5 (0 = pas de trace ; 5 = toutes les traces. defaut = 0).\n");
+      printf("-r <int> : Définit le nombre maximum de registres à utiliser, entre 4 et 8 (défaut : 8).\n");
+      printf("-s : Arrêter la compilation après l’analyse syntaxique (défaut = non).\n");
+      printf("-v : Arrêter la compilation après la passe de vérifications (défaut = non).\n");
+      printf("-h : Afficher la liste des options (fonction d’usage) et arrêter le parsing des arguments.\n\n");
+      exit(0);
+    }
+
+    //Lecture de l'option avec getopt()
+    char optstring[] = "bo:t:r:svhw"; //Options acceptées
+
+    char option = getopt(argc, argv, optstring);
+
+    //On parcourt toutes les options
+    while (option != -1)
+    {
+      switch (option)
+      {
+        case 'b':
+          printf("\nVoici le compilateur NOM_DU_COMPILATEUR réalisé par Emmanuel COLLIN et René - Mervis MUDRY.\n\n");
+          exit(0);
+        break;
+
+        case 'o':
+          outfile = optarg;
+        break;
+
+        case 't':
+          niveau_trace = atoi(optarg);
+        break;
+
+        case 'r':
+          nb_registres = atoi(optarg);
+        break;
+
+        case 's':
+        break;
+
+        case 'v':
+        break;
+
+        case 'h':
+        break;
+
+        case 'w':
+        break;
+
+        case '?':
+          printf("\nCette option n'existe pas.\n");
+          exit(0);
+        break;
+
+        default:
+        break;
+      }
+
+      printf("\nargc = %d\n", argc);
+      printf("\noptind = %d\n", optind);
+      option = getopt(argc, argv, optstring);
+
+    }
+    printf("\nSorti du while\n\n");
+    //Affiche un argument si il y en a un
+    int indice = optind;
+    if (indice < argc)
+    {
+      printf("\nVoici les arguments :\n");
+    }
+    while (indice < argc)
+    {
+      printf("%s\n", argv[indice]);
+      indice++;
+
+    }
+    printf("\nargv[1] = %s\n", argv[1]);
+
     infile = argv[1];
+
+
+
 }
 
 
@@ -148,7 +233,7 @@ void dump_tree(node_t prog_root, const char * dotname) {
     f = fopen(dotname, "w");
     fprintf(f, "digraph global_vars {\n");
     dump_tree2dot(f, prog_root);
-    fprintf(f, "}");    
+    fprintf(f, "}");
     fclose(f);
 }
 
@@ -315,11 +400,3 @@ const char * node_nature2symb(node_nature t) {
             exit(1);
     }
 }
-
-
-
-
-
-
-
-

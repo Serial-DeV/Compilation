@@ -128,10 +128,16 @@ int yywrap(void) {
 }
 
 
-int main(int argc, char ** argv) {
+int main(int argc, char ** argv) 
+{
     /* A completer */
     node_t program_root;
+    
+    //Traitement des arguments en ligne de commande
     parse_args(argc, argv);
+    printf("\nSorti de parse\n");
+
+    
     #if YYDEBUG
     yydebug = 1;
     #endif
@@ -141,5 +147,6 @@ int main(int argc, char ** argv) {
     fclose(yyin);
     analyse_tree(program_root);
     yylex_destroy();
+    
     return 0;
 }
