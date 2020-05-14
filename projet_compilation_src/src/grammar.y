@@ -220,17 +220,18 @@ node_t make_node(node_nature nature, int nops, ...) {
 	node_t nt;
 
 	// Opérations entre 2 nombres qui retournent un nombre
-	if(nature == NODE_PLUS || nature == NODE_MINUS || nature == NODE_MUL || nature == NODE_DIV || nature == NODE_MOD)
+	if(nature == NODE_PLUS || nature == NODE_MINUS || nature == NODE_MUL || nature == NODE_DIV || nature == NODE_MOD || nature == NODE_LT || nature == NODE_GT || nature == NODE_LE || nature == NODE_GE || nature == NODE_EQ || nature == NODE_NE || nature == NODE_AND || nature == NODE_OR || nature == NODE_BAND || nature == NODE_BOR || nature == NODE_BXOR)
 	{
 
   		nt->type = nature;
   		nt->nops = nops;
+		nt->lineno = yylineno;
   		va_start(ap, nops);
   		nt->opr[0] = va_arg(ap, node_t);
 		nt->opr[1] = va_arg(ap, node_t);
   		va_end(ap);
   		return nt;
-	}
+	}    
 
 	//Autres (unaires,...)
 
