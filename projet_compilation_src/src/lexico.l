@@ -146,7 +146,15 @@ int main(int argc, char ** argv) {
     printf("\nVerification lexicale\n\n");
     yyin = fopen(infile, "r");
     while(yylex());
+    
+    printf("\nAvant le yyparse\n\n");
+
     yyparse(&program_root);
+    
+    printf("\nAvant le dump\n\n");
+    dump_tree(program_root, "fichier_dump.dot");
+    printf("\nAprès le dump\n\n");
+    
     fclose(yyin);
     analyse_tree(program_root);
     yylex_destroy();
