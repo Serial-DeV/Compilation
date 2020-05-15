@@ -123,7 +123,7 @@ decl:
 	;
 
 maindecl:
-	type ident TOK_LPAR TOK_RPAR block
+	type ident TOK_LPAR TOK_RPAR block { $$ = make_node(NODE_FUNC, 3, $1, $2, $5); }
 	;
 
 listinst:
@@ -155,7 +155,7 @@ inst:
 	}
 
 	|block  { $$ = $1; }
-	|TOK_SEMICOL
+	|TOK_SEMICOL { $$ = NULL; }
 	|TOK_PRINT TOK_LPAR listparamprint TOK_RPAR TOK_SEMICOL
 	{
 		$$ = make_node(NODE_PRINT, 1, $3);
@@ -217,10 +217,14 @@ ident:
 /* A completer et/ou remplacer avec d'autres fonctions */
 node_t make_node(node_nature nature, int nops, ...) {
 	va_list ap;
-	node_t nt;
+	node_t nt = malloc(sizeof(node_s));
 	nt->nature = nature;
 	nt->lineno = yylineno;
+
+
   	nt->nops = nops;
+
+	nt->opr = malloc(nops*sizeof(node_t));
   	va_start(ap, nops);
 	for(int i = 0; i < nops; i++)
 	{
@@ -239,9 +243,14 @@ node_t make_node(node_nature nature, int nops, ...) {
 		nt->type = TYPE_BOOL;
 	}
 	//Autres (unaires,...)
+	
 
+	else 
+	{
+		nt->type = TYPE_NONE;
+	}
 	return nt;
-    	return NULL;
+    	//return NULL;
 }
 
 

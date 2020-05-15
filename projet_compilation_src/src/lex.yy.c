@@ -370,8 +370,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 48
-#define YY_END_OF_BUFFER 49
+#define YY_NUM_RULES 47
+#define YY_END_OF_BUFFER 48
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -381,15 +381,15 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[95] =
     {   0,
-        0,    0,   49,   47,   46,   46,   40,   47,   22,   36,
-       26,   27,   20,   18,   25,   19,   21,   43,   43,   24,
-       15,   11,   14,   42,   35,   42,   42,   42,   42,   42,
-       42,   42,   42,   42,   28,   34,   29,   41,   46,   17,
-        0,    0,   44,   33,   43,   43,    0,    0,   43,   39,
-       12,   16,   13,   38,   42,   42,   30,   42,   42,   42,
-        6,   42,   42,   42,   42,   42,   42,   32,   45,    0,
-       43,   37,   42,   42,   42,    9,    2,   42,   42,   42,
-       42,   42,    3,    7,   42,   42,   31,    4,    1,   42,
+        0,    0,   48,   46,   45,   45,   39,   46,   22,   35,
+       25,   26,   20,   18,   24,   19,   21,   42,   42,   23,
+       15,   11,   14,   41,   34,   41,   41,   41,   41,   41,
+       41,   41,   41,   41,   27,   33,   28,   40,   45,   17,
+        0,    0,   43,   32,   42,   42,    0,    0,   42,   38,
+       12,   16,   13,   37,   41,   41,   29,   41,   41,   41,
+        6,   41,   41,   41,   41,   41,   41,   31,   44,    0,
+       42,   36,   41,   41,   41,    9,    2,   41,   41,   41,
+       41,   41,    3,    7,   41,   41,   30,    4,    1,   41,
         5,   10,    8,    0
 
     } ;
@@ -514,11 +514,11 @@ static const flex_int16_t yy_chk[182] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static const flex_int32_t yy_rule_can_match_eol[49] =
+static const flex_int32_t yy_rule_can_match_eol[48] =
     {   0,
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 0, 0, 0, 1, 1, 1, 0, 0,     };
+    0, 0, 0, 1, 1, 1, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -960,104 +960,100 @@ return TOK_DIV;
 case 22:
 YY_RULE_SETUP
 #line 72 "lexico.l"
-return TOK_MOD;
+return TOK_MOD;/*
+"-"    		return TOK_UMINUS;*/
 	YY_BREAK
 case 23:
-YY_RULE_SETUP
-#line 73 "lexico.l"
-return TOK_UMINUS;
-	YY_BREAK
-case 24:
 YY_RULE_SETUP
 #line 74 "lexico.l"
 {printf(" ; détecté\n");return TOK_SEMICOL;}
 	YY_BREAK
-case 25:
+case 24:
 YY_RULE_SETUP
 #line 75 "lexico.l"
 return TOK_COMMA;
 	YY_BREAK
-case 26:
+case 25:
 YY_RULE_SETUP
 #line 76 "lexico.l"
 {printf(" ( détecté\n");return TOK_LPAR;}
 	YY_BREAK
-case 27:
+case 26:
 YY_RULE_SETUP
 #line 77 "lexico.l"
 {printf(" ) détecté\n");return TOK_RPAR;}
 	YY_BREAK
-case 28:
+case 27:
 YY_RULE_SETUP
 #line 78 "lexico.l"
 {printf(" { détecté\n");return TOK_LACC;}
 	YY_BREAK
-case 29:
+case 28:
 YY_RULE_SETUP
 #line 79 "lexico.l"
 {printf(" } détecté\n");return TOK_RACC;}
 	YY_BREAK
-case 30:
+case 29:
 YY_RULE_SETUP
 #line 80 "lexico.l"
 return TOK_DO;
 	YY_BREAK
-case 31:
+case 30:
 YY_RULE_SETUP
 #line 81 "lexico.l"
 return TOK_THEN;
 	YY_BREAK
-case 32:
+case 31:
 YY_RULE_SETUP
 #line 82 "lexico.l"
 return TOK_OR;
 	YY_BREAK
-case 33:
+case 32:
 YY_RULE_SETUP
 #line 83 "lexico.l"
 return TOK_AND;
 	YY_BREAK
-case 34:
+case 33:
 YY_RULE_SETUP
 #line 84 "lexico.l"
 return TOK_BOR;
 	YY_BREAK
-case 35:
+case 34:
 YY_RULE_SETUP
 #line 85 "lexico.l"
 return TOK_BXOR;
 	YY_BREAK
-case 36:
+case 35:
 YY_RULE_SETUP
 #line 86 "lexico.l"
 return TOK_BAND;
 	YY_BREAK
-case 37:
+case 36:
 YY_RULE_SETUP
 #line 87 "lexico.l"
 return TOK_SRL;
 	YY_BREAK
-case 38:
+case 37:
 YY_RULE_SETUP
 #line 88 "lexico.l"
 return TOK_SRA;
 	YY_BREAK
-case 39:
+case 38:
 YY_RULE_SETUP
 #line 89 "lexico.l"
 return TOK_SLL;
 	YY_BREAK
-case 40:
+case 39:
 YY_RULE_SETUP
 #line 90 "lexico.l"
 return TOK_NOT;
 	YY_BREAK
-case 41:
+case 40:
 YY_RULE_SETUP
 #line 91 "lexico.l"
 return TOK_BNOT;
 	YY_BREAK
-case 42:
+case 41:
 YY_RULE_SETUP
 #line 97 "lexico.l"
 {
@@ -1066,7 +1062,7 @@ YY_RULE_SETUP
                 return TOK_IDENT;
 }
 	YY_BREAK
-case 43:
+case 42:
 YY_RULE_SETUP
 #line 103 "lexico.l"
 {
@@ -1076,8 +1072,8 @@ YY_RULE_SETUP
                 return TOK_INTVAL;
 }
 	YY_BREAK
-case 44:
-/* rule 44 can match eol */
+case 43:
+/* rule 43 can match eol */
 YY_RULE_SETUP
 #line 110 "lexico.l"
 {
@@ -1087,21 +1083,21 @@ YY_RULE_SETUP
                 return TOK_STRING;
 }
 	YY_BREAK
-case 45:
-/* rule 45 can match eol */
+case 44:
+/* rule 44 can match eol */
 YY_RULE_SETUP
 #line 117 "lexico.l"
 {
 	printf("Commentaire détecté\n");
 }
 	YY_BREAK
-case 46:
-/* rule 46 can match eol */
+case 45:
+/* rule 45 can match eol */
 YY_RULE_SETUP
 #line 122 "lexico.l"
 
 	YY_BREAK
-case 47:
+case 46:
 YY_RULE_SETUP
 #line 124 "lexico.l"
 {
@@ -1109,12 +1105,12 @@ YY_RULE_SETUP
                 exit(1);
 }
 	YY_BREAK
-case 48:
+case 47:
 YY_RULE_SETUP
 #line 130 "lexico.l"
 ECHO;
 	YY_BREAK
-#line 1118 "lex.yy.c"
+#line 1114 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2150,7 +2146,7 @@ int main(int argc, char ** argv) {
    
     printf("\nVerification lexicale\n\n");
     yyin = fopen(infile, "r");
-    while(yylex());
+    //while(yylex());
     
     printf("\nAvant le yyparse\n\n");
 

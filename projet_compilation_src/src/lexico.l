@@ -59,7 +59,7 @@ COMMENTAIRE     "//"({CHAINE_CAR})*"\n"
 "for"  		return TOK_FOR;
 "print"   	{printf("print détecté\n");return TOK_PRINT;}
 "="    		return TOK_AFFECT;
-"<="    		return TOK_GE;
+"<="    	return TOK_GE;
 ">="    	return TOK_LE;
 ">"    		return TOK_GT;
 "<"    		return TOK_LT;
@@ -69,8 +69,8 @@ COMMENTAIRE     "//"({CHAINE_CAR})*"\n"
 "-"    		return TOK_MINUS;
 "*"    		return TOK_MUL;
 "/"    		return TOK_DIV;
-"%"    		return TOK_MOD;
-"-"    		return TOK_UMINUS;
+"%"    		return TOK_MOD;/*
+"-"    		return TOK_UMINUS;*/
 ";"    		{printf(" ; détecté\n");return TOK_SEMICOL;}
 ","    		return TOK_COMMA;
 "("    		{printf(" ( détecté\n");return TOK_LPAR;}
