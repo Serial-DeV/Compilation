@@ -2138,6 +2138,8 @@ int yywrap(void) {
 int main(int argc, char ** argv) {
     /* A completer */	
     node_t program_root;
+    printf("\nAvant le parse\n\n");
+        
     parse_args(argc, argv);
     printf("\nSortie de parse\n\n");
     #if YYDEBUG
@@ -2151,6 +2153,12 @@ int main(int argc, char ** argv) {
     printf("\nAvant le yyparse\n\n");
 
     yyparse(&program_root);
+    if (stop_after_syntax)
+    {
+		printf("\nOn s'arrête après l'analyse syntaxique\n\n");
+		return 0;
+    }
+    
     
     printf("\nAvant le dump\n\n");
     dump_tree(program_root, "fichier_dump.dot");

@@ -2110,10 +2110,10 @@ node_t make_node(node_nature nature, int nops, ...) {
 	va_list ap;
 	node_t nt = malloc(sizeof(node_s));
 	if(nt == NULL)
-		{
-			printf("Pb malloc nt");
-			return 0;
-		}
+	{
+		printf("Pb malloc nt");
+		return 0;
+	}
 	
 	nt->nature = nature;
 	nt->lineno = yylineno;

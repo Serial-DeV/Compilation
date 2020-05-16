@@ -14,8 +14,9 @@
 
 extern char * infile;
 extern char * outfile;
-/* A completer */
+extern bool stop_after_syntax, stop_after_verif;
 int nb_registres, niveau_trace = 0;
+/* A completer */
 
 void parse_args(int argc, char ** argv)
 {
@@ -54,16 +55,20 @@ void parse_args(int argc, char ** argv)
 
         case 't':
           niveau_trace = atoi(optarg);
+          printf("\nNiveau trace = %d\n", niveau_trace);
         break;
 
         case 'r':
           nb_registres = atoi(optarg);
+          printf("\nNombre registres = %d\n", nb_registres);
         break;
 
         case 's':
+          stop_after_syntax = true;
         break;
 
         case 'v':
+          stop_after_verif = true;
         break;
 
         case 'h':
