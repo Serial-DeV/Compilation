@@ -27,16 +27,16 @@ typedef enum node_nature_s {
     NODE_LIST, //2
     NODE_DECLS, //2
     NODE_DECL, //1
-    NODE_IDENT, //1 N
-    NODE_TYPE, //1
-    NODE_INTVAL, //
-    NODE_BOOLVAL, //1
-    NODE_STRINGVAL, //
-    NODE_FUNC, //
-    NODE_IF, //2 ou 3
-    NODE_WHILE, //2
-    NODE_FOR, //4
-    NODE_DOWHILE, //2
+    NODE_IDENT,
+    NODE_TYPE,
+    NODE_INTVAL,
+    NODE_BOOLVAL,
+    NODE_STRINGVAL,
+    NODE_FUNC,
+    NODE_IF,
+    NODE_WHILE,
+    NODE_FOR,
+    NODE_DOWHILE,
     NODE_PLUS,
     NODE_MINUS,
     NODE_MUL,
@@ -53,13 +53,13 @@ typedef enum node_nature_s {
     NODE_BAND,
     NODE_BOR,
     NODE_BXOR,
-    NODE_NOT, //1
-    NODE_BNOT, //1
+    NODE_NOT,
+    NODE_BNOT,
     NODE_SLL, //2
     NODE_SRA, //2
     NODE_SRL, //2
-    NODE_UMINUS, //1
-    NODE_AFFECT, //2
+    NODE_UMINUS,
+    NODE_AFFECT,
     NODE_PRINT, //1
 
 } node_nature;

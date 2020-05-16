@@ -2146,7 +2146,7 @@ int main(int argc, char ** argv) {
    
     printf("\nVerification lexicale\n\n");
     yyin = fopen(infile, "r");
-    //while(yylex());
+    while(yylex());
     
     printf("\nAvant le yyparse\n\n");
 

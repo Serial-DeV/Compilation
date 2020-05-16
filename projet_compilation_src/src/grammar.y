@@ -220,35 +220,107 @@ node_t make_node(node_nature nature, int nops, ...) {
 	node_t nt = malloc(sizeof(node_s));
 	nt->nature = nature;
 	nt->lineno = yylineno;
-
-
   	nt->nops = nops;
 
-	nt->opr = malloc(nops*sizeof(node_t));
-  	va_start(ap, nops);
-	for(int i = 0; i < nops; i++)
-	{
-  		nt->opr[i] = va_arg(ap, node_t);
-	}  		
-	va_end(ap);
 
-	// Opérations entre 2 nombres qui retournent un entier
-	if(nature == NODE_PLUS || nature == NODE_MINUS || nature == NODE_MUL || nature == NODE_DIV || nature == NODE_MOD || nature == NODE_BAND || nature == NODE_BOR || nature == NODE_BXOR)
+	// Opérations entre 1 ou 2 nombres qui retournent un entier
+	if(nature == NODE_PLUS || nature == NODE_MINUS || nature == NODE_MUL || nature == NODE_DIV || nature == NODE_MOD || nature == NODE_BAND || nature == NODE_BOR || nature == NODE_BXOR || nature == NODE_BNOT || nature == NODE_UMINUS)
 	{
+		
   		nt->type = TYPE_INT;
+		nt->opr = malloc(nops*sizeof(node_t));
+  		va_start(ap, nops);
+		for(int i = 0; i < nops; i++)
+		{
+  			nt->opr[i] = va_arg(ap, node_t);
+		}  		
+		va_end(ap);
 	}    
-	// Opérations entre 2 nombres qui retournent un booléen
-	else if(nature == NODE_LT || nature == NODE_GT || nature == NODE_LE || nature == NODE_GE || nature == NODE_EQ || nature == NODE_NE || nature == NODE_AND || nature == NODE_OR)
+	// Opérations entre 1 ou 2 nombres qui retournent un booléen
+	else if(nature == NODE_LT || nature == NODE_GT || nature == NODE_LE || nature == NODE_GE || nature == NODE_EQ || nature == NODE_NE || nature == NODE_AND || nature == NODE_OR || nature == NODE_NOT)
 	{
 		nt->type = TYPE_BOOL;
+		nt->opr = malloc(nops*sizeof(node_t));
+  		va_start(ap, nops);
+		for(int i = 0; i < nops; i++)
+		{
+  			nt->opr[i] = va_arg(ap, node_t);
+		}  		
+		va_end(ap);
 	}
 	//Autres (unaires,...)
 	
+		
+	else if(nature == NODE_AFFECT)
+	{
+		nt->type = TYPE_NONE;
+		nt->opr = malloc(nops*sizeof(node_t));
+  		va_start(ap, nops);
+		nt->opr[0] = va_arg(ap, node_t); 
+		nt->opr[1] = va_arg(ap, node_t); 		
+		va_end(ap);
+	}
 
+	else if(nature == NODE_INTVAL)
+	{
+		nt->type = TYPE_INT;
+  		va_start(ap, nops);
+		nt->value = va_arg(ap, int64_t); 		
+		va_end(ap);
+	}
+
+	else if(nature == NODE_BOOLVAL)
+	{
+		nt->type = TYPE_BOOL;
+  		va_start(ap, nops);
+		nt->str = va_arg(ap, char*); 		
+		va_end(ap);
+	}
+
+	else if(nature == NODE_STRINGVAL)
+	{
+		nt->type = TYPE_STRING;
+  		va_start(ap, nops);
+		nt->str = va_arg(ap, char*); 		
+		va_end(ap);
+	}
+
+	else if(nature == NODE_IDENT)
+	{
+		nt->type = TYPE_STRING;
+  		va_start(ap, nops);
+		nt->str = va_arg(ap, char*); 		
+		va_end(ap);
+	}
+
+	else if(nature == NODE_IF || nature == NODE_WHILE || nature == NODE_FOR || nature == NODE_DOWHILE)
+	{
+		nt->type = TYPE_NONE;
+		nt->opr = malloc(nops*sizeof(node_t));
+  		va_start(ap, nops);
+		for(int i = 0; i < nops; i++)
+		{
+  			nt->opr[i] = va_arg(ap, node_t);
+		}  		
+		va_end(ap);
+	}
+	else if(nature == NODE_TYPE)
+	{
+		//nt->opr = malloc(nops*sizeof(node_t));
+  		va_start(ap, nops);
+		for(int i = 0; i < nops; i++)
+		{
+  			nt->type = va_arg(ap, node_type);
+		}  		
+		va_end(ap);
+	}
 	else 
 	{
 		nt->type = TYPE_NONE;
 	}
+
+
+
 	return nt;
     	//return NULL;
 }
