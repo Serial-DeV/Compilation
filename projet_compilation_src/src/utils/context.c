@@ -3,6 +3,7 @@
 context_t create_context()
 {
 	context_t ct = malloc(sizeoff(context_t));
+	return ct;
 }
 
 
