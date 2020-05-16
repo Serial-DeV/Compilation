@@ -30,6 +30,5 @@ void free_context(context_t context);
 bool context_add_element(context_t context, char * idf, void * data);
 void * get_data(context_t context, char * idf);
 
-
 #endif
 

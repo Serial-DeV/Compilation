@@ -1,7 +1,0 @@
-digraph global_vars {
-    N1 [shape=record, label="{{NODE PROGRAM|Nb. ops: 2}}"];
-    N2 [shape=record, label="{{NULL}}"];
-    edge[tailclip=true];
-    N1 -> N2
-    N3 [shape=record, label="{{NODE FUNC|Nb. ops: 3}|{stack_size: 0|offset: 0}}"];
-    N4 [shape=record, label="{{NODE TYPE|Type: TYPE VOID}}"];
