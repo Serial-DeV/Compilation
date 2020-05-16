@@ -14,14 +14,14 @@ void free_context(context_t context)
 
 bool context_add_element(context_t context, char * idf, void * data)
 {
-	if(context->idf_existant)
+	if(context->root->idf_existant)
 	{
 		return false;
 	}
 
-	context->idf_existant = true;
-	context->lettre = idf;
-	context->data = data;
+	context->root->idf_existant = true;
+	context->root->lettre = idf;
+	context->root->data = data;
 	
 	return true;
 }
@@ -29,10 +29,10 @@ bool context_add_element(context_t context, char * idf, void * data)
 
 void * get_data(context_t context, char * idf)
 {
-	if(!context->idf_existant)
+	if(!context->root->idf_existant)
 	{
 		return NULL;
 	}
 
-	return context->data;
+	return context->root->data;
 }
