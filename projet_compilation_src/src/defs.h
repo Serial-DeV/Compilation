@@ -22,11 +22,11 @@
 
 typedef enum node_nature_s {
     NONE,
-    NODE_PROGRAM, //1
-    NODE_BLOCK, //2
-    NODE_LIST, //2
-    NODE_DECLS, //2
-    NODE_DECL, //1
+    NODE_PROGRAM,
+    NODE_BLOCK,
+    NODE_LIST,
+    NODE_DECLS,
+    NODE_DECL,
     NODE_IDENT,
     NODE_TYPE,
     NODE_INTVAL,
@@ -55,12 +55,12 @@ typedef enum node_nature_s {
     NODE_BXOR,
     NODE_NOT,
     NODE_BNOT,
-    NODE_SLL, //2
-    NODE_SRA, //2
-    NODE_SRL, //2
+    NODE_SLL,
+    NODE_SRA,
+    NODE_SRL,
     NODE_UMINUS,
     NODE_AFFECT,
-    NODE_PRINT, //1
+    NODE_PRINT,
 
 } node_nature;
 

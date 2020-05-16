@@ -2125,7 +2125,7 @@ node_t make_node(node_nature nature, int nops, ...) {
 
 
 	// Opérations entre 1 ou 2 nombres qui retournent un entier
-	if(nature == NODE_PLUS || nature == NODE_MINUS || nature == NODE_MUL || nature == NODE_DIV || nature == NODE_MOD || nature == NODE_BAND || nature == NODE_BOR || nature == NODE_BXOR || nature == NODE_BNOT || nature == NODE_UMINUS)
+	if(nature == NODE_PLUS || nature == NODE_MINUS || nature == NODE_MUL || nature == NODE_DIV || nature == NODE_MOD || nature == NODE_BAND || nature == NODE_BOR || nature == NODE_BXOR || nature == NODE_BNOT || nature == NODE_UMINUS || nature == NODE_SLL || nature == NODE_SRL || nature == NODE_SRA)
 	{
 		
   		nt->type = TYPE_INT;
@@ -2207,7 +2207,7 @@ node_t make_node(node_nature nature, int nops, ...) {
 	}
 	else if(nature == NODE_TYPE)
 	{
-		nt->opr = malloc(nops*sizeof(node_t));
+		//nt->opr = malloc(nops*sizeof(node_t));
   		va_start(ap, nops);
 		for(int i = 0; i < nops; i++)
 		{
@@ -2215,8 +2215,35 @@ node_t make_node(node_nature nature, int nops, ...) {
 		}  		
 		va_end(ap);
 	}
+
+	else if(nature == NODE_PRINT)
+	{
+		nt->type = TYPE_NONE;
+		nt->opr = malloc(nops*sizeof(node_t));
+  		va_start(ap, nops);
+		for(int i = 0; i < nops; i++)
+		{
+  			nt->opr[i] = va_arg(ap, node_t);
+		}  		
+		va_end(ap);
+	}
+
+	else if(nature == NODE_PROGRAM || nature == NODE_BLOCK || nature == NODE_LIST || nature == NODE_DECLS || nature == NODE_DECL || nature == NODE_FUNC)
+	{
+		nt->type = TYPE_NONE;
+		nt->opr = malloc(nops*sizeof(node_t));
+  		va_start(ap, nops);
+		for(int i = 0; i < nops; i++)
+		{
+  			nt->opr[i] = va_arg(ap, node_t);
+		}  		
+		va_end(ap);
+	}
+
+
 	else 
 	{
+		printf("ERROR make_node");
 		nt->type = TYPE_NONE;
 	}
 
