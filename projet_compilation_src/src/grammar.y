@@ -218,6 +218,12 @@ ident:
 node_t make_node(node_nature nature, int nops, ...) {
 	va_list ap;
 	node_t nt = malloc(sizeof(node_s));
+	if(nt == NULL)
+	{
+		printf("Pb malloc nt");
+		return 0;
+	}
+	
 	nt->nature = nature;
 	nt->lineno = yylineno;
   	nt->nops = nops;
@@ -228,7 +234,14 @@ node_t make_node(node_nature nature, int nops, ...) {
 	{
 		
   		nt->type = TYPE_INT;
+		
 		nt->opr = malloc(nops*sizeof(node_t));
+  		if(nt->opr == NULL)
+		{
+			printf("Pb malloc opr");
+			return 0;
+		}
+  		
   		va_start(ap, nops);
 		for(int i = 0; i < nops; i++)
 		{
@@ -240,7 +253,14 @@ node_t make_node(node_nature nature, int nops, ...) {
 	else if(nature == NODE_LT || nature == NODE_GT || nature == NODE_LE || nature == NODE_GE || nature == NODE_EQ || nature == NODE_NE || nature == NODE_AND || nature == NODE_OR || nature == NODE_NOT)
 	{
 		nt->type = TYPE_BOOL;
+		
 		nt->opr = malloc(nops*sizeof(node_t));
+  		if(nt->opr == NULL)
+		{
+			printf("Pb malloc opr");
+			return 0;
+		}
+  		
   		va_start(ap, nops);
 		for(int i = 0; i < nops; i++)
 		{
@@ -254,7 +274,14 @@ node_t make_node(node_nature nature, int nops, ...) {
 	else if(nature == NODE_AFFECT)
 	{
 		nt->type = TYPE_NONE;
+		
 		nt->opr = malloc(nops*sizeof(node_t));
+		if(nt->opr == NULL)
+		{
+			printf("Pb malloc opr");
+			return 0;
+		}
+		
   		va_start(ap, nops);
 		nt->opr[0] = va_arg(ap, node_t); 
 		nt->opr[1] = va_arg(ap, node_t); 		
@@ -296,7 +323,14 @@ node_t make_node(node_nature nature, int nops, ...) {
 	else if(nature == NODE_IF || nature == NODE_WHILE || nature == NODE_FOR || nature == NODE_DOWHILE)
 	{
 		nt->type = TYPE_NONE;
+		
 		nt->opr = malloc(nops*sizeof(node_t));
+  		if(nt->opr == NULL)
+		{
+			printf("Pb malloc opr");
+			return 0;
+		}
+  		
   		va_start(ap, nops);
 		for(int i = 0; i < nops; i++)
 		{
@@ -307,6 +341,8 @@ node_t make_node(node_nature nature, int nops, ...) {
 	else if(nature == NODE_TYPE)
 	{
 		//nt->opr = malloc(nops*sizeof(node_t));
+		
+		
   		va_start(ap, nops);
 		for(int i = 0; i < nops; i++)
 		{
@@ -319,6 +355,12 @@ node_t make_node(node_nature nature, int nops, ...) {
 	{
 		nt->type = TYPE_NONE;
 		nt->opr = malloc(nops*sizeof(node_t));
+		if(nt->opr == NULL)
+		{
+			printf("Pb malloc opr");
+			return 0;
+		}
+		
   		va_start(ap, nops);
 		for(int i = 0; i < nops; i++)
 		{
@@ -330,7 +372,14 @@ node_t make_node(node_nature nature, int nops, ...) {
 	else if(nature == NODE_PROGRAM || nature == NODE_BLOCK || nature == NODE_LIST || nature == NODE_DECLS || nature == NODE_DECL || nature == NODE_FUNC)
 	{
 		nt->type = TYPE_NONE;
+		
 		nt->opr = malloc(nops*sizeof(node_t));
+		if(nt->opr == NULL)
+		{
+			printf("Pb malloc opr");
+			return 0;
+		}
+		
   		va_start(ap, nops);
 		for(int i = 0; i < nops; i++)
 		{

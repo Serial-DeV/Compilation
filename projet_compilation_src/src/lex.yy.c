@@ -2153,7 +2153,7 @@ int main(int argc, char ** argv) {
     yyparse(&program_root);
     
     printf("\nAvant le dump\n\n");
-    //dump_tree(program_root, "fichier_dump.dot");
+    dump_tree(program_root, "fichier_dump.dot");
     printf("\nAprès le dump\n\n");
     
     fclose(yyin);
