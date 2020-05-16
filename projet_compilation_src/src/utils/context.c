@@ -20,7 +20,7 @@ bool context_add_element(context_t context, char * idf, void * data)
 	}
 
 	context->root->idf_existant = true;
-	context->root->lettre = idf;
+	//context->root->lettre = idf;
 	context->root->data = data;
 	
 	return true;
