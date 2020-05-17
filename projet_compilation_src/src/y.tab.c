@@ -121,10 +121,7 @@ node_t make_node(node_nature nature, int nops, ...);
 # define YYERROR_VERBOSE 0
 #endif
 
-/* Use api.header.include to #include this header
-   instead of duplicating it here.  */
-#ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
+
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -240,7 +237,7 @@ union YYSTYPE
     char * strval;
     node_t ptr;
 
-#line 244 "y.tab.c"
+#line 241 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -253,7 +250,7 @@ extern YYSTYPE yylval;
 
 int yyparse (node_t * program_root);
 
-#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
+
 
 
 
@@ -1501,7 +1498,7 @@ yyreduce:
             (yyval.ptr) = make_node(NODE_PROGRAM, 2, (yyvsp[-1].ptr), (yyvsp[0].ptr));
             *program_root = (yyval.ptr);
         }
-#line 1505 "y.tab.c"
+#line 1502 "y.tab.c"
     break;
 
   case 3:
@@ -1510,7 +1507,7 @@ yyreduce:
             (yyval.ptr) = make_node(NODE_PROGRAM, 2, NULL, (yyvsp[0].ptr));
             *program_root = (yyval.ptr);
         }
-#line 1514 "y.tab.c"
+#line 1511 "y.tab.c"
     break;
 
   case 4:
@@ -1518,7 +1515,7 @@ yyreduce:
     { 
 		(yyval.ptr) = (yyvsp[0].ptr);
 	}
-#line 1522 "y.tab.c"
+#line 1519 "y.tab.c"
     break;
 
   case 5:
@@ -1526,7 +1523,7 @@ yyreduce:
     {
 		(yyval.ptr) = NULL;
 	}
-#line 1530 "y.tab.c"
+#line 1527 "y.tab.c"
     break;
 
   case 6:
@@ -1534,7 +1531,7 @@ yyreduce:
     { 
 		(yyval.ptr) = (yyvsp[0].ptr);
 	}
-#line 1538 "y.tab.c"
+#line 1535 "y.tab.c"
     break;
 
   case 7:
@@ -1542,7 +1539,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_LIST, 2, (yyvsp[-1].ptr), (yyvsp[0].ptr));
 	}
-#line 1546 "y.tab.c"
+#line 1543 "y.tab.c"
     break;
 
   case 8:
@@ -1550,7 +1547,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_DECLS, 2, (yyvsp[-2].ptr), (yyvsp[-1].ptr));
 	}
-#line 1554 "y.tab.c"
+#line 1551 "y.tab.c"
     break;
 
   case 9:
@@ -1558,7 +1555,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_TYPE, 1, TYPE_INT);
 	}
-#line 1562 "y.tab.c"
+#line 1559 "y.tab.c"
     break;
 
   case 10:
@@ -1566,7 +1563,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_TYPE, 1, TYPE_BOOL);
 	}
-#line 1570 "y.tab.c"
+#line 1567 "y.tab.c"
     break;
 
   case 11:
@@ -1574,7 +1571,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_TYPE, 1, TYPE_VOID);
 	}
-#line 1578 "y.tab.c"
+#line 1575 "y.tab.c"
     break;
 
   case 12:
@@ -1582,7 +1579,7 @@ yyreduce:
     {
 		(yyval.ptr) = (yyvsp[0].ptr);
 	}
-#line 1586 "y.tab.c"
+#line 1583 "y.tab.c"
     break;
 
   case 13:
@@ -1590,7 +1587,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_LIST, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1594 "y.tab.c"
+#line 1591 "y.tab.c"
     break;
 
   case 14:
@@ -1598,7 +1595,7 @@ yyreduce:
     {
 		(yyval.ptr) = (yyvsp[0].ptr);
 	}
-#line 1602 "y.tab.c"
+#line 1599 "y.tab.c"
     break;
 
   case 15:
@@ -1606,7 +1603,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_DECL, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1610 "y.tab.c"
+#line 1607 "y.tab.c"
     break;
 
   case 16:
@@ -1614,7 +1611,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_FUNC, 3, (yyvsp[-4].ptr), (yyvsp[-3].ptr), (yyvsp[0].ptr));
 	}
-#line 1618 "y.tab.c"
+#line 1615 "y.tab.c"
     break;
 
   case 17:
@@ -1622,7 +1619,7 @@ yyreduce:
     {
 		(yyval.ptr) = (yyvsp[0].ptr);
 	}
-#line 1626 "y.tab.c"
+#line 1623 "y.tab.c"
     break;
 
   case 18:
@@ -1630,7 +1627,7 @@ yyreduce:
     { 
 		(yyval.ptr) = NULL;
 	}
-#line 1634 "y.tab.c"
+#line 1631 "y.tab.c"
     break;
 
   case 19:
@@ -1638,7 +1635,7 @@ yyreduce:
     {
 		(yyval.ptr) = (yyvsp[0].ptr);
 	}
-#line 1642 "y.tab.c"
+#line 1639 "y.tab.c"
     break;
 
   case 20:
@@ -1646,7 +1643,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_LIST, 2, (yyvsp[-1].ptr), (yyvsp[0].ptr));
 	}
-#line 1650 "y.tab.c"
+#line 1647 "y.tab.c"
     break;
 
   case 21:
@@ -1654,7 +1651,7 @@ yyreduce:
     {
 		(yyval.ptr) = (yyvsp[-1].ptr);
 	}
-#line 1658 "y.tab.c"
+#line 1655 "y.tab.c"
     break;
 
   case 22:
@@ -1662,7 +1659,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_IF, 3, (yyvsp[-4].ptr), (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1666 "y.tab.c"
+#line 1663 "y.tab.c"
     break;
 
   case 23:
@@ -1670,7 +1667,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_IF, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1674 "y.tab.c"
+#line 1671 "y.tab.c"
     break;
 
   case 24:
@@ -1678,7 +1675,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_WHILE, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1682 "y.tab.c"
+#line 1679 "y.tab.c"
     break;
 
   case 25:
@@ -1686,7 +1683,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_FOR, 4, (yyvsp[-6].ptr), (yyvsp[-4].ptr), (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1690 "y.tab.c"
+#line 1687 "y.tab.c"
     break;
 
   case 26:
@@ -1694,7 +1691,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_DOWHILE, 2, (yyvsp[-5].ptr), (yyvsp[-2].ptr));
 	}
-#line 1698 "y.tab.c"
+#line 1695 "y.tab.c"
     break;
 
   case 27:
@@ -1702,7 +1699,7 @@ yyreduce:
     {
 		(yyval.ptr) = (yyvsp[0].ptr);
 	}
-#line 1706 "y.tab.c"
+#line 1703 "y.tab.c"
     break;
 
   case 28:
@@ -1710,7 +1707,7 @@ yyreduce:
     {
 		(yyval.ptr) = NULL;
 	}
-#line 1714 "y.tab.c"
+#line 1711 "y.tab.c"
     break;
 
   case 29:
@@ -1718,7 +1715,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_PRINT, 1, (yyvsp[-2].ptr));
 	}
-#line 1722 "y.tab.c"
+#line 1719 "y.tab.c"
     break;
 
   case 30:
@@ -1726,7 +1723,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_BLOCK, 2, (yyvsp[-2].ptr), (yyvsp[-1].ptr));
 	}
-#line 1730 "y.tab.c"
+#line 1727 "y.tab.c"
     break;
 
   case 31:
@@ -1734,7 +1731,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_MUL, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1738 "y.tab.c"
+#line 1735 "y.tab.c"
     break;
 
   case 32:
@@ -1742,7 +1739,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_DIV, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1746 "y.tab.c"
+#line 1743 "y.tab.c"
     break;
 
   case 33:
@@ -1750,7 +1747,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_PLUS, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1754 "y.tab.c"
+#line 1751 "y.tab.c"
     break;
 
   case 34:
@@ -1758,7 +1755,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_MINUS, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1762 "y.tab.c"
+#line 1759 "y.tab.c"
     break;
 
   case 35:
@@ -1766,7 +1763,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_MOD, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1770 "y.tab.c"
+#line 1767 "y.tab.c"
     break;
 
   case 36:
@@ -1774,7 +1771,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_LT, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1778 "y.tab.c"
+#line 1775 "y.tab.c"
     break;
 
   case 37:
@@ -1782,7 +1779,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_GT, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1786 "y.tab.c"
+#line 1783 "y.tab.c"
     break;
 
   case 38:
@@ -1790,7 +1787,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_UMINUS, 1, (yyvsp[0].ptr));
 	}
-#line 1794 "y.tab.c"
+#line 1791 "y.tab.c"
     break;
 
   case 39:
@@ -1798,7 +1795,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_GE, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1802 "y.tab.c"
+#line 1799 "y.tab.c"
     break;
 
   case 40:
@@ -1806,7 +1803,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_LE, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1810 "y.tab.c"
+#line 1807 "y.tab.c"
     break;
 
   case 41:
@@ -1814,7 +1811,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_EQ, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1818 "y.tab.c"
+#line 1815 "y.tab.c"
     break;
 
   case 42:
@@ -1822,7 +1819,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_NE, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1826 "y.tab.c"
+#line 1823 "y.tab.c"
     break;
 
   case 43:
@@ -1830,7 +1827,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_AND, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1834 "y.tab.c"
+#line 1831 "y.tab.c"
     break;
 
   case 44:
@@ -1838,7 +1835,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_OR, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1842 "y.tab.c"
+#line 1839 "y.tab.c"
     break;
 
   case 45:
@@ -1846,7 +1843,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_BAND, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1850 "y.tab.c"
+#line 1847 "y.tab.c"
     break;
 
   case 46:
@@ -1854,7 +1851,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_BOR, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1858 "y.tab.c"
+#line 1855 "y.tab.c"
     break;
 
   case 47:
@@ -1862,7 +1859,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_BXOR, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1866 "y.tab.c"
+#line 1863 "y.tab.c"
     break;
 
   case 48:
@@ -1870,7 +1867,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_SRL, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1874 "y.tab.c"
+#line 1871 "y.tab.c"
     break;
 
   case 49:
@@ -1878,7 +1875,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_SRA, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1882 "y.tab.c"
+#line 1879 "y.tab.c"
     break;
 
   case 50:
@@ -1886,7 +1883,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_SLL, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1890 "y.tab.c"
+#line 1887 "y.tab.c"
     break;
 
   case 51:
@@ -1894,7 +1891,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_NOT, 1, (yyvsp[0].ptr));
 	}
-#line 1898 "y.tab.c"
+#line 1895 "y.tab.c"
     break;
 
   case 52:
@@ -1902,7 +1899,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_BNOT, 1, (yyvsp[0].ptr));
 	}
-#line 1906 "y.tab.c"
+#line 1903 "y.tab.c"
     break;
 
   case 53:
@@ -1910,7 +1907,7 @@ yyreduce:
     {
 		(yyval.ptr) = (yyvsp[-1].ptr);	
 	}
-#line 1914 "y.tab.c"
+#line 1911 "y.tab.c"
     break;
 
   case 54:
@@ -1918,7 +1915,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_AFFECT, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1922 "y.tab.c"
+#line 1919 "y.tab.c"
     break;
 
   case 55:
@@ -1926,7 +1923,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_INTVAL, 1, yylval.intval);
 	}
-#line 1930 "y.tab.c"
+#line 1927 "y.tab.c"
     break;
 
   case 56:
@@ -1934,7 +1931,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_BOOLVAL, 1, yylval.strval);
 	}
-#line 1938 "y.tab.c"
+#line 1935 "y.tab.c"
     break;
 
   case 57:
@@ -1942,7 +1939,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_BOOLVAL, 1, yylval.strval);
 	}
-#line 1946 "y.tab.c"
+#line 1943 "y.tab.c"
     break;
 
   case 58:
@@ -1950,7 +1947,7 @@ yyreduce:
     {
 		(yyval.ptr) = (yyvsp[0].ptr);
 	}
-#line 1954 "y.tab.c"
+#line 1951 "y.tab.c"
     break;
 
   case 59:
@@ -1958,7 +1955,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_LIST, 2, (yyvsp[-2].ptr), (yyvsp[0].ptr));
 	}
-#line 1962 "y.tab.c"
+#line 1959 "y.tab.c"
     break;
 
   case 60:
@@ -1966,7 +1963,7 @@ yyreduce:
     {
 		(yyval.ptr) = (yyvsp[0].ptr);
 	}
-#line 1970 "y.tab.c"
+#line 1967 "y.tab.c"
     break;
 
   case 61:
@@ -1974,7 +1971,7 @@ yyreduce:
     {
 		(yyval.ptr) = (yyvsp[0].ptr); 
 	}
-#line 1978 "y.tab.c"
+#line 1975 "y.tab.c"
     break;
 
   case 62:
@@ -1982,7 +1979,7 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_STRINGVAL, 1, yyval.strval); 
 	}
-#line 1986 "y.tab.c"
+#line 1983 "y.tab.c"
     break;
 
   case 63:
@@ -1990,11 +1987,11 @@ yyreduce:
     {
 		(yyval.ptr) = make_node(NODE_IDENT, 1, yylval.strval);
 	}
-#line 1994 "y.tab.c"
+#line 1991 "y.tab.c"
     break;
 
 
-#line 1998 "y.tab.c"
+#line 1995 "y.tab.c"
 
       default: break;
     }

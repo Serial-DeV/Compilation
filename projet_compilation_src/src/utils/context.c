@@ -3,12 +3,15 @@
 context_t create_context()
 {
 	context_t context = malloc(sizeoff(context_t));
+	context->root = malloc(sizeoff(noeud_t));
+	context->root->idf_existant = false;
 	return context;
 }
 
 
 void free_context(context_t context)
 {
+	free(context->root);
 	free(context);
 }
 
