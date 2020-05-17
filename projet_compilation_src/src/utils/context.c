@@ -1,9 +1,19 @@
-#include <context.h>
+#include <string.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
+#include <stdbool.h>
+#include <inttypes.h>
+#include <unistd.h>
+#include <getopt.h>
+
+#include "context.h"
 
 context_t create_context()
 {
-	context_t context = malloc(sizeoff(context_s));
-	context->root = malloc(sizeoff(noeud_s));
+	context_t context = malloc(sizeof(context_s));
+	context->root = malloc(sizeof(noeud_s));
 	context->root->idf_existant = false;
 	return context;
 }
@@ -19,11 +29,10 @@ void free_context(context_t context)
 bool context_add_element(context_t context, char * idf, void * data)
 {
 	int taille = strlen(idf);
-	void * data;
 	int i = 0;
 	noeud_t noeud_temp = context->root;
 
-	for (i = 0; i < idf; i++)
+	for (i = 0; i < taille; i++)
 	{
 		//On parcourt l'arbre représenté par une liste chaînée en utilisant suite idf et on compare à l'argument idf
 		noeud_temp = noeud_temp->suite_idf[idf[i] - 65]; //On prend A comme indice 0
@@ -52,7 +61,7 @@ void * get_data(context_t context, char * idf)
 	int i = 0;
 	noeud_t noeud_temp = context->root;
 
-	for (i = 0; i < idf; i++)
+	for (i = 0; i < taille; i++)
 	{
 		if(!(noeud_temp->idf_existant))
 		{
