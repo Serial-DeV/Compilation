@@ -1,0 +1,6 @@
+digraph global_vars {
+    N1 [shape=record, label="{{NODE PROGRAM|Nb. ops: 2}}"];
+    N2 [shape=record, label="{{NODE LIST}}"];
+    N3 [shape=record, label="{{NODE LIST}}"];
+    N4 [shape=record, label="{{NODE DECLS|Nb. ops: 2}}"];
+    N5 [shape=record, label="{{NODE TYPE|Type: TYPE INT}}"];

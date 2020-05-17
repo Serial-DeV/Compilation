@@ -6,6 +6,9 @@
 #include "defs.h"
 #include "common.h"
 
+// Ajout seulement pour le test
+#include "context.h"
+
 #include "y.tab.h"
 
 void yyerror(char *);
@@ -136,6 +139,7 @@ int yywrap(void) {
 
 int main(int argc, char ** argv) {
     /* A completer */	
+ 
     node_t program_root;
     printf("\nAvant le parse\n\n");
         

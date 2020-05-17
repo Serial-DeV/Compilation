@@ -386,9 +386,11 @@ ident:
 %%
 
 /* A completer et/ou remplacer avec d'autres fonctions */
-node_t make_node(node_nature nature, int nops, ...) {
+node_t make_node(node_nature nature, int nops, ...) 
+{
 	va_list ap;
 	node_t nt = malloc(sizeof(node_s));
+	
 	if(nt == NULL)
 	{
 		printf("Pb malloc nt");
