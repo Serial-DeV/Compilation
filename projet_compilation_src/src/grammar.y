@@ -476,9 +476,10 @@ node_t make_node(node_nature nature, int nops, ...)
 		nt->type = TYPE_NONE;
 	}
 
+	nt->opr = malloc(nops*sizeof(node_t));
+
 	if (arg_dest == 1)
 	{
-		nt->opr = malloc(nops*sizeof(node_t));
 		if(nt->opr == NULL)
 		{
 			printf("Pb malloc opr");
