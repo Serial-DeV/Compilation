@@ -77,6 +77,8 @@ void * get_data(context_t context, char * idf)
 		}
 	}
 
+	//Si on arrive ici, idf est déclaré
+	
 	data = noeud_temp->data;
 
 	if (data == NULL)
