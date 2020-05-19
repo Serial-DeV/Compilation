@@ -1,9 +1,17 @@
 
 #ifndef _ENV_H_
 #define _ENV_H_
-
-
+#include <string.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
+#include <stdbool.h>
+#include <inttypes.h>
+#include <unistd.h>
+#include <getopt.h>
 #include "context.h"
+extern int offset;
 
 
 typedef struct _env_s {
@@ -28,4 +36,3 @@ char * get_global_string(int32_t index);
 void free_global_strings();
 
 #endif
-

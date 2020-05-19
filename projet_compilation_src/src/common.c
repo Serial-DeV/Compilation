@@ -20,6 +20,10 @@ int nb_registres, niveau_trace = 0;
 
 void parse_args(int argc, char ** argv)
 {
+    printf("\nOutfile = %s\n\n", outfile);
+    outfile = "out.s"; //Par defaut
+    printf("\nOutfile = %s\n\n", outfile);
+
     /* A corriger et completer */
     if (argc <= 1)  //
     {
@@ -51,6 +55,8 @@ void parse_args(int argc, char ** argv)
 
         case 'o':
           outfile = optarg;
+          printf("\nOutfile = %s\n\n", outfile);
+
         break;
 
         case 't':
@@ -64,10 +70,20 @@ void parse_args(int argc, char ** argv)
         break;
 
         case 's':
+          if (stop_after_verif)
+          {
+            printf("\nErreur dans le choix des options. Veuillez choisir entre l'arret après analyse syntaxique (-s) et l'arrêt après la passe de vérification (-v).\n\n");
+            exit(-1);
+          }
           stop_after_syntax = true;
         break;
 
         case 'v':
+          if (stop_after_syntax)
+          {
+            printf("\nErreur dans le choix des options. Veuillez choisir entre l'arret après analyse syntaxique (-s) et l'arrêt après la passe de vérification (-v).\n\n");
+            exit(-1);
+          }
           stop_after_verif = true;
         break;
 
@@ -79,10 +95,11 @@ void parse_args(int argc, char ** argv)
 
         case '?':
           printf("\nCette option n'existe pas.\n");
-          exit(0);
+          exit(-1);
         break;
 
         default:
+        outfile = "out.s";
         break;
       }
 
@@ -92,21 +109,27 @@ void parse_args(int argc, char ** argv)
 
     }
     printf("\nSorti du while\n\n");
+    printf("\nOutfile = %s\n\n", outfile);
+
     //Affiche un argument si il y en a un
+
     int indice = optind;
-    if (indice < argc)
-    {
-      printf("\nVoici les arguments :\n");
-    }
+
     while (indice < argc)
     {
+      printf("\nVoici un argument :\n");
       printf("%s\n", argv[indice]);
       indice++;
 
     }
+    /*Revoir comment trouver l'indice correctement
+    printf("\nargv[0] = %s\n", argv[0]);
     printf("\nargv[1] = %s\n", argv[1]);
+    printf("\nargv[2] = %s\n", argv[2]);
+    printf("\nargv[3] = %s\n", argv[3]);
+    */
 
-    infile = argv[1];
+    infile = argv[optind];
 
 
 

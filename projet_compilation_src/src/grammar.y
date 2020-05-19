@@ -10,7 +10,7 @@
 #include "defs.h"
 #include "common.h"
 #include "mips_inst.h"
-
+#include "passe1.h"
 
 
 /* Global variables */
@@ -19,10 +19,11 @@ extern bool stop_after_syntax;
 extern bool stop_after_verif;
 extern char * infile;
 extern char * outfile;
+extern int yylineno;
+extern char* message;
 
 /* prototypes */
 int yylex(void);
-extern int yylineno;
 
 void yyerror(node_t * program_root, char * s);
 void analyse_tree(node_t root);
@@ -92,9 +93,9 @@ program:
         ;
 
 
-listdecl: 
+listdecl:
 	listdeclnonnull
-	{ 
+	{
 		$$ = $1;
 	}
 	|
@@ -105,7 +106,7 @@ listdecl:
 
 listdeclnonnull:
 	vardecl
-	{ 
+	{
 		$$ = $1;
 	}
 	| listdeclnonnull vardecl
@@ -114,7 +115,7 @@ listdeclnonnull:
 	}
 	;
 
-vardecl: 
+vardecl:
 	type listtypedecl TOK_SEMICOL
 	{
 		$$ = make_node(NODE_DECLS, 2, $1, $2);
@@ -171,7 +172,7 @@ listinst:
 		$$ = $1;
 	}
 	|
-	{ 
+	{
 		$$ = NULL;
 	}
 	;
@@ -329,7 +330,7 @@ expr:
 	}
 	|TOK_LPAR expr TOK_RPAR
 	{
-		$$ = $2;	
+		$$ = $2;
 	}
 	|ident TOK_AFFECT expr
 	{
@@ -367,11 +368,11 @@ listparamprint:
 paramprint:
 	ident
 	{
-		$$ = $1; 
+		$$ = $1;
 	}
 	| TOK_STRING
 	{
-		$$ = make_node(NODE_STRINGVAL, 1, yyval.strval); 
+		$$ = make_node(NODE_STRINGVAL, 1, yyval.strval);
 	}
 	;
 
@@ -386,22 +387,22 @@ ident:
 %%
 
 /* A completer et/ou remplacer avec d'autres fonctions */
-node_t make_node(node_nature nature, int nops, ...) 
+node_t make_node(node_nature nature, int nops, ...)
 {
 	va_list ap;
 	node_t nt = malloc(sizeof(node_s));
-	
+
 	if(nt == NULL)
 	{
 		printf("Pb malloc nt");
 		return 0;
 	}
-	
+
 	nt->nature = nature;
 	nt->lineno = yylineno;
   	nt->nops = nops;
 	va_start(ap, nops);
-	int arg_dest = 0; //Destination des arguments Si 1 => opr 
+	int arg_dest = 0; //Destination des arguments Si 1 => opr
 
 
 	// Opérations entre 1 ou 2 nombres qui retournent un entier
@@ -409,15 +410,15 @@ node_t make_node(node_nature nature, int nops, ...)
 	{
 		arg_dest = 1;
   		nt->type = TYPE_INT;
-	}    
+	}
 	// Opérations entre 1 ou 2 nombres qui retournent un booléen
 	else if(nature == NODE_LT || nature == NODE_GT || nature == NODE_LE || nature == NODE_GE || nature == NODE_EQ || nature == NODE_NE || nature == NODE_AND || nature == NODE_OR || nature == NODE_NOT)
 	{
 		arg_dest = 1;
 		nt->type = TYPE_BOOL;
 	}
-	
-		
+
+
 	else if(nature == NODE_AFFECT)
 	{
 		arg_dest = 1;
@@ -449,7 +450,7 @@ node_t make_node(node_nature nature, int nops, ...)
 		nt->type = TYPE_NONE;
 	}
 	else if(nature == NODE_TYPE)
-	{		
+	{
 		for(int i = 0; i < nops; i++)
 		{
   			nt->type = va_arg(ap, node_type);
@@ -466,11 +467,11 @@ node_t make_node(node_nature nature, int nops, ...)
 	{
 		arg_dest = 1;
 		nt->type = TYPE_NONE;
-		
-		
+
+
 	}
 
-	else 
+	else
 	{
 		printf("ERROR make_node");
 		nt->type = TYPE_NONE;
@@ -485,15 +486,15 @@ node_t make_node(node_nature nature, int nops, ...)
 			printf("Pb malloc opr");
 			return 0;
 		}
-		
+
 		for(int i = 0; i < nops; i++)
 		{
   			nt->opr[i] = va_arg(ap, node_t);
-		}  
+		}
 	}
 
 
-	
+
 	va_end(ap);
 	return nt;
 }
@@ -501,18 +502,29 @@ node_t make_node(node_nature nature, int nops, ...)
 
 
 /* A completer */
-void analyse_tree(node_t root) {
-    if (!stop_after_syntax) {
+void analyse_tree(node_t root)
+{
+    if (!stop_after_syntax)
+    {
         // Appeler la passe 1
+        passe1(root);
 
-        if (!stop_after_verif) {
-            create_program(); 
+        if (!stop_after_verif)
+        {
+            create_program();
             // Appeler la passe 2
-
             dump_mips_program(outfile);
             free_program();
         }
+        else
+        {
+          printf("\nOn s'arrête après la passe de vérification\n\n");
+        }
         free_global_strings();
+    }
+    else
+    {
+      printf("\nOn s'arrête après l'analyse syntaxique\n\n");
     }
 }
 
@@ -522,4 +534,3 @@ void yyerror(node_t * program_root, char * s) {
     fprintf(stderr, "Error line %d: %s\n", yylineno, s);
     exit(1);
 }
-

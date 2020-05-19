@@ -6,8 +6,9 @@
 #include "defs.h"
 #include "common.h"
 #include "y.tab.h"
+#include "passe1.h"
 
-void yyerror(char *);
+void yyerror(node_t * program_root, char * s);
 int yyparse(node_t * program_root);
 int fileno(FILE * stream);
 void analyse_tree(node_t root);
@@ -17,6 +18,8 @@ char * infile = NULL;
 char * outfile = NULL;
 bool stop_after_syntax = false;
 bool stop_after_verif = false;
+char* message;
+
 /* A completer */
 
 #if YYDEBUG
@@ -39,7 +42,7 @@ LETTRE_HEXA     [a-fA-F]
 ENTIER_HEXA	0x({CHIFFRE}|{LETTRE_HEXA})+
 SIGNE		\-|\+
 ENTIER          {SIGNE}?({ENTIER_DEC}|{ENTIER_HEXA})
-/*CHAINE_CAR      [ -!#-[]-~]* */		
+/*CHAINE_CAR      [ -!#-[]-~]* */
 CHAINE_CAR	([\040-\176])+
 
 CHAINE          ["]({CHAINE_CAR}|[\"]|[\n])*["]
@@ -94,14 +97,14 @@ COMMENTAIRE     "//"({CHAINE_CAR})*"\n"
 
 
 {IDF} {
-		printf("IDF détecté\n");                
+		printf("IDF détecté\n");
 		yylval.strval = strdup(yytext);
                 return TOK_IDENT;
 }
 
 {ENTIER} {
 		/* A completer : affecter yylval.intval et faire des verifications */
-		printf("Entier détecté\n");                
+		printf("Entier détecté\n");
 		yylval.intval = atoi(yytext); // Vérifier ce qu'il faut vérifier
                 return TOK_INTVAL;
 }
@@ -133,39 +136,38 @@ int yywrap(void) {
 }
 
 
-int main(int argc, char ** argv) 
+int main(int argc, char ** argv)
 {
-    /* A completer */	
- 
+    /* A completer */
+
     node_t program_root;
     printf("\nAvant le parse\n\n");
-        
+
     parse_args(argc, argv);
     printf("\nSortie de parse\n\n");
     #if YYDEBUG
     yydebug = 1;
     #endif
-   
+
     printf("\nVerification lexicale\n\n");
     yyin = fopen(infile, "r");
     //while(yylex());
-    
+
     printf("\nAvant le yyparse\n\n");
 
     yyparse(&program_root);
-    if (stop_after_syntax)
-    {
-		printf("\nOn s'arrête après l'analyse syntaxique\n\n");
-		return 0;
-    }
-    
-    
+
+
     printf("\nAvant le dump\n\n");
     dump_tree(program_root, "fichier_dump.dot");
     printf("\nAprès le dump\n\n");
-    
+
+		printf("\nAvant l'analyse tree\n\n");
+		analyse_tree(program_root);
+		printf("\nAprès l'analyse tree\n\n");
+
+
     fclose(yyin);
-    //analyse_tree(program_root);
     yylex_destroy();
     return 0;
 }

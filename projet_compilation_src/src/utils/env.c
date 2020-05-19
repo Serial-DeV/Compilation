@@ -1,17 +1,7 @@
-#include <string.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <assert.h>
-#include <stdbool.h>
-#include <inttypes.h>
-#include <unistd.h>
-#include <getopt.h>
-
-#include "context.h"
 #include "env.h"
 
-env_t env; //Contexte courant déclaré en variable globale
+extern env_t env; //Contexte courant déclaré en variable globale
+
 
 void push_global_context()
 {
@@ -42,26 +32,26 @@ void pop_context(env_t env_temp)
 }
 
 //A modifier
-void * get_decl_node(char * ident)
+void * get_decl_noeud(char * ident)
 {
   int taille = strlen(ident);
-  noeud_t node = NULL;
+  noeud_t noeud = NULL;
   int i = 0;
   env_t env_temp = env; //On commence par le contexte actuel
-  noeud_t node_temp = env_temp->context->root;
+  noeud_t noeud_temp = env_temp->context->root;
 
-  while(env_temp != NULL || node != NULL) //Tant que nous ne sommes pas dans le contexte global ou que nous n'avons pas trouvé le noeud
+  while(env_temp != NULL || noeud != NULL) //Tant que nous ne sommes pas dans le contexte global ou que nous n'avons pas trouvé le noeud
   {
     for (i = 0; i < taille; i++)
     {
-      if(!(node_temp->idf_existant))
+      if(!(noeud_temp->idf_existant))
       {
         printf("Il n'y a pas d'idf correspondant");
-        i = taille + 1;
+        i = taille + 1; //Permet de sortir de la boucle et de vérifier ensuite la raison de cette sortie
       }
       //On parcourt l'arbre représenté par une liste chaînée en utilisant suite idf et on compare à l'argument idf
-      node_temp = node_temp->suite_idf[ident[i] - 65]; //On prend A comme indice 0 de la chaine
-      if (node_temp == NULL)
+      noeud_temp = noeud_temp->suite_idf[ident[i] - 65]; //On prend A comme indice 0 de la chaine
+      if (noeud_temp == NULL)
       {
         printf("Ce noeud n'existe pas");
         i = taille + 1;
@@ -71,29 +61,29 @@ void * get_decl_node(char * ident)
     if (i > taille) //environnement suivant
     {
       env_temp = env_temp->next; //on cherche dans l'environnement suivant
-      node_temp = env_temp->context->root;
+      noeud_temp = env_temp->context->root;
     }
     else
     {
-      node = node_temp;
-      return node;
+      noeud = noeud_temp;
+      return noeud;
     }
   }
 
-  if (node == NULL)
+  if (noeud == NULL)
   {
-    printf("Il n'y a pas de node correspondant");
-    return node;
+    printf("Il n'y a pas de noeud correspondant");
+    return noeud;
   }
   if (env_temp == NULL)
   {
     printf("Tous les environnements ont été parcouru sans succès");
-    return node;
+    return noeud;
   }
-  return node;
+  return noeud;
 }
 
-int32_t env_add_element(char * ident, void * node, int32_t size);
+int32_t env_add_element(char * ident, void * noeud, int32_t size);
 
 void reset_env_current_offset();
 
