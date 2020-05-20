@@ -341,7 +341,7 @@ expr:
 		$$ = make_node(NODE_INTVAL, 1, yylval.intval);
 	}
 	|TOK_TRUE
-	{		
+	{
 		$$ = make_node(NODE_BOOLVAL, 1, "true");
 	}
 	|TOK_FALSE
@@ -451,12 +451,16 @@ node_t make_node(node_nature nature, int nops, ...)
 		}
 	}
 
-	else if(nature == NODE_STRINGVAL || nature == NODE_IDENT)
+  else if(nature == NODE_STRINGVAL)
 	{
 		nt->type = TYPE_STRING;
 		nt->str = va_arg(ap, char*);
 	}
-
+  else if(nature == NODE_IDENT)
+  {
+    //nt->type = TYPE_STRING;
+    nt->ident = va_arg(ap, char*);
+  }
 
 	else if(nature == NODE_IF || nature == NODE_WHILE || nature == NODE_FOR || nature == NODE_DOWHILE)
 	{

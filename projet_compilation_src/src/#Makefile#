@@ -41,7 +41,7 @@ passe2.o: passe2.c passe2.h Makefile
 	gcc $(CFLAGS) $(INCLUDE) -o $@ -c $<
 
 clean:
-	rm -f *.o a.out *.s
+	rm -f *.o a.out *.s 
 
 realclean: clean
 	rm -f y.tab.c y.tab.h lex.yy.c $(EXE)

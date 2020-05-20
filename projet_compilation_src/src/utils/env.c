@@ -32,6 +32,7 @@ void pop_context(env_t env_temp)
 }
 
 //A modifier
+/*
 void * get_decl_noeud(char * ident)
 {
   int taille = strlen(ident);
@@ -82,7 +83,7 @@ void * get_decl_noeud(char * ident)
   }
   return noeud;
 }
-
+*/
 int32_t env_add_element(char * ident, void * noeud, int32_t size);
 
 void reset_env_current_offset();

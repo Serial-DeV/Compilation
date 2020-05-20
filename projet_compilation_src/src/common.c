@@ -15,7 +15,8 @@
 extern char * infile;
 extern char * outfile;
 extern bool stop_after_syntax, stop_after_verif;
-int nb_registres, niveau_trace = 0;
+int niveau_trace = 0;
+int32_t nb_registres = 8;
 /* A completer */
 
 void parse_args(int argc, char ** argv)
@@ -66,6 +67,11 @@ void parse_args(int argc, char ** argv)
 
         case 'r':
           nb_registres = atoi(optarg);
+          if(nb_registres > 8 || nb_registres < 4)
+          {
+            printf("\nErreur : le nombre de registres doit être compris entre 4 et 8.\n");
+            exit(-1);
+          }
           printf("\nNombre registres = %d\n", nb_registres);
         break;
 

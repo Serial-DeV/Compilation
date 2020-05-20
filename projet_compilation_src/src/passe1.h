@@ -10,14 +10,17 @@
 #include <unistd.h>
 #include <getopt.h>
 #include "context.h"
-#include "env.h"
 #include "defs.h"
+#include "common.h"
+#include "utils/env.h"
+#include "utils/registers.h"
+#include "utils/mips_inst.h"
 
 extern void yyerror(node_t * program_root, char * s);
 extern int yylineno;
 extern env_t env;
 extern int offset;
-
+extern int32_t nb_registres;
 void passe1(node_t node);
 
 #endif
