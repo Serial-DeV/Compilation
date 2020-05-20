@@ -342,11 +342,11 @@ expr:
 	}
 	|TOK_TRUE
 	{
-		$$ = make_node(NODE_BOOLVAL, 1, yylval.strval);
+		$$ = make_node(NODE_BOOLVAL, 1, "true");
 	}
 	|TOK_FALSE
 	{
-		$$ = make_node(NODE_BOOLVAL, 1, yylval.strval);
+		$$ = make_node(NODE_BOOLVAL, 1, "false");
 	}
 	|ident
 	{
@@ -434,7 +434,21 @@ node_t make_node(node_nature nature, int nops, ...)
 	else if(nature == NODE_BOOLVAL)
 	{
 		nt->type = TYPE_BOOL;
-		nt->str = va_arg(ap, char*);
+		//nt->str = va_arg(ap, char*);
+		char* str = va_arg(ap, char*);
+		printf("BOOL_VALUE = %s", str);
+		if(str == "true")
+		{
+			nt->value = 1;
+		}
+		else if (str == "false")
+		{
+			nt->value = 0;
+		}
+		else
+		{
+			printf("Error line %d: %s ne peut être un booléen\n", yylineno, str);
+		}
 	}
 
 	else if(nature == NODE_STRINGVAL || nature == NODE_IDENT)

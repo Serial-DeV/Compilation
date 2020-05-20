@@ -40,7 +40,7 @@ digraph global_vars {
     N16 -> N17
     edge[tailclip=true];
     N15 -> N16
-    N18 [shape=record, label="{{NODE BOOLVAL|Type: TYPE BOOL}|{Value: 0}}"];
+    N18 [shape=record, label="{{NODE BOOLVAL|Type: TYPE BOOL}|{Value: 1}}"];
     N19 [shape=record, label="{{NULL}}"];
     edge[tailclip=true];
     N18 -> N19
