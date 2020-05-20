@@ -1932,7 +1932,7 @@ yyreduce:
 
   case 56:
 #line 344 "grammar.y"
-    {
+    {		
 		(yyval.ptr) = make_node(NODE_BOOLVAL, 1, "true");
 	}
 #line 1939 "y.tab.c"

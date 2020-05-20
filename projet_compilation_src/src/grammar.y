@@ -341,7 +341,7 @@ expr:
 		$$ = make_node(NODE_INTVAL, 1, yylval.intval);
 	}
 	|TOK_TRUE
-	{
+	{		
 		$$ = make_node(NODE_BOOLVAL, 1, "true");
 	}
 	|TOK_FALSE
