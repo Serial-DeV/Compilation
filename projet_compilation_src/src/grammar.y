@@ -435,19 +435,19 @@ node_t make_node(node_nature nature, int nops, ...)
 	{
 		nt->type = TYPE_BOOL;
 		//nt->str = va_arg(ap, char*);
-		char* str = va_arg(ap, char*);
-		printf("BOOL_VALUE = %s", str);
-		if(str == "true")
+		char* bool_val = va_arg(ap, char*);
+		printf("BOOL_VALUE = %s", bool_val);
+		if(bool_val == "true")
 		{
 			nt->value = 1;
 		}
-		else if (str == "false")
+		else if (bool_val == "false")
 		{
 			nt->value = 0;
 		}
 		else
 		{
-			printf("Error line %d: %s ne peut être un booléen\n", yylineno, str);
+			printf("Error line %d: %s ne peut être un booléen\n", yylineno, bool_val);
 		}
 	}
 
