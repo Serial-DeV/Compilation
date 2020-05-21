@@ -30,6 +30,7 @@ void after_node(node_t nt)
 			break;
 
 		case NODE_FUNC:
+			// Entrée dans le main
 			global = false;
 			gen_func(nt);
 			break;
