@@ -52,7 +52,7 @@ void gen_func(node_t nt)
 
 
 
-/* Création des labels pour les str en concaténant string_ et un entier, afin de distinguer les labels des variables*/
+/* Création des labels pour les str en concaténant string_ et la valeur du compteur */
 char* create_labels_for_glob_str(int cpt)
 {	
 	char* label;
