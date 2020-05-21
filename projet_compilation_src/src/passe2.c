@@ -7,9 +7,6 @@ void generator(node_t nt)
 
 	if(nt)
 	{
-		//create_data_sec_inst();
-
-
 		while(!end)
 		{
 			after_node(nt);
@@ -42,6 +39,22 @@ void after_node(node_t nt)
 
 
 void gen_func(node_t nt)
-{
-	
+{	char* label;
+	int glob_str_nb = get_global_strings_number();
+	for(int cpt = 0; cpt < glob_str_nb; ++cpt)
+	{
+		/* Création des labels pour les str en concaténant string_ et un entier, afin de distinguer les labels des variables*/
+		label = create_labels_for_glob_str(cpt);
+
+		/* Déclaration de variable*/
+		create_asciiz_inst(label, get_global_string(cpt));
+	}
+}
+
+
+char* create_labels_for_glob_str(int cpt)
+{	
+	char* label;
+	sprintf(label, "string_%d", cpt);
+	return label;
 }

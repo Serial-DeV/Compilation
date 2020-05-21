@@ -25,5 +25,6 @@ bool global = true;
 void generator(node_t);
 void after_node(node_t);
 void gen_func(node_t);
+char* create_labels_for_glob_str(int);
 
 #endif
