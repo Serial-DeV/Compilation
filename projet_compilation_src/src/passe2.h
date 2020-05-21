@@ -18,13 +18,15 @@
 
 char* asm_file;
 bool end = false;
-bool in_main = false;
+//bool in_main = false;
 bool global = true;
+bool open = 1;
 
 
 void generator(node_t);
-void after_node(node_t);
+void open_close_node(node_t);
 void gen_func(node_t);
 char* create_labels_for_glob_str(int);
+void add_decl(node_t);
 
 #endif
