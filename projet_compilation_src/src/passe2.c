@@ -39,8 +39,9 @@ void after_node(node_t nt)
 
 
 void gen_func(node_t nt)
-{	char* label;
+{
 	int glob_str_nb = get_global_strings_number();
+
 	for(int cpt = 0; cpt < glob_str_nb; ++cpt)
 	{
 		/* Déclaration de variable*/
