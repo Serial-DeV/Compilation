@@ -28,5 +28,9 @@ void open_close_node(node_t);
 void gen_func(node_t);
 char* create_labels_for_glob_str(int);
 void add_decl(node_t);
+void add_type(node_t);
+void add_ident(node_t);
+void add_intval(node_t);
+void add_affect(node_t);
 
 #endif

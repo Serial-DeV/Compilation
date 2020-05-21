@@ -56,12 +56,19 @@ void open_close_node(node_t nt)
 				break;
 
 			case NODE_TYPE:
+				add_type(nt);
 				break;
 
 			case NODE_IDENT:
+				add_ident(nt);
+				break;
+		
+			case NODE_AFFECT:
+				add_affect(nt);
 				break;
 
 			case NODE_INTVAL:
+				add_intval(nt);
 				break;
 
 			default:
@@ -103,6 +110,44 @@ void add_decl(node_t nt)
 		if(global)
 		{
 			if(nt->opr[1]->nature == NODE_IDENT);
+		}
+	}
+
+
+	else
+	{
+
+	}
+
+}
+
+void add_ident(node_t nt)
+{
+	if(open)
+	{
+		if(global)
+		{
+			
+		}
+	}
+
+
+	else
+	{
+
+	}
+
+}
+
+
+
+void add_affect(node_t nt)
+{
+	if(open)
+	{
+		if(global)
+		{
+			
 		}
 	}
 
