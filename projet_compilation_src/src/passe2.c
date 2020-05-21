@@ -159,6 +159,16 @@ void add_affect(node_t nt)
 
 }
 
+void add_intval(node_t nt)
+{
+
+}
+
+void add_type(node_t nt)
+{
+
+}
+
 
 
 
