@@ -43,15 +43,15 @@ void gen_func(node_t nt)
 	int glob_str_nb = get_global_strings_number();
 	for(int cpt = 0; cpt < glob_str_nb; ++cpt)
 	{
-		/* Création des labels pour les str en concaténant string_ et un entier, afin de distinguer les labels des variables*/
-		label = create_labels_for_glob_str(cpt);
-
 		/* Déclaration de variable*/
-		create_asciiz_inst(label, get_global_string(cpt));
+		create_asciiz_inst(create_labels_for_glob_str(cpt), get_global_string(cpt));
 	}
 }
 
 
+
+
+/* Création des labels pour les str en concaténant string_ et un entier, afin de distinguer les labels des variables*/
 char* create_labels_for_glob_str(int cpt)
 {	
 	char* label;
