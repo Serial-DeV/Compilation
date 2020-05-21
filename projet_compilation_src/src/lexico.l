@@ -166,6 +166,9 @@ int main(int argc, char ** argv)
 		analyse_tree(program_root);
 		printf("\nAprès l'analyse tree\n\n");
 
+		printf("\nAvant le dump\n\n");
+    dump_tree(program_root, "fichier_dump.dot");
+    printf("\nAprès le dump\n\n");
 
     fclose(yyin);
     yylex_destroy();

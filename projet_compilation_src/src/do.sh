@@ -1,4 +1,4 @@
 make clean
 make
-./minicc test.c
+./minicc test2.c
 xdot fichier_dump.dot

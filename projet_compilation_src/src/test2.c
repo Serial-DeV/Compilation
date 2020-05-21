@@ -1,6 +1,8 @@
 void main()
 {
-  int n;
-	n = 2 + 3;
-	int a, d;
+	int f = 5;
+	int c;
+	//c = 5 ?
+	// c = 3 + 2;
+	int a, d, f, d, h;
 }

@@ -44,28 +44,47 @@ void passe1(node_t node)
       break;
     case NODE_DECLS :
       //Je mets à jour le champ type du node ident
-      /*if(node->opr[0] != NULL && node->opr[1] != NULL && node->opr[1]->opr[1] != NULL && node->opr[1]->opr[0])
+      type1 = node->opr[0]->type; //Le type déclaré
+
+      if(node->opr[0] != NULL && node->opr[1] != NULL && node->opr[1]->opr[0] != NULL && node->opr[1]->opr[1] != NULL)
       {
-        type1 = node->opr[0]->type; //Le type déclaré
-        type3 = node->opr[1]->opr[1]->type; //Le type réellement affecté
-        node->opr[1]->opr[0]->type = type1; //Le type du NODE IDENT
-        type2 = node->opr[1]->opr[0]->type;
-        type_string1 = node_type2string(type1);
-        type_string2 = node_type2string(type2);
-        type_string3 = node_type2string(type3);
+        printf("\nLISTE A\n");
 
-        printf("Type déclaré : %s\n", type_string1);
-        printf("Type du NODE IDENT : %s\n", type_string2);
-        printf("Type réellement affecté : %s\n", type_string3);
-
-        if(type1 != type3)
+        if(node->opr[1]->nature == NODE_LIST)
         {
-          yyerror(&node, "Le type déclaré est différent du type affecté.");
+          printf("\nLISTE\n");
 
+          node_Liste(node->opr[1], type1);
+        }
+        else
+        {
+          //Quand il y a NODE DECL IDENT INT/BOOLVAL
+          printf("\nLA\n");
+
+          type1 = node->opr[0]->type; //Le type déclaré
+          type3 = node->opr[1]->opr[1]->type; //Le type réellement affecté
+          node->opr[1]->opr[0]->type = type1; //Le type du NODE IDENT
+          type2 = node->opr[1]->opr[0]->type;
+          type_string1 = node_type2string(type1);
+          type_string2 = node_type2string(type2);
+          type_string3 = node_type2string(type3);
+
+          printf("Type déclaré : %s\n", type_string1);
+          printf("Type du NODE IDENT : %s\n", type_string2);
+          printf("Type réellement affecté : %s\n", type_string3);
+
+          if(type1 != type3)
+          {
+            yyerror(&node, "Le type déclaré est différent du type affecté.");
+
+          }
         }
       }
       else if(node->opr[0] != NULL && node->opr[1] != NULL)
-      {
+      {                //Quand il y a NODE DECL IDENT INT/BOOLVAL
+        printf("\nLISTE oio\n");
+
+        printf("\nLaa\n");
         type1 = node->opr[0]->type; //Le type déclaré
         node->opr[1]->type = type1;
         type2 = node->opr[1]->type ; //Le type du NODE IDENT
@@ -74,8 +93,13 @@ void passe1(node_t node)
         printf("Type déclaré : %s\n", type_string1);
         printf("Type du NODE IDENT : %s\n", type_string2);
       }
-      else if(node->opr[1]->nature == NODE_IDENT)
+      else
       {
+        printf("\nLooser\n");
+      }
+      if(node->opr[1]->nature == NODE_IDENT)
+      {        printf("\nLoaaa\n");
+
           if(node->opr[0]->type == TYPE_INT)
           {
             node->opr[1] = make_node(NODE_INTVAL,0);
@@ -86,12 +110,9 @@ void passe1(node_t node)
             node->opr[1]->value = 0;
           }
       }
-      else
-      {
-        printf("\nLooser\n");
-      }
+      printf("\nOK\n");
 
-      */
+
       break;
     case NODE_DECL :
     printf("Déclaration de : %s\n", node->opr[0]->ident);
@@ -303,4 +324,32 @@ void passe1(node_t node)
       break;
   }
 
+}
+
+void node_Liste(node_t node, node_type type)
+{
+  const char * type_string = node_type2string(type);
+  printf("Type dans node liste : %s\n", type_string);
+
+  node_nature nature;
+  node_t opr0 = node->opr[0];
+  node_t opr1 = node->opr[1];
+
+  if(opr0->nature == NODE_LIST)
+  {
+    node_Liste(opr0, type);
+  }
+  else if(opr0->nature == NODE_IDENT)
+  {
+    opr0->type = type;
+  }
+
+  if(opr1->nature == NODE_LIST)
+  {
+    node_Liste(opr1, type);
+  }
+  else if(opr1->nature == NODE_IDENT)
+  {
+    opr1->type = type;
+  }
 }
