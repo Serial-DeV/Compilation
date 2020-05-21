@@ -9,9 +9,9 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <getopt.h>
-#include "context.h"
 #include "defs.h"
 #include "common.h"
+#include "utils/context.h"
 #include "utils/env.h"
 #include "utils/registers.h"
 
