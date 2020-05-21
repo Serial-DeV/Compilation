@@ -21,9 +21,9 @@ int32_t nb_registres = 8;
 
 void parse_args(int argc, char ** argv)
 {
-    printf("\nOutfile = %s\n\n", outfile);
+    //printf("\nOutfile = %s\n\n", outfile);
     outfile = "out.s"; //Par defaut
-    printf("\nOutfile = %s\n\n", outfile);
+    //printf("\nOutfile = %s\n\n", outfile);
 
     /* A corriger et completer */
     if (argc <= 1)  //
@@ -114,13 +114,13 @@ void parse_args(int argc, char ** argv)
       option = getopt(argc, argv, optstring);
 
     }
-    printf("\nSorti du while\n\n");
-    printf("\nOutfile = %s\n\n", outfile);
+    //printf("\nSorti du while\n\n");
+    //printf("\nOutfile = %s\n\n", outfile);
 
     //Affiche un argument si il y en a un
 
     int indice = optind;
-
+    /*
     while (indice < argc)
     {
       printf("\nVoici un argument :\n");
@@ -128,6 +128,7 @@ void parse_args(int argc, char ** argv)
       indice++;
 
     }
+    */
     /*Revoir comment trouver l'indice correctement
     printf("\nargv[0] = %s\n", argv[0]);
     printf("\nargv[1] = %s\n", argv[1]);

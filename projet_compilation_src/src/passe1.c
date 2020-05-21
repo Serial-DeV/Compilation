@@ -12,18 +12,23 @@ void passe1(node_t node)
   node_nature nature = node->nature;
   yylineno = node->lineno;
 
+  //Pour le debug
   const char * nature_string = node_nature2string(node->nature);
   const char * type_string = node_type2string(node->type);
-
-
-  //Pour le debug
-
+  node_type type1;
+  node_type type2;
+  node_type type3;
+  const char * type_string1;
+  const char * type_string2;
+  const char * type_string3;
+  int32_t offset_variable;
+  char message[50];
 
 
 
   printf("\nJe suis dans le node : %s\n", nature_string);
   printf("Le type du node est : %s\n", type_string);
-  printf("Le dernier node type rencontré est : %s\n", dernier_type_string);
+  //printf("Le dernier node type rencontré est : %s\n", dernier_type_string);
 
   printf("Avant switch\n");
 
@@ -36,26 +41,97 @@ void passe1(node_t node)
       push_context();
       break;
     case NODE_LIST :
-
       break;
     case NODE_DECLS :
+      //Je mets à jour le champ type du node ident
+      /*if(node->opr[0] != NULL && node->opr[1] != NULL && node->opr[1]->opr[1] != NULL && node->opr[1]->opr[0])
+      {
+        type1 = node->opr[0]->type; //Le type déclaré
+        type3 = node->opr[1]->opr[1]->type; //Le type réellement affecté
+        node->opr[1]->opr[0]->type = type1; //Le type du NODE IDENT
+        type2 = node->opr[1]->opr[0]->type;
+        type_string1 = node_type2string(type1);
+        type_string2 = node_type2string(type2);
+        type_string3 = node_type2string(type3);
 
+        printf("Type déclaré : %s\n", type_string1);
+        printf("Type du NODE IDENT : %s\n", type_string2);
+        printf("Type réellement affecté : %s\n", type_string3);
+
+        if(type1 != type3)
+        {
+          yyerror(&node, "Le type déclaré est différent du type affecté.");
+
+        }
+      }
+      else if(node->opr[0] != NULL && node->opr[1] != NULL)
+      {
+        type1 = node->opr[0]->type; //Le type déclaré
+        node->opr[1]->type = type1;
+        type2 = node->opr[1]->type ; //Le type du NODE IDENT
+        type_string1 = node_type2string(type1);
+        type_string2 = node_type2string(type2);
+        printf("Type déclaré : %s\n", type_string1);
+        printf("Type du NODE IDENT : %s\n", type_string2);
+      }
+      else if(node->opr[1]->nature == NODE_IDENT)
+      {
+          if(node->opr[0]->type == TYPE_INT)
+          {
+            node->opr[1] = make_node(NODE_INTVAL,0);
+          }
+          else if(node->opr[0]->type == TYPE_BOOL)
+          {
+            node->opr[1] = make_node(NODE_BOOLVAL,0);
+            node->opr[1]->value = 0;
+          }
+      }
+      else
+      {
+        printf("\nLooser\n");
+      }
+
+      */
       break;
     case NODE_DECL :
+    printf("Déclaration de : %s\n", node->opr[0]->ident);
+      offset_variable = env_add_element(node->opr[0]->ident, node->opr[0], 4);
+
+      if(offset_variable >= 0) //Première déclaration de la variable
+      {
+      }
+      else                     //Multiple déclaration de la variable
+      {
+        sprintf(message, "Multiple déclaration de '%s'", node->opr[0]->ident);
+        yyerror(&node, message);
+      }
+
       break;
     case NODE_IDENT :
 
       if (strcmp(node->ident,"main") == 0)
       {
-
         //C'est le main
-        if(dernier_type_rencontre != TYPE_VOID)
+        //printf("\nJe suis là ?\n");
+
+        if(node->type != TYPE_VOID)
         {
-          //printf("\nJe suis là ??\n");
           yyerror(&node, "Le main n'est pas de type void.");
         }
       }
-      //printf("\nJe suis là..\n");
+      else
+      {/*
+        node_t node_decl = (node_t)get_decl_node(node->ident);
+        if (node_decl == NULL)
+        {
+          sprintf(message, "La variable %s n'est pas déclarée.", node->ident);
+          yyerror(&node, message);
+        }
+        else
+        {
+          node->decl_node = node_decl;
+        }*/
+      }
 
       break;
     case NODE_TYPE :
@@ -63,20 +139,8 @@ void passe1(node_t node)
       dernier_type_string = node_type2string(dernier_type_rencontre);
       break;
     case NODE_INTVAL :
-/*
-      if(dernier_type_rencontre != node->type)
-      {
-        yyerror(&node, "Conflit entre un type 'int' et un type 'bool'.");
-      }
-    */
       break;
     case NODE_BOOLVAL :
-/*
-      if(dernier_type_rencontre != node->type)
-      {
-        yyerror(&node, "Conflit entre un type 'int' et un type 'bool'.");
-      }
-*/
       break;
     case NODE_STRINGVAL :
       node->offset = add_string(node->str); //ajoute la declaration en .data et retourne l'offset
@@ -86,6 +150,21 @@ void passe1(node_t node)
       reset_env_current_offset(); //reset l'offset courant à 0
       reset_temporary_max_offset(); //reset l'offset maximum pour les temporaires
       set_max_registers(nb_registres); //définit le nombre maximal de registres à utiliser
+
+      if(node->opr[0] != NULL && node->opr[1] != NULL)
+      {
+        type1 = node->opr[0]->type; //Le type déclaré
+        node->opr[1]->type = type1;
+        type2 = node->opr[1]->type ; //Le type du NODE IDENT
+        type_string1 = node_type2string(type1);
+        type_string2 = node_type2string(type2);
+        printf("\nType déclaré : %s\n", type_string1);
+        printf("Type du NODE IDENT : %s\n", type_string2);
+      }
+      else
+      {
+        printf("\nLooser\n");
+      }
       break;
     case NODE_IF :
       if (node->opr[0]->type != TYPE_BOOL)
@@ -116,7 +195,6 @@ void passe1(node_t node)
     case NODE_PLUS :
     case NODE_MINUS :
     case NODE_MUL :
-    case NODE_DIV :
     case NODE_MOD :
     case NODE_BAND :
     case NODE_BOR :
@@ -130,10 +208,19 @@ void passe1(node_t node)
     case NODE_GE :
       if(node->opr[0]->type != TYPE_INT || node->opr[1]->type != TYPE_INT)
       {
-        yyerror(&node, "Un des arguments n'est pas de type 'int'");
+        yyerror(&node, "Un des arguments n'est pas de type 'int'.");
       }
       break;
-
+    case NODE_DIV :
+      if(node->opr[0]->type != TYPE_INT || node->opr[1]->type != TYPE_INT)
+      {
+        yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+      }
+      if(node->opr[1]->value == 0)
+      {
+        yyerror(&node, "Il n'est pas possible de divisier par 0.");
+      }
+      break;
       // Opérations entre 1 ou 2 nombres qui retournent un entier, vérification du type des arguments
     case NODE_AND :
     case NODE_OR :
@@ -173,27 +260,6 @@ void passe1(node_t node)
       break;
   }
   printf("Après switch\n");
-
-  if (nature == NODE_DECLS)
-  {
-    printf("Dans le if du DECLS\n");
-
-    node_type type1 = node->opr[0]->type; //Le type déclaré
-    node_type type3 = node->opr[1]->opr[1]->type; //Le type réellement affecté
-    /*
-    const char * type_string1 = node_type2string(type1);
-    const char * type_string3 = node_type2string(type3);
-
-    printf("\nType déclaré 1 : %s\n", type_string1);
-    printf("\nType déclaré 3 : %s\n", type_string3);
-    */
-    if(type1 != type3)
-    {
-      yyerror(&node, "Le type déclaré est différent du type affecté.");
-
-    }
-
-  }
 
   printf("Passe 1 sur les arguments\n");
 

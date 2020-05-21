@@ -22,5 +22,6 @@ extern env_t env;
 extern int offset;
 extern int32_t nb_registres;
 void passe1(node_t node);
+extern node_t make_node(node_nature nature, int nops, ...);
 
 #endif
