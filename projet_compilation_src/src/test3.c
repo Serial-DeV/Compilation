@@ -1,4 +1,4 @@
-int n = 4294967296;
+int n = 4294967295;
 bool b = false;
 
 void main()
