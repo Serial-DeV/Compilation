@@ -46,7 +46,7 @@ ENTIER          {SIGNE}?({ENTIER_DEC}|{ENTIER_HEXA})
 CHAINE_CAR	([\040-\176])+
 
 CHAINE          ["]({CHAINE_CAR}|[\"]|[\n])*["]
-COMMENTAIRE     "//"({CHAINE_CAR})*"\n"
+COMMENTAIRE     "//".*$
 
 %%
 
@@ -141,10 +141,10 @@ int main(int argc, char ** argv)
     /* A completer */
 
     node_t program_root;
-    printf("\nAvant le parse\n\n");
+    printf("\nAvant le parse args\n\n");
 
     parse_args(argc, argv);
-    printf("\nSortie de parse\n\n");
+    printf("\nSortie de parse args\n\n");
     #if YYDEBUG
     yydebug = 1;
     #endif
