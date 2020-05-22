@@ -105,6 +105,12 @@ COMMENTAIRE     "//".*$
 {ENTIER} {
 		/* A completer : affecter yylval.intval et faire des verifications */
 		printf("Entier détecté\n");
+
+	 if(strcmp("4294967295", yytext) < 0)
+	 {
+		 fprintf(stderr, "Error line %d: to large int\n", yylineno);
+		 exit(-1);
+	 }
 		yylval.intval = atoi(yytext); // Vérifier ce qu'il faut vérifier
                 return TOK_INTVAL;
 }
@@ -125,7 +131,7 @@ COMMENTAIRE     "//".*$
 
 . {
                 fprintf(stderr, "Error line %d: Lexical error\n", yylineno);
-                exit(1);
+                exit(-1);
 }
 
 
@@ -158,17 +164,17 @@ int main(int argc, char ** argv)
     yyparse(&program_root);
 
 
-    printf("\nAvant le dump\n\n");
+    printf("\nAvant le dump 1\n\n");
     dump_tree(program_root, "fichier_dump.dot");
-    printf("\nAprès le dump\n\n");
+    printf("\nAprès le dump 1\n\n");
 
 		printf("\nAvant l'analyse tree\n\n");
 		analyse_tree(program_root);
 		printf("\nAprès l'analyse tree\n\n");
 
-		printf("\nAvant le dump\n\n");
-    dump_tree(program_root, "fichier_dump.dot");
-    printf("\nAprès le dump\n\n");
+		printf("\nAvant le dump 2\n\n");
+    dump_tree(program_root, "fichier_dump_fin.dot");
+    printf("\nAprès le dump 2\n\n");
 
     fclose(yyin);
     yylex_destroy();

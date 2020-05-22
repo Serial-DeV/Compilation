@@ -62,6 +62,11 @@ void parse_args(int argc, char ** argv)
 
         case 't':
           niveau_trace = atoi(optarg);
+          if(niveau_trace > 5 || niveau_trace < 0)
+          {
+            printf("\nErreur : le niveau de trace doit être compris entre 4 et 8.\n");
+            exit(-1);
+          }
           printf("\nNiveau trace = %d\n", niveau_trace);
         break;
 

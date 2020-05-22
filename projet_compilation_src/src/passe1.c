@@ -23,7 +23,7 @@ void passe1(node_t node)
   const char * type_string3;
   int32_t offset_variable;
   char message[50];
-
+  node_t node_temp;
 
 
   printf("\nJe suis dans le node : %s\n", nature_string);
@@ -97,20 +97,30 @@ void passe1(node_t node)
       {
         printf("\nLooser\n");
       }
-      if(node->opr[1]->nature == NODE_IDENT)
-      {        printf("\nLoaaa\n");
 
+      //declaration sans initialisation
+      if(node->opr[1]->nature == NODE_IDENT)
+      {
+          node_temp = node->opr[1];
+          node->opr[1] = make_node(NODE_DECL, 2, TYPE_NONE, TYPE_NONE);
+          node->opr[1]->opr[0] = node_temp;
+          printf("\nLoaaa\n");
           if(node->opr[0]->type == TYPE_INT)
           {
-            node->opr[1] = make_node(NODE_INTVAL,0);
+            node->opr[1]->opr[1] = make_node(NODE_INTVAL,0);
+            node->opr[1]->opr[1]->value = 0;
           }
           else if(node->opr[0]->type == TYPE_BOOL)
           {
-            node->opr[1] = make_node(NODE_BOOLVAL,0);
-            node->opr[1]->value = 0;
+            node->opr[1]->opr[1] = make_node(NODE_BOOLVAL,0);
+            node->opr[1]->opr[1]->value = 0;
           }
       }
-      printf("\nOK\n");
+      else
+      {
+        printf("Non\n");
+      }
+
 
 
       break;
@@ -141,7 +151,7 @@ void passe1(node_t node)
         }
       }
       else
-      {/*
+      {
         node_t node_decl = (node_t)get_decl_node(node->ident);
         if (node_decl == NULL)
         {
@@ -151,10 +161,24 @@ void passe1(node_t node)
         else
         {
           node->decl_node = node_decl;
-        }*/
+        }
       }
 
       break;
+      case NODE_AFFECT :
+        if(node->opr[1]->nature == NODE_INTVAL)
+        {
+            printf("\nOn est bons\n");
+            type1 = node->opr[1]->type;
+            node->type = type1;
+        }
+        else if(node->opr[1]->nature == NODE_BOOLVAL)
+        {
+            printf("\nOn est bons bool\n");
+            type1 = node->opr[1]->type;
+            node->type = type1;
+        }
+        break;
     case NODE_TYPE :
       dernier_type_rencontre = node->type;
       dernier_type_string = node_type2string(dernier_type_rencontre);
@@ -211,12 +235,10 @@ void passe1(node_t node)
         yyerror(&node, "La condition n'est pas de type 'bool'.");
       }
       break;
-
     // Opérations entre 1 ou 2 nombres, vérification du type des arguments
     case NODE_PLUS :
     case NODE_MINUS :
     case NODE_MUL :
-    case NODE_MOD :
     case NODE_BAND :
     case NODE_BOR :
     case NODE_BXOR :
@@ -242,6 +264,17 @@ void passe1(node_t node)
         yyerror(&node, "Il n'est pas possible de divisier par 0.");
       }
       break;
+    case NODE_MOD :
+      if(node->opr[0]->type != TYPE_INT || node->opr[1]->type != TYPE_INT)
+      {
+        yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+      }
+      if(node->opr[1]->value == 0)
+      {
+        sprintf(message, "'%ld mod 0' n'est pas défini.", node->opr[0]->value);
+        yyerror(&node, message);
+      }
+      break;
       // Opérations entre 1 ou 2 nombres qui retournent un entier, vérification du type des arguments
     case NODE_AND :
     case NODE_OR :
@@ -250,7 +283,6 @@ void passe1(node_t node)
         yyerror(&node, "Un des arguments n'est pas de type 'bool'");
       }
       break;
-
     //On vérifie que la comparaison se fait entre deux noeuds de même type
     case NODE_EQ :
     case NODE_NE :
@@ -272,9 +304,8 @@ void passe1(node_t node)
         yyerror(&node, "L'argument n'est pas de type 'int'.");
       }
       break;
-    case NODE_AFFECT :
-      break;
     case NODE_PRINT :
+      node_Liste_print(node);
       break;
     default :
       printf("\nNature du node non reconnue.\n\n");
@@ -313,13 +344,6 @@ void passe1(node_t node)
     case NODE_BLOCK :
       pop_context();
       break;
-    case NODE_LIST :
-
-      break;
-    case NODE_DECLS :
-      break;
-    case NODE_DECL :
-      break;
     default:
       break;
   }
@@ -352,4 +376,30 @@ void node_Liste(node_t node, node_type type)
   {
     opr1->type = type;
   }
+}
+
+void node_Liste_print(node_t node)
+{
+  /*
+  if (node->opr[0] != NULL)
+  {
+    node_t opr0 = node->opr[0];
+
+    if(opr0->nature == NODE_LIST)
+    {
+      node_Liste_print(opr0);
+    }
+  }
+  if (node->opr[1] != NULL)
+  {
+    node_t opr1 = node->opr[1];
+
+    if(opr1->nature == NODE_LIST)
+    {
+      node_Liste_print(opr1);
+    }
+  }
+
+*/
+
 }

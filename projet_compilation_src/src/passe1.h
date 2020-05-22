@@ -23,6 +23,8 @@ extern int offset;
 extern int32_t nb_registres;
 void passe1(node_t node);
 void node_Liste(node_t node, node_type type);
+void node_Liste_print(node_t node);
+
 
 extern node_t make_node(node_nature nature, int nops, ...);
 
