@@ -1,10 +1,8 @@
+int n = 4;
+int o = 2147483647;
+int q = 2147483648;
 void main()
 {
-	int h;
-	bool f = true;
-	f = false;
-	// COMM
-	h = 6;
-	int o;
+
 }
 

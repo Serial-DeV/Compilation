@@ -15,7 +15,7 @@ digraph global_vars {
     N7 -> N8
     edge[tailclip=true];
     N6 -> N7
-    N9 [shape=record, label="{{NODE INTVAL|Type: TYPE INT}|{Value: 4294967295}}"];
+    N9 [shape=record, label="{{NODE INTVAL|Type: TYPE INT}|{Value: 2147483647}}"];
     N10 [shape=record, label="{{NULL}}"];
     edge[tailclip=true];
     N9 -> N10
