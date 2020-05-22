@@ -20,6 +20,7 @@ void next_node(node_t nt)
 	{	
 		open = true;
 		open_close_node(nt->opr[n]);
+		next_node(nt);
 		open = false;
 		open_close_node(nt->opr[n]);
 	}
@@ -74,6 +75,7 @@ void open_close_node(node_t nt)
 			default:
 				break;
 		}
+
 	}
 }
 

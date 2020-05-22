@@ -55,8 +55,8 @@ void main()
 
 // Dans le main
 
-// une reaffectation de valeur a un booleen, global ou local, mene a une erreur syntaxique A LA LIGNE SUIVANTE (syntax error)
-// une reaffectation de valeur a un entier, global ou local, mene a une erreur syntaxique A LA LIGNE SUIVANTE (syntax error)
+// une reaffectation de valeur a un booleen, global ou local, mene a une erreur syntaxique à la déclaration de variable suivante, s'il y en a une (syntax error)
+// une reaffectation de valeur a un entier, global ou local, mene a une erreur syntaxique à la déclaration de variable suivante, s'il y en a une (syntax error)
 
 // un print ne peut pas imprimer le resultat d'une expression telle que: print(3+3), print(8) ou print(!b) avec b un booleen (syntax error)
 

@@ -1,6 +1,6 @@
 void main()
 {
-	int n = true;
-	bool b = 5;
+	int f = 2;
+	f = 3;
 }
 
