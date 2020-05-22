@@ -3,7 +3,7 @@ digraph global_vars {
     N2 [shape=record, label="{{NULL}}"];
     edge[tailclip=true];
     N1 -> N2
-    N3 [shape=record, label="{{NODE FUNC|Nb. ops: 3}|{stack_size: 0|offset: 0}}"];
+    N3 [shape=record, label="{{NODE FUNC|Nb. ops: 3}|{stack_size: 0|offset: 4}}"];
     N4 [shape=record, label="{{NODE TYPE|Type: TYPE VOID}}"];
     N5 [shape=record, label="{{NULL}}"];
     edge[tailclip=true];
@@ -17,12 +17,47 @@ digraph global_vars {
     edge[tailclip=true];
     N3 -> N6
     N8 [shape=record, label="{{NODE BLOCK|Nb. ops: 2}}"];
-    N9 [shape=record, label="{{NULL}}"];
+    N9 [shape=record, label="{{NODE DECLS|Nb. ops: 2}}"];
+    N10 [shape=record, label="{{NODE TYPE|Type: TYPE INT}}"];
+    N11 [shape=record, label="{{NULL}}"];
+    edge[tailclip=true];
+    N10 -> N11
+    edge[tailclip=true];
+    N9 -> N10
+    N12 [shape=record, label="{{NODE DECL|Nb. ops: 2}}"];
+    N13 [shape=record, label="{{NODE IDENT|Type: TYPE INT}|{<decl>Decl      |Ident: f|Offset: 0}}"];
+    N14 [shape=record, label="{{NULL}}"];
+    edge[tailclip=true];
+    N13 -> N14
+    edge[tailclip=true];
+    N12 -> N13
+    N15 [shape=record, label="{{NODE INTVAL|Type: TYPE INT}|{Value: 2}}"];
+    N16 [shape=record, label="{{NULL}}"];
+    edge[tailclip=true];
+    N15 -> N16
+    edge[tailclip=true];
+    N12 -> N15
+    edge[tailclip=true];
+    N9 -> N12
     edge[tailclip=true];
     N8 -> N9
-    N10 [shape=record, label="{{NULL}}"];
+    N17 [shape=record, label="{{NODE AFFECT|Type: TYPE INT|Nb. ops: 2}}"];
+    N18 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: f|Offset: 0}}"];
+    edge[tailclip=false];
+    "N18":decl:c -> "N13" [style=dashed]
+    N19 [shape=record, label="{{NULL}}"];
     edge[tailclip=true];
-    N8 -> N10
+    N18 -> N19
+    edge[tailclip=true];
+    N17 -> N18
+    N20 [shape=record, label="{{NODE INTVAL|Type: TYPE INT}|{Value: 3}}"];
+    N21 [shape=record, label="{{NULL}}"];
+    edge[tailclip=true];
+    N20 -> N21
+    edge[tailclip=true];
+    N17 -> N20
+    edge[tailclip=true];
+    N8 -> N17
     edge[tailclip=true];
     N3 -> N8
     edge[tailclip=true];

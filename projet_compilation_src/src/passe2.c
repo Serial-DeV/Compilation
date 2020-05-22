@@ -1,5 +1,9 @@
 #include "passe2.h"
 
+bool end_of_tree = false;
+bool is_global = true;
+bool opening = 1;
+
 void generator(node_t nt)
 {
 	create_program();
@@ -7,7 +11,7 @@ void generator(node_t nt)
 
 	if(nt)
 	{
-		open_close_node(nt);
+		opening_closing_node(nt);
 	}
 
 	free_program();
@@ -18,16 +22,16 @@ void next_node(node_t nt)
 {
 	for(int n = 0; n < nt->nops; n++)
 	{
-		open = true;
-		open_close_node(nt->opr[n]);
+		opening = true;
+		opening_closing_node(nt->opr[n]);
 		next_node(nt);
-		open = false;
-		open_close_node(nt->opr[n]);
+		opening = false;
+		opening_closing_node(nt->opr[n]);
 	}
 }
 
 
-void open_close_node(node_t nt)
+void opening_closing_node(node_t nt)
 {
 	if(nt)
 	{
@@ -40,7 +44,7 @@ void open_close_node(node_t nt)
 
 			case NODE_FUNC:
 				// Entrée dans le main
-				global = false;
+				is_global = false;
 				gen_func(nt);
 				break;
 
@@ -82,7 +86,7 @@ void open_close_node(node_t nt)
 // Entrée dans le main
 void gen_func(node_t nt)
 {
-	global = false;
+	is_global = false;
 	int glob_str_nb = get_global_strings_number();
 
 	for(int cpt = 0; cpt < glob_str_nb; ++cpt)
@@ -107,9 +111,9 @@ char* create_labels_for_glob_str(int cpt)
 
 void add_decl(node_t nt)
 {
-	if(open)
+	if(opening)
 	{
-		if(global)
+		if(is_global)
 		{
 			if(nt->opr[1]->nature == NODE_IDENT);
 		}
@@ -125,9 +129,9 @@ void add_decl(node_t nt)
 
 void add_ident(node_t nt)
 {
-	if(open)
+	if(opening)
 	{
-		if(global)
+		if(is_global)
 		{
 
 		}
@@ -145,9 +149,9 @@ void add_ident(node_t nt)
 
 void add_affect(node_t nt)
 {
-	if(open)
+	if(opening)
 	{
-		if(global)
+		if(is_global)
 		{
 
 		}
