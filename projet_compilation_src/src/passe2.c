@@ -7,13 +7,13 @@ bool opening = 1;
 void generator(node_t nt)
 {
 	create_program();
-	dump_mips_program(outfile);
 
 	if(nt)
 	{
 		opening_closing_node(nt);
 	}
-
+	
+	dump_mips_program(outfile);
 	free_program();
 }
 
