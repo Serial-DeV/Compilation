@@ -1070,6 +1070,12 @@ YY_RULE_SETUP
 {
 		/* A completer : affecter yylval.intval et faire des verifications */
 		printf("Entier détecté\n");
+
+	 if(strcmp("4294967295", yytext) < 0)
+	 {
+		 fprintf(stderr, "Error line %d: to large int\n", yylineno);
+		 exit(-1);
+	 }
 		yylval.intval = atoi(yytext); // Vérifier ce qu'il faut vérifier
                 return TOK_INTVAL;
 }
@@ -1077,7 +1083,7 @@ YY_RULE_SETUP
 case 43:
 /* rule 43 can match eol */
 YY_RULE_SETUP
-#line 112 "lexico.l"
+#line 118 "lexico.l"
 {
                 /* A completer : affecter yylval.strval */
 		printf("Chaine détectée\n");
@@ -1090,7 +1096,7 @@ case 44:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 119 "lexico.l"
+#line 125 "lexico.l"
 {
 	printf("Commentaire détecté\n");
 }
@@ -1098,23 +1104,23 @@ YY_RULE_SETUP
 case 45:
 /* rule 45 can match eol */
 YY_RULE_SETUP
-#line 124 "lexico.l"
+#line 130 "lexico.l"
 
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 126 "lexico.l"
+#line 132 "lexico.l"
 {
                 fprintf(stderr, "Error line %d: Lexical error\n", yylineno);
-                exit(1);
+                exit(-1);
 }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 132 "lexico.l"
+#line 138 "lexico.l"
 ECHO;
 	YY_BREAK
-#line 1118 "lex.yy.c"
+#line 1124 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2131,7 +2137,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 132 "lexico.l"
+#line 138 "lexico.l"
 
 
 int yywrap(void) {
@@ -2161,17 +2167,17 @@ int main(int argc, char ** argv)
     yyparse(&program_root);
 
 
-    printf("\nAvant le dump\n\n");
+    printf("\nAvant le dump 1\n\n");
     dump_tree(program_root, "fichier_dump.dot");
-    printf("\nAprès le dump\n\n");
+    printf("\nAprès le dump 1\n\n");
 
 		printf("\nAvant l'analyse tree\n\n");
 		analyse_tree(program_root);
 		printf("\nAprès l'analyse tree\n\n");
 
-		printf("\nAvant le dump\n\n");
-    dump_tree(program_root, "fichier_dump.dot");
-    printf("\nAprès le dump\n\n");
+		printf("\nAvant le dump 2\n\n");
+    dump_tree(program_root, "fichier_dump_fin.dot");
+    printf("\nAprès le dump 2\n\n");
 
     fclose(yyin);
     yylex_destroy();

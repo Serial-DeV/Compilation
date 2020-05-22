@@ -11,6 +11,7 @@
 #include "common.h"
 #include "mips_inst.h"
 #include "passe1.h"
+#include "passe2.h"
 
 
 /* Global variables */
@@ -529,10 +530,8 @@ void analyse_tree(node_t root)
 
         if (!stop_after_verif)
         {
-            create_program();
             // Appeler la passe 2
-            dump_mips_program(outfile);
-            free_program();
+            generator(root);
         }
         else
         {

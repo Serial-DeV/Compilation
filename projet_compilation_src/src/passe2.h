@@ -17,6 +17,8 @@
 #include "utils/mips_inst.h"
 
 char* asm_file;
+extern char * outfile;
+
 bool end = false;
 //bool in_main = false;
 bool global = true;

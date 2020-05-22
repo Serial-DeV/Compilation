@@ -3,7 +3,7 @@
 void generator(node_t nt)
 {
 	create_program();
-	dump_mips_program(asm_file);
+	dump_mips_program(outfile);
 
 	if(nt)
 	{
@@ -17,7 +17,7 @@ void generator(node_t nt)
 void next_node(node_t nt)
 {
 	for(int n = 0; n < nt->nops; n++)
-	{	
+	{
 		open = true;
 		open_close_node(nt->opr[n]);
 		next_node(nt);
@@ -63,7 +63,7 @@ void open_close_node(node_t nt)
 			case NODE_IDENT:
 				add_ident(nt);
 				break;
-		
+
 			case NODE_AFFECT:
 				add_affect(nt);
 				break;
@@ -99,7 +99,7 @@ void gen_func(node_t nt)
 
 /* Création des labels pour les str en concaténant string_ et la valeur du compteur */
 char* create_labels_for_glob_str(int cpt)
-{	
+{
 	char* label;
 	sprintf(label, "string_%d", cpt);
 	return label;
@@ -129,7 +129,7 @@ void add_ident(node_t nt)
 	{
 		if(global)
 		{
-			
+
 		}
 	}
 
@@ -149,7 +149,7 @@ void add_affect(node_t nt)
 	{
 		if(global)
 		{
-			
+
 		}
 	}
 
@@ -170,12 +170,3 @@ void add_type(node_t nt)
 {
 
 }
-
-
-
-
-
-
-
-
-
