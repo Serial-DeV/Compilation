@@ -106,9 +106,9 @@ COMMENTAIRE     "//".*$
 		/* A completer : affecter yylval.intval et faire des verifications */
 		printf("Entier détecté\n");
 
-	 if(strcmp("4294967295", yytext) < 0)
+	 if(strlen(yytext) >= strlen("4294967295") && strcmp("4294967295", yytext) < 0 )
 	 {
-		 fprintf(stderr, "Error line %d: to large int\n", yylineno);
+		 fprintf(stderr, "Error line %d: integer out of range\n", yylineno);
 		 exit(-1);
 	 }
 		yylval.intval = atoi(yytext); // Vérifier ce qu'il faut vérifier
