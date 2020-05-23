@@ -2,11 +2,14 @@
 
 bool end_of_tree = false;
 bool is_global = true;
-bool opening = 1;
+bool opening = true;
 int offset_maxi = 0;
 int offset_curr = 0;
-bool verif = 1;
+bool verif = true;
 int* str_offset = NULL;
+int glob_str = 0;
+int print_offset = 0;
+int str_curr = 0;
 
 void generator(node_t nt)
 {
@@ -19,8 +22,10 @@ void generator(node_t nt)
 		printf("NODE DETECTED\n");
 		opening_closing_node(nt);
 		next_node(nt);
-		verif = 0;
+		verif = false;
+		str_curr = 0;
 		is_global = true;
+		opening = true;
 		opening_closing_node(nt);
 		next_node(nt);
 		
@@ -75,8 +80,6 @@ void opening_closing_node(node_t nt)
 
 			case NODE_FUNC:
 				// Entrée dans le main
-				//printf("NODE_FUNC\n");
-				is_global = false;
 				gen_func(nt);
 				break;
 
@@ -111,6 +114,10 @@ void opening_closing_node(node_t nt)
 			case NODE_STRINGVAL:
 				add_stringval(nt);
 				break;
+			
+			case NODE_PRINT:
+				add_print(nt);
+				break;
 
 			default:
 				break;
@@ -123,20 +130,13 @@ void opening_closing_node(node_t nt)
 // Entrée dans le main
 void gen_func(node_t nt)
 {
-	if(opening && !verif && is_global)
+	if(!verif)
 	{
-		printf("GEN_FUNC\n");
-		is_global = false;
-		int glob_str_nb = get_global_strings_number();
-
-		for(int cpt = 0; cpt < glob_str_nb; ++cpt)
-		{
-			/* Déclaration de variable*/
-			create_asciiz_inst(create_labels_for_glob_str(cpt), get_global_string(cpt));
-		}
 		// Création du segment TEXT
 		create_text_sec_inst();
 	}
+
+	is_global = false;
 }
 
 
@@ -180,7 +180,7 @@ void add_decl(node_t nt)
 				else if(!verif)
 				{		
 					create_ori_inst(get_current_reg(), r0, nt->opr[1]->value);
-					create_sw_inst(get_current_reg(), 0, 29);
+					create_sw_inst(get_current_reg(), nt->opr[0]->offset, 29);
 					offset_curr = offset_curr + 4;
 				}
 			}
@@ -253,12 +253,58 @@ void add_intval(node_t nt)
 
 void add_stringval(node_t nt)
 {
+
+	if(verif && is_global)
+	{	
+		create_asciiz_inst(create_labels_for_glob_str(glob_str), nt->str);
+		glob_str = glob_str + 1;
+	}
+
 	if(verif && !is_global)
 	{
 		create_asciiz_inst(NULL, nt->str);
-		str_offset = realloc(str_offset, strlen(nt->str) + 1);
+		str_offset = realloc(str_offset, sizeof(int));
+		str_offset[str_curr] = strlen(nt->str) - 2;
+		str_curr++;
+		printf("§!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! OFFSET DE %d\n", str_offset[str_curr]);
 	}
 }
+
+void add_print(node_t nt)
+{
+	if(!verif && opening)
+	{
+		if(nt->opr[0]->nature == NODE_STRINGVAL)
+		{
+			int str_offset_val = 0;
+			for(int i = 0; i < str_curr; i++)
+			{
+				str_offset_val = str_offset_val + str_offset[i];
+			}
+
+			for(int i = 0; i <= str_curr; i++)
+			{
+				printf("OFFSET[%d] = %d ", i, str_offset[i]);
+			}
+			printf("OOOOOOOOOOFFFFFFFFSET STR_CURR = %d\n", str_curr);
+			
+			printf("OOOOOOOOOOFFFFFFFFSET = %d\n", str_offset_val);
+			create_lui_inst(4, 0x1001);
+			create_ori_inst(4, 4, str_offset_val);
+			create_ori_inst(2, r0, 4);
+			create_syscall_inst();
+			str_curr++;
+		}
+
+		else if(nt->opr[0]->nature == NODE_IDENT)
+		{
+			create_lw_inst(4, nt->opr[0]->offset, 29);
+			create_ori_inst(2, r0, 1);
+			create_syscall_inst();
+		}
+	}
+}
+
 
 void add_type(node_t nt)
 {

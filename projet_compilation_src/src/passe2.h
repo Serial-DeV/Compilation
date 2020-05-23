@@ -31,5 +31,6 @@ void add_ident(node_t);
 void add_intval(node_t);
 void add_stringval(node_t);
 void add_affect(node_t);
+void add_print(node_t);
 
 #endif

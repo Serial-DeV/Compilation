@@ -6,6 +6,7 @@ node_type dernier_type_rencontre;
 const char * dernier_type_string;
 
 bool decl, affect, init = false;
+int offset_var = 0;
 
 void passe1(node_t node)
 {
@@ -130,6 +131,8 @@ void passe1(node_t node)
 
       if(offset_variable >= 0) //Première déclaration de la variable
       {
+	  node->opr[0]->offset = offset_var;
+	  offset_var = offset_var + 4;
       }
       else                     //Multiple déclaration de la variable
       {
@@ -161,6 +164,7 @@ void passe1(node_t node)
         else
         {
           node->decl_node = node_decl;
+	  node->offset = node_decl->offset;
         }
       }
 
