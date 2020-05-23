@@ -15,8 +15,8 @@
 extern char * infile;
 extern char * outfile;
 extern bool stop_after_syntax, stop_after_verif;
-int niveau_trace = 0;
-int32_t nb_registres = 8;
+extern int niveau_trace;
+extern int32_t nb_registres ;
 /* A completer */
 
 void parse_args(int argc, char ** argv)

@@ -19,6 +19,8 @@ char * outfile = NULL;
 bool stop_after_syntax = false;
 bool stop_after_verif = false;
 char* message;
+int niveau_trace = 0;
+int32_t nb_registres = 8;
 
 /* A completer */
 
@@ -50,16 +52,74 @@ COMMENTAIRE     "//".*$
 
 %%
 
-"void"          {printf("void détecté\n");return TOK_VOID;}
-"int"		{printf("int détecté\n");return TOK_INT;}
-"bool"   	{printf("bool détecté\n");return TOK_BOOL;}
-"true"    	{printf("true détecté\n");return TOK_TRUE;}
-"false"    	{printf("false détecté\n");return TOK_FALSE;}
-"if"  		return TOK_IF;
-"else"    	return TOK_ELSE;
-"while"   	return TOK_WHILE;
-"for"  		return TOK_FOR;
-"print"   	{printf("print détecté\n");return TOK_PRINT;}
+"void"   {
+					if(niveau_trace >= 1)
+					{
+								printf("void détecté\n");
+					}
+
+					return TOK_VOID;
+				 }
+"int"		  {
+					if(niveau_trace >= 1)
+					{
+								printf("int détecté\n");
+					}
+				return TOK_INT;
+				  }
+"bool"		{
+					if(niveau_trace >= 1)
+					{
+								printf("bool détecté\n");
+					}
+					return TOK_BOOL;
+					}
+"true"    {
+					printf("true détecté\n");
+					return TOK_TRUE;
+					}
+"false"   {
+						if(niveau_trace >= 1)
+						{
+									printf("false détecté\n");
+						}
+						return TOK_FALSE;
+					}
+"if"  		{
+						if(niveau_trace >= 1)
+						{
+									printf("if détecté\n");
+						}
+					return TOK_IF;
+					}
+"else"    {
+						if(niveau_trace >= 1)
+						{
+									printf("else détecté\n");
+						}
+					return TOK_ELSE;
+					}
+"while"   {
+						if(niveau_trace >= 1)
+						{
+									printf("while détecté\n");
+						}
+					return TOK_WHILE;
+					}
+"for"  		{
+						if(niveau_trace >= 1)
+						{
+									printf("for détecté\n");
+						}
+					return TOK_FOR;
+					}
+"print"   {
+						if(niveau_trace >= 1)
+						{
+									printf("print détecté\n");
+						}
+					return TOK_PRINT;
+					}
 "="    		return TOK_AFFECT;
 "<="    	return TOK_GE;
 ">="    	return TOK_LE;
@@ -73,12 +133,12 @@ COMMENTAIRE     "//".*$
 "/"    		return TOK_DIV;
 "%"    		return TOK_MOD;/*
 "-"    		return TOK_UMINUS;*/
-";"    		{printf(" ; détecté\n");return TOK_SEMICOL;}
+";"    		return TOK_SEMICOL;
 ","    		return TOK_COMMA;
-"("    		{printf(" ( détecté\n");return TOK_LPAR;}
-")"   		{printf(" ) détecté\n");return TOK_RPAR;}
-"{"    		{printf(" { détecté\n");return TOK_LACC;}
-"}"    		{printf(" } détecté\n");return TOK_RACC;}
+"("    		return TOK_LPAR;
+")"   		return TOK_RPAR;
+"{"    		return TOK_LACC;
+"}"    		return TOK_RACC;
 "do"    	return TOK_DO;
 "then"   	return TOK_THEN;
 "||"		return TOK_OR;
@@ -97,33 +157,49 @@ COMMENTAIRE     "//".*$
 
 
 {IDF} {
-		printf("IDF détecté\n");
+			if(niveau_trace >= 1)
+			{
+						printf("IDF détecté\n");
+			}
+
 		yylval.strval = strdup(yytext);
                 return TOK_IDENT;
 }
 
 {ENTIER} {
 		/* A completer : affecter yylval.intval et faire des verifications */
-		printf("Entier détecté\n");
 
-	 if((strlen(yytext) >= strlen("2147483647") && strcmp("2147483647", yytext) < 0) || (strlen(yytext) >= strlen("-2147483648") && strcmp("-2147483648", yytext) < 0))
-	 {
+		if(niveau_trace >= 1)
+		{
+					printf("Entier détecté\n");
+		}
+
+		if((strlen(yytext) >= strlen("2147483647") && strcmp("2147483647", yytext) < 0) || (strlen(yytext) >= strlen("-2147483648") && strcmp("-2147483648", yytext) < 0))
+		{
 		 fprintf(stderr, "Error line %d: integer out of range\n", yylineno);
 		 exit(-1);
-	 }		
+		}
 		yylval.intval = atoi(yytext); // Vérifier ce qu'il faut vérifier
                 return TOK_INTVAL;
 }
 
 {CHAINE} {
                 /* A completer : affecter yylval.strval */
-		printf("Chaine détectée\n");
+
+		if(niveau_trace >= 1)
+		{
+					printf("Chaîne détecté\n");
+		}
+
 		yylval.strval = strdup(yytext);
                 return TOK_STRING;
 }
 
 {COMMENTAIRE} {
-	printf("Commentaire détecté\n");
+		if(niveau_trace >= 1)
+		{
+					printf("Commentaire détecté\n");
+		}
 }
 
 
@@ -166,7 +242,6 @@ int main(int argc, char ** argv)
 
     printf("\nAvant le dump 1\n\n");
     dump_tree(program_root, "fichier_dump.dot");
-    printf("\nAprès le dump 1\n\n");
 
 		printf("\nAvant l'analyse tree\n\n");
 		analyse_tree(program_root);
@@ -174,8 +249,7 @@ int main(int argc, char ** argv)
 
 		printf("\nAvant le dump 2\n\n");
     dump_tree(program_root, "fichier_dump_fin.dot");
-    printf("\nAprès le dump 2\n\n");
-
+		
     fclose(yyin);
     yylex_destroy();
     return 0;

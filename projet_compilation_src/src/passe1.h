@@ -20,6 +20,7 @@ extern void yyerror(node_t * program_root, char * s);
 extern int yylineno;
 extern env_t env;
 extern int offset;
+extern int niveau_trace;
 extern int32_t nb_registres;
 void passe1(node_t node);
 void node_Liste(node_t node, node_type type);
