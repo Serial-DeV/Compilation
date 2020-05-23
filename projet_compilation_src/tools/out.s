@@ -2,23 +2,18 @@
 .data
 
 n: .word 217
-k: .word 0
-.asciiz "Hello\n"
 
 .text
 
 main:
     addiu $29, $29, -4
-    ori   $8, $0, 0x14
+    ori   $8, $0, 0x22
     sw    $8, 0($29)
-    lui   $4, 0x1001
-    lw    $4, 0($4)
+    lw    $4, 0($29)
     ori   $2, $0, 0x1
     syscall
-    lui   $4, 0x1001
-    ori   $4, $4, 0x8
-    ori   $2, $0, 0x4
-    syscall
+    ori   $8, $0, 0x7b
+    sw    $8, 0($29)
     lw    $4, 0($29)
     ori   $2, $0, 0x1
     syscall

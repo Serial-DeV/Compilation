@@ -508,7 +508,10 @@ node_t make_node(node_nature nature, int nops, ...)
 		for(int i = 0; i < nops; i++)
 		{
   			nt->opr[i] = va_arg(ap, node_t);
-			nt->opr[i]->global_decl = true;
+			if(nature == NODE_DECL)
+			{
+				nt->opr[i]->global_decl = true;
+			}
 		}
 	}
 

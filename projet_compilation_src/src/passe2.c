@@ -222,11 +222,16 @@ void add_ident(node_t nt)
 		}
 		else
 		{
-			if(nt->type == TYPE_VOID)
+			if(nt->type == TYPE_VOID) // Pour la declaration du main
 			{
 				create_label_str_inst(nt->ident);
 				create_addiu_inst(29, 29, -offset_maxi);
 			}
+			/*else if(nt->type == TYPE_NONE)
+			{
+				create_ori_inst(get_current_reg(), r0, nt->decl_node->value);
+				create_sw_inst(get_current_reg(), nt->offset, 29);
+			}*/
 		}
 	}
 
@@ -242,11 +247,17 @@ void add_ident(node_t nt)
 
 void add_affect(node_t nt)
 {
-	if(opening)
+	if(opening && !verif)
 	{
 		if(is_global)
 		{
-
+			//nt = get_decl_node(nt->decl_node);	
+		}
+		else
+		{
+			create_ori_inst(get_current_reg(), r0, nt->opr[1]->value);
+			create_sw_inst(get_current_reg(), nt->opr[0]->offset, 29);
+			printf("%d\n\n\n", nt->opr[1]->value);
 		}
 	}
 
