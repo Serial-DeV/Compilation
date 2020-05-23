@@ -1,9 +1,9 @@
 int n = 2147483647;
-bool b = false;
 
 void main()
 {
-	int f = 2;
-	f = 3;
+	int j = 10;
+	int n = 100;
+	print("Test\n");
 }
 

@@ -22,12 +22,14 @@ extern char * outfile;
 
 void generator(node_t);
 void opening_closing_node(node_t);
+void next_node(node_t);
 void gen_func(node_t);
 char* create_labels_for_glob_str(int);
 void add_decl(node_t);
 void add_type(node_t);
 void add_ident(node_t);
 void add_intval(node_t);
+void add_stringval(node_t);
 void add_affect(node_t);
 
 #endif

@@ -1075,7 +1075,7 @@ YY_RULE_SETUP
 	 {
 		 fprintf(stderr, "Error line %d: integer out of range\n", yylineno);
 		 exit(-1);
-	 }
+	 }		
 		yylval.intval = atoi(yytext); // Vérifier ce qu'il faut vérifier
                 return TOK_INTVAL;
 }
