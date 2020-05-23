@@ -10,6 +10,7 @@ int* str_offset = NULL;
 int glob_str = 0;
 int print_offset = 0;
 int str_curr = 0;
+int glob_int_counter = 0;
 
 void generator(node_t nt)
 {
@@ -161,11 +162,13 @@ void add_decl(node_t nt)
 				printf("CREATE_WORD CASE 1\n");
 				create_word_inst(nt->opr[0]->ident, nt->opr[1]->value);
 				printf(" IDENT : %s, VALUE : %d\n", nt->opr[0]->ident, nt->opr[1]->value);
+				glob_int_counter++;
 			}
 			else if(nt->opr[1]->nature == NODE_IDENT)
 			{
 				printf("CREATE_WORD CASE 2\n");
 				create_word_inst(nt->opr[1]->ident, nt->opr[0]->value);
+				glob_int_counter++;
 			}
 		}
 
@@ -186,6 +189,16 @@ void add_decl(node_t nt)
 			}
 			else if(nt->opr[1]->nature == NODE_IDENT)
 			{
+				if(verif)
+				{
+					offset_maxi = offset_maxi + 4;
+				}
+				else if(!verif)
+				{		
+					create_ori_inst(get_current_reg(), r0, nt->opr[0]->value);
+					create_sw_inst(get_current_reg(), nt->opr[1]->offset, 29);
+					offset_curr = offset_curr + 4;
+				}
 				
 			}
 		}
@@ -266,7 +279,6 @@ void add_stringval(node_t nt)
 		str_offset = realloc(str_offset, sizeof(int));
 		str_offset[str_curr] = strlen(nt->str) - 2;
 		str_curr++;
-		printf("§!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! OFFSET DE %d\n", str_offset[str_curr]);
 	}
 }
 
@@ -276,19 +288,18 @@ void add_print(node_t nt)
 	{
 		if(nt->opr[0]->nature == NODE_STRINGVAL)
 		{
-			int str_offset_val = 0;
+			int str_offset_val = glob_int_counter * 4;
 			for(int i = 0; i < str_curr; i++)
 			{
 				str_offset_val = str_offset_val + str_offset[i];
 			}
-
 			for(int i = 0; i <= str_curr; i++)
 			{
 				printf("OFFSET[%d] = %d ", i, str_offset[i]);
 			}
-			printf("OOOOOOOOOOFFFFFFFFSET STR_CURR = %d\n", str_curr);
+			//printf("OOOOOOOOOOFFFFFFFFSET STR_CURR = %d\n", str_curr);
 			
-			printf("OOOOOOOOOOFFFFFFFFSET = %d\n", str_offset_val);
+			//printf("OOOOOOOOOOFFFFFFFFSET = %d\n", str_offset_val);
 			create_lui_inst(4, 0x1001);
 			create_ori_inst(4, 4, str_offset_val);
 			create_ori_inst(2, r0, 4);
@@ -298,9 +309,20 @@ void add_print(node_t nt)
 
 		else if(nt->opr[0]->nature == NODE_IDENT)
 		{
-			create_lw_inst(4, nt->opr[0]->offset, 29);
-			create_ori_inst(2, r0, 1);
-			create_syscall_inst();
+			if(nt->opr[0]->global_decl == true)
+			{
+				create_lui_inst(4, 0x1001);
+				create_lw_inst(4, nt->opr[0]->offset, 4);
+				create_ori_inst(2, r0, 1);
+				create_syscall_inst();
+			}
+			else if(nt->opr[0]->global_decl == false)
+			{
+				create_lw_inst(4, nt->opr[0]->offset, 29);
+				create_ori_inst(2, r0, 1);
+				create_syscall_inst();
+			}
+			
 		}
 	}
 }

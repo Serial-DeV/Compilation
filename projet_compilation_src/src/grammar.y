@@ -398,7 +398,6 @@ node_t make_node(node_nature nature, int nops, ...)
 		printf("Pb malloc nt");
 		return 0;
 	}
-
 	nt->nature = nature;
 	nt->lineno = yylineno;
   	nt->nops = nops;
@@ -509,6 +508,7 @@ node_t make_node(node_nature nature, int nops, ...)
 		for(int i = 0; i < nops; i++)
 		{
   			nt->opr[i] = va_arg(ap, node_t);
+			nt->opr[i]->global_decl = true;
 		}
 	}
 

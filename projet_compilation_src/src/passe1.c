@@ -7,6 +7,7 @@ const char * dernier_type_string;
 
 bool decl, affect, init = false;
 int offset_var = 0;
+bool in_main = false;
 
 void passe1(node_t node)
 {
@@ -130,9 +131,13 @@ void passe1(node_t node)
       offset_variable = env_add_element(node->opr[0]->ident, node->opr[0], 4);
 
       if(offset_variable >= 0) //Première déclaration de la variable
-      {
+      {	  
 	  node->opr[0]->offset = offset_var;
 	  offset_var = offset_var + 4;
+	  if(in_main)
+	  {
+	  	node->opr[0]->global_decl = false;
+	  }
       }
       else                     //Multiple déclaration de la variable
       {
@@ -145,6 +150,7 @@ void passe1(node_t node)
 
       if (strcmp(node->ident,"main") == 0)
       {
+	in_main = true;
         //C'est le main
         //printf("\nJe suis là ?\n");
 
@@ -165,6 +171,10 @@ void passe1(node_t node)
         {
           node->decl_node = node_decl;
 	  node->offset = node_decl->offset;
+	  if(node_decl->global_decl == false)
+	  {
+	  	node->global_decl = false;
+	  }
         }
       }
 
