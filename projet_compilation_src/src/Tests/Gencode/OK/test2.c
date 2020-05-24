@@ -1,6 +1,5 @@
 void main()
 {
-	int n = 123;
+	int n = 2;
 	print(n);
 }
-
