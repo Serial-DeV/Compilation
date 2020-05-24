@@ -27,12 +27,17 @@ void passe1(node_t node)
   char message[50];
   node_t node_temp;
 
-
-  printf("\nJe suis dans le node : %s\n", nature_string);
-  printf("Le type du node est : %s\n", type_string);
+  if(niveau_trace >= 3)
+  {
+    printf("\nJe suis dans le node : %s\n", nature_string);
+    printf("Le type du node est : %s\n", type_string);
+  }
   //printf("Le dernier node type rencontré est : %s\n", dernier_type_string);
 
-  printf("Avant switch\n");
+  if(niveau_trace >= 4)
+  {
+    printf("Avant switch\n");
+  }
 
   switch (nature)
   {
@@ -50,18 +55,14 @@ void passe1(node_t node)
 
       if(node->opr[0] != NULL && node->opr[1] != NULL && node->opr[1]->opr[0] != NULL && node->opr[1]->opr[1] != NULL)
       {
-        printf("\nLISTE A\n");
 
         if(node->opr[1]->nature == NODE_LIST)
         {
-          printf("\nLISTE\n");
-
           node_Liste(node->opr[1], type1);
         }
         else
         {
           //Quand il y a NODE DECL IDENT INT/BOOLVAL
-          printf("\nLA\n");
 
           type1 = node->opr[0]->type; //Le type déclaré
           type3 = node->opr[1]->opr[1]->type; //Le type réellement affecté
@@ -71,9 +72,12 @@ void passe1(node_t node)
           type_string2 = node_type2string(type2);
           type_string3 = node_type2string(type3);
 
-          printf("Type déclaré : %s\n", type_string1);
-          printf("Type du NODE IDENT : %s\n", type_string2);
-          printf("Type réellement affecté : %s\n", type_string3);
+          if(niveau_trace >= 4)
+          {
+            printf("Type déclaré : %s\n", type_string1);
+            printf("Type du NODE IDENT : %s\n", type_string2);
+            printf("Type réellement affecté : %s\n", type_string3);
+          }
 
           if(type1 != type3)
           {
@@ -84,21 +88,20 @@ void passe1(node_t node)
       }
       else if(node->opr[0] != NULL && node->opr[1] != NULL)
       {                //Quand il y a NODE DECL IDENT INT/BOOLVAL
-        printf("\nLISTE oio\n");
 
-        printf("\nLaa\n");
         type1 = node->opr[0]->type; //Le type déclaré
         node->opr[1]->type = type1;
         type2 = node->opr[1]->type ; //Le type du NODE IDENT
         type_string1 = node_type2string(type1);
         type_string2 = node_type2string(type2);
-        printf("Type déclaré : %s\n", type_string1);
-        printf("Type du NODE IDENT : %s\n", type_string2);
+
+        if(niveau_trace >= 4)
+        {
+          printf("Type déclaré : %s\n", type_string1);
+          printf("Type du NODE IDENT : %s\n", type_string2);
+        }
       }
-      else
-      {
-        printf("\nLooser\n");
-      }
+
 
       //declaration sans initialisation
       if(node->opr[1]->nature == NODE_IDENT)
@@ -106,7 +109,6 @@ void passe1(node_t node)
           node_temp = node->opr[1];
           node->opr[1] = make_node(NODE_DECL, 2, TYPE_NONE, TYPE_NONE);
           node->opr[1]->opr[0] = node_temp;
-          printf("\nLoaaa\n");
           if(node->opr[0]->type == TYPE_INT)
           {
             node->opr[1]->opr[1] = make_node(NODE_INTVAL,0);
@@ -118,39 +120,33 @@ void passe1(node_t node)
             node->opr[1]->opr[1]->value = 0;
           }
       }
-      else
-      {
-        printf("Non\n");
-      }
-
-
-
       break;
     case NODE_DECL :
-    printf("Déclaration de : %s\n", node->opr[0]->ident);
+      if(niveau_trace >= 4)
+      {
+        printf("Déclaration de : %s\n", node->opr[0]->ident);
+      }
       offset_variable = env_add_element(node->opr[0]->ident, node->opr[0], 4);
 
       if(offset_variable >= 0) //Première déclaration de la variable
-      {	  
-	  node->opr[0]->offset = offset_var;
-	  offset_var = offset_var + 4;
-	  if(in_main)
-	  {
-	  	node->opr[0]->global_decl = false;
-	  }
+      {
+    	  node->opr[0]->offset = offset_var;
+    	  offset_var = offset_var + 4;
+    	  if(in_main)
+    	  {
+    	  	node->opr[0]->global_decl = false;
+    	  }
       }
       else                     //Multiple déclaration de la variable
       {
         sprintf(message, "Multiple déclaration de '%s'", node->opr[0]->ident);
         yyerror(&node, message);
       }
-
       break;
     case NODE_IDENT :
-
       if (strcmp(node->ident,"main") == 0)
       {
-	in_main = true;
+	       in_main = true;
         //C'est le main
         //printf("\nJe suis là ?\n");
 
@@ -170,29 +166,27 @@ void passe1(node_t node)
         else
         {
           node->decl_node = node_decl;
-	  node->offset = node_decl->offset;
-	  if(node_decl->global_decl == false)
-	  {
-	  	node->global_decl = false;
-	  }
+      	  node->offset = node_decl->offset;
+      	  if(node_decl->global_decl == false)
+      	  {
+      	  	node->global_decl = false;
+      	  }
         }
       }
 
       break;
-      case NODE_AFFECT :
-        if(node->opr[1]->nature == NODE_INTVAL)
-        {
-            printf("\nOn est bons\n");
-            type1 = node->opr[1]->type;
-            node->type = type1;
-        }
-        else if(node->opr[1]->nature == NODE_BOOLVAL)
-        {
-            printf("\nOn est bons bool\n");
-            type1 = node->opr[1]->type;
-            node->type = type1;
-        }
-        break;
+    case NODE_AFFECT :
+      if(node->opr[1]->nature == NODE_INTVAL)
+      {
+          type1 = node->opr[1]->type;
+          node->type = type1;
+      }
+      else if(node->opr[1]->nature == NODE_BOOLVAL)
+      {
+          type1 = node->opr[1]->type;
+          node->type = type1;
+      }
+      break;
     case NODE_TYPE :
       dernier_type_rencontre = node->type;
       dernier_type_string = node_type2string(dernier_type_rencontre);
@@ -217,13 +211,14 @@ void passe1(node_t node)
         type2 = node->opr[1]->type ; //Le type du NODE IDENT
         type_string1 = node_type2string(type1);
         type_string2 = node_type2string(type2);
-        printf("\nType déclaré : %s\n", type_string1);
-        printf("Type du NODE IDENT : %s\n", type_string2);
+
+        if(niveau_trace >= 4)
+        {
+          printf("\nType déclaré : %s\n", type_string1);
+          printf("Type du NODE IDENT : %s\n", type_string2);
+        }
       }
-      else
-      {
-        printf("\nLooser\n");
-      }
+
       break;
     case NODE_IF :
       if (node->opr[0]->type != TYPE_BOOL)
@@ -322,12 +317,19 @@ void passe1(node_t node)
       node_Liste_print(node);
       break;
     default :
-      printf("\nNature du node non reconnue.\n\n");
+      yyerror(&node, "Nature du node non reconnue.");
       break;
   }
-  printf("Après switch\n");
 
-  printf("Passe 1 sur les arguments\n");
+  if(niveau_trace >= 4)
+  {
+    printf("Après switch\n");
+  }
+
+  if(niveau_trace >= 3)
+  {
+    printf("Passe 1 sur les arguments\n");
+  }
 
   int i;
   if (node->nops > 0)
@@ -340,13 +342,19 @@ void passe1(node_t node)
       }
       else
       {
-        printf("Noeud NULL\n");
+        if(niveau_trace >= 4)
+        {
+          printf("Noeud NULL\n");
+        }
       }
     }
   }
   else
   {
-    printf("Pas d'arguments\n");
+    if(niveau_trace >= 4)
+    {
+      printf("Pas d'arguments\n");
+    }
   }
   //On arrive ici à la fin de la passe, lorsque l'on veut dépiler des contextes par exemple
   switch (nature)
@@ -367,7 +375,11 @@ void passe1(node_t node)
 void node_Liste(node_t node, node_type type)
 {
   const char * type_string = node_type2string(type);
-  printf("Type dans node liste : %s\n", type_string);
+
+  if(niveau_trace >= 4)
+  {
+    printf("Type dans NODE LIST : %s\n", type_string);
+  }
 
   node_nature nature;
   node_t opr0 = node->opr[0];

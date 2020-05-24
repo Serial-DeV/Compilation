@@ -56,7 +56,10 @@ void parse_args(int argc, char ** argv)
 
         case 'o':
           outfile = optarg;
-          printf("\nOutfile = %s\n\n", outfile);
+          if(niveau_trace >= 2)
+          {
+            printf("\nOutfile = %s\n\n", outfile);
+          }
 
         break;
 
@@ -67,7 +70,10 @@ void parse_args(int argc, char ** argv)
             printf("\nErreur : le niveau de trace doit être compris entre 4 et 8.\n");
             exit(-1);
           }
-          printf("\nNiveau trace = %d\n", niveau_trace);
+          if(niveau_trace >= 2)
+          {
+            printf("\nNiveau trace = %d\n", niveau_trace);
+          }
         break;
 
         case 'r':
@@ -77,7 +83,10 @@ void parse_args(int argc, char ** argv)
             printf("\nErreur : le nombre de registres doit être compris entre 4 et 8.\n");
             exit(-1);
           }
-          printf("\nNombre registres = %d\n", nb_registres);
+          if(niveau_trace >= 2)
+          {
+            printf("\nNombre registres = %d\n", nb_registres);
+          }
         break;
 
         case 's':
@@ -110,12 +119,14 @@ void parse_args(int argc, char ** argv)
         break;
 
         default:
-        outfile = "out.s";
         break;
       }
 
-      printf("\nargc = %d\n", argc);
-      printf("\noptind = %d\n", optind);
+      if(niveau_trace >= 2)
+      {
+        printf("\nargc = %d\n", argc);
+        printf("\noptind = %d\n", optind);
+      }
       option = getopt(argc, argv, optstring);
 
     }

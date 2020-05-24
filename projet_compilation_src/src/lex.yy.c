@@ -2226,33 +2226,56 @@ int main(int argc, char ** argv)
     /* A completer */
 
     node_t program_root;
-    printf("\nAvant le parse args\n\n");
 
     parse_args(argc, argv);
-    printf("\nSortie de parse args\n\n");
+
+		if(niveau_trace >= 1)
+		{
+			printf("\nSortie de parse args\n\n");
+		}
+
     #if YYDEBUG
     yydebug = 1;
     #endif
 
-    printf("\nVerification lexicale\n\n");
+		if(niveau_trace >= 1)
+		{
+			printf("\nVerification lexicale\n\n");
+		}
     yyin = fopen(infile, "r");
-    //while(yylex());
 
-    printf("\nAvant le yyparse\n\n");
+		if(niveau_trace >= 1)
+		{
+			printf("\nAvant le yyparse\n\n");
+		}
 
     yyparse(&program_root);
 
+		if(niveau_trace >= 1)
+		{
+			printf("\nAvant le dump_tree \n\n");
+		}
 
-    printf("\nAvant le dump 1\n\n");
-    dump_tree(program_root, "fichier_dump.dot");
+		dump_tree(program_root, "fichier_dump.dot");
 
-		printf("\nAvant l'analyse tree\n\n");
+		if(niveau_trace >= 1)
+		{
+			printf("\nAvant l'analyse tree\n\n");
+		}
+
 		analyse_tree(program_root);
-		printf("\nAprès l'analyse tree\n\n");
 
-		printf("\nAvant le dump 2\n\n");
-    dump_tree(program_root, "fichier_dump_fin.dot");
+		if(niveau_trace >= 1)
+		{
+			printf("\nAprès l'analyse tree\n\n");
+		}
 		
+		if(niveau_trace >= 1)
+		{
+			printf("\nAvant le dump_tree de fin \n\n");
+		}
+    dump_tree(program_root, "fichier_dump_fin.dot");
+
     fclose(yyin);
     yylex_destroy();
     return 0;

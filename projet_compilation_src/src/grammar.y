@@ -18,6 +18,7 @@
 /* A completer */
 extern bool stop_after_syntax;
 extern bool stop_after_verif;
+extern int niveau_trace;
 extern char * infile;
 extern char * outfile;
 extern int yylineno;
@@ -534,17 +535,23 @@ void analyse_tree(node_t root)
         if (!stop_after_verif)
         {
             // Appeler la passe 2
-            generator(root);
+          generator(root);
         }
         else
         {
-          printf("\nOn s'arrête après la passe de vérification\n\n");
+          if(niveau_trace >= 4)
+          {
+            printf("\nOn s'arrête après la passe de vérification\n\n");
+          }
         }
         free_global_strings();
     }
     else
     {
-      printf("\nOn s'arrête après l'analyse syntaxique\n\n");
+      if(niveau_trace >= 1)
+      {
+        printf("\nOn s'arrête après l'analyse syntaxique\n\n");
+      }
     }
 }
 
