@@ -1,3 +1,3 @@
 make clean
 make
-./minicc test.c -t 5
+./minicc test.c -t 4

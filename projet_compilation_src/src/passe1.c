@@ -16,6 +16,10 @@ void passe1(node_t node)
 
   //Pour le debug
   const char * nature_string = node_nature2string(node->nature);
+
+  node_nature nature1;
+  const char * nature_string1;
+
   const char * type_string = node_type2string(node->type);
   node_type type1;
   node_type type2;
@@ -26,6 +30,7 @@ void passe1(node_t node)
   int32_t offset_variable;
   char message[50];
   node_t node_temp;
+  node_t node_temp2;
 
   if(niveau_trace >= 3)
   {
@@ -160,13 +165,14 @@ void passe1(node_t node)
         node_t node_decl = (node_t)get_decl_node(node->ident);
         if (node_decl == NULL)
         {
-          sprintf(message, "La variable %s n'est pas déclarée.", node->ident);
+          sprintf(message, "La variable '%s' n'est pas déclarée.", node->ident);
           yyerror(&node, message);
         }
         else
         {
           node->decl_node = node_decl;
       	  node->offset = node_decl->offset;
+          // node->type = node_decl->type;
       	  if(node_decl->global_decl == false)
       	  {
       	  	node->global_decl = false;
@@ -258,72 +264,107 @@ void passe1(node_t node)
     case NODE_GT :
     case NODE_LE :
     case NODE_GE :
-      if(node->opr[0]->type != TYPE_INT || node->opr[1]->type != TYPE_INT)
-      {
-	node_t node_decl;
 
-	if(node->opr[0]->type != TYPE_INT)
-	{
-		node_decl = (node_t)get_decl_node(node->opr[0]->ident);
-	}
-	else if(node->opr[1]->type != TYPE_INT)
-	{
-		node_decl = (node_t)get_decl_node(node->opr[1]->ident);
-	}
-	
-	if(node_decl->type != TYPE_INT)
+    	if(node->opr[0]->nature == NODE_IDENT)
+    	{
+    		node_temp = (node_t)get_decl_node(node->opr[0]->ident);
+
+        if (node_temp == NULL)
         {
-        	yyerror(&node, "Un des arguments n'est pas de type 'int'.");
-	}
+          sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[0]->ident);
+          yyerror(&node, message);
+        }
+
+        if(node_temp->type != TYPE_INT)
+        {
+          yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+        }
+    	}
+      else if(node->opr[0]->nature == NODE_BOOLVAL)
+      {
+        yyerror(&node, "Un des arguments n'est pas de type 'int'.");
       }
+
+      if(node->opr[1]->nature == NODE_IDENT)
+      {
+        node_temp = (node_t)get_decl_node(node->opr[1]->ident);
+
+        if (node_temp == NULL)
+        {
+          sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[1]->ident);
+          yyerror(&node, message);
+        }
+
+        if(node_temp->type != TYPE_INT)
+        {
+
+          yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+        }
+      }
+      else if(node->opr[1]->nature == NODE_BOOLVAL)
+      {
+
+        yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+      }
+
       break;
     case NODE_DIV :
-      if(node->opr[0]->type != TYPE_INT || node->opr[1]->type != TYPE_INT)
-      {
-	node_t node_decl;
-
-	if(node->opr[0]->type != TYPE_INT)
-	{
-		node_decl = (node_t)get_decl_node(node->opr[0]->ident);
-	}
-	else if(node->opr[1]->type != TYPE_INT)
-	{
-		node_decl = (node_t)get_decl_node(node->opr[1]->ident);
-	}
-	
-	if(node_decl->type != TYPE_INT)
-        {
-        	yyerror(&node, "Un des arguments n'est pas de type 'int'.");
-	}
-      }
-      if(node->opr[1]->value == 0)
-      {
-        yyerror(&node, "Il n'est pas possible de divisier par 0.");
-      }
-      break;
     case NODE_MOD :
-      if(node->opr[0]->type != TYPE_INT || node->opr[1]->type != TYPE_INT)
+      if(node->opr[0]->nature == NODE_IDENT)
       {
-	node_t node_decl;
+        node_temp = (node_t)get_decl_node(node->opr[0]->ident);
 
-	if(node->opr[0]->type != TYPE_INT)
-	{
-		node_decl = (node_t)get_decl_node(node->opr[0]->ident);
-	}
-	else if(node->opr[1]->type != TYPE_INT)
-	{
-		node_decl = (node_t)get_decl_node(node->opr[1]->ident);
-	}
-	
-	if(node_decl->type != TYPE_INT)
+        if (node_temp == NULL)
         {
-        	yyerror(&node, "Un des arguments n'est pas de type 'int'.");
-	}
+          sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[0]->ident);
+          yyerror(&node, message);
+        }
+
+        if(node_temp->type != TYPE_INT)
+        {
+          yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+        }
       }
-      if(node->opr[1]->value == 0)
+      else if(node->opr[0]->nature == NODE_BOOLVAL)
       {
-        sprintf(message, "'%ld mod 0' n'est pas défini.", node->opr[0]->value);
-        yyerror(&node, message);
+        yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+      }
+
+      if(node->opr[1]->nature == NODE_IDENT)
+      {
+        node_temp = (node_t)get_decl_node(node->opr[1]->ident);
+
+
+        if (node_temp == NULL)
+        {
+          sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[1]->ident);
+          yyerror(&node, message);
+        }
+        if(node_temp->type != TYPE_INT)
+        {
+
+          yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+        }
+      }
+      else if(node->opr[1]->nature == NODE_BOOLVAL)
+      {
+
+        yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+      }
+
+      // if(node->opr[1]->nature == NODE_INTVAL && node->opr[1]->value == 0 )
+      if(node->opr[1]->value == 0 )
+
+      {
+        if(node->nature == NODE_DIV)
+        {
+          yyerror(&node, "La division par 0 n'est pas autorisée.");
+        }
+        else if(node->nature == NODE_MOD)
+        {
+          sprintf(message, "'%ld mod 0' n'est pas défini.", node->opr[0]->value);
+          yyerror(&node, message);
+        }
       }
       break;
       // Opérations entre 1 ou 2 nombres qui retournent un entier, vérification du type des arguments

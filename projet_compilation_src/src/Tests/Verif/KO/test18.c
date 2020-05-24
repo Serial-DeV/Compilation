@@ -3,5 +3,5 @@ bool c;
 
 void main()
 {
-	c = b > c;
+	if(b > c) ;
 }
