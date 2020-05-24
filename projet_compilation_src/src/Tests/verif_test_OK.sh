@@ -1,4 +1,4 @@
-for i in ./Syntaxe/OK/*.c ; do
+for i in ./Verif/OK/*.c ; do
   echo -e "\n"
   message='Fichier testé :'
   echo $message $i

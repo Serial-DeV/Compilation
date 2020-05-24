@@ -10,7 +10,7 @@ digraph global_vars {
     edge[tailclip=true];
     N4 -> N5
     N7 [shape=record, label="{{NODE DECL|Nb. ops: 2}}"];
-    N8 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: test|Offset: 0}}"];
+    N8 [shape=record, label="{{NODE IDENT|Type: TYPE INT}|{<decl>Decl      |Ident: test|Offset: 0}}"];
     N9 [shape=record, label="{{NULL}}"];
     edge[tailclip=true];
     N8 -> N9
@@ -34,7 +34,7 @@ digraph global_vars {
     edge[tailclip=true];
     N12 -> N13
     N15 [shape=record, label="{{NODE DECL|Nb. ops: 2}}"];
-    N16 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: test2|Offset: 0}}"];
+    N16 [shape=record, label="{{NODE IDENT|Type: TYPE BOOL}|{<decl>Decl      |Ident: test2|Offset: 4}}"];
     N17 [shape=record, label="{{NULL}}"];
     edge[tailclip=true];
     N16 -> N17
@@ -60,7 +60,7 @@ digraph global_vars {
     edge[tailclip=true];
     N20 -> N21
     N23 [shape=record, label="{{NODE DECL|Nb. ops: 2}}"];
-    N24 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: test3|Offset: 0}}"];
+    N24 [shape=record, label="{{NODE IDENT|Type: TYPE INT}|{<decl>Decl      |Ident: test3|Offset: 8}}"];
     N25 [shape=record, label="{{NULL}}"];
     edge[tailclip=true];
     N24 -> N25
@@ -78,14 +78,14 @@ digraph global_vars {
     N2 -> N20
     edge[tailclip=true];
     N1 -> N2
-    N28 [shape=record, label="{{NODE FUNC|Nb. ops: 3}|{stack_size: 0|offset: 0}}"];
+    N28 [shape=record, label="{{NODE FUNC|Nb. ops: 3}|{stack_size: 0|offset: 12}}"];
     N29 [shape=record, label="{{NODE TYPE|Type: TYPE VOID}}"];
     N30 [shape=record, label="{{NULL}}"];
     edge[tailclip=true];
     N29 -> N30
     edge[tailclip=true];
     N28 -> N29
-    N31 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: main|Offset: 0}}"];
+    N31 [shape=record, label="{{NODE IDENT|Type: TYPE VOID}|{<decl>Decl      |Ident: main|Offset: 0}}"];
     N32 [shape=record, label="{{NULL}}"];
     edge[tailclip=true];
     N31 -> N32
@@ -102,7 +102,7 @@ digraph global_vars {
     edge[tailclip=true];
     N36 -> N37
     N39 [shape=record, label="{{NODE DECL|Nb. ops: 2}}"];
-    N40 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: xnb|Offset: 0}}"];
+    N40 [shape=record, label="{{NODE IDENT|Type: TYPE INT}|{<decl>Decl      |Ident: xnb|Offset: 12}}"];
     N41 [shape=record, label="{{NULL}}"];
     edge[tailclip=true];
     N40 -> N41
@@ -126,7 +126,7 @@ digraph global_vars {
     edge[tailclip=true];
     N44 -> N45
     N47 [shape=record, label="{{NODE DECL|Nb. ops: 2}}"];
-    N48 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: testb|Offset: 0}}"];
+    N48 [shape=record, label="{{NODE IDENT|Type: TYPE BOOL}|{<decl>Decl      |Ident: testb|Offset: 16}}"];
     N49 [shape=record, label="{{NULL}}"];
     edge[tailclip=true];
     N48 -> N49
@@ -152,7 +152,7 @@ digraph global_vars {
     edge[tailclip=true];
     N52 -> N53
     N55 [shape=record, label="{{NODE DECL|Nb. ops: 2}}"];
-    N56 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: i|Offset: 0}}"];
+    N56 [shape=record, label="{{NODE IDENT|Type: TYPE INT}|{<decl>Decl      |Ident: i|Offset: 20}}"];
     N57 [shape=record, label="{{NULL}}"];
     edge[tailclip=true];
     N56 -> N57

@@ -894,13 +894,16 @@ case 4:
 YY_RULE_SETUP
 #line 77 "lexico.l"
 {
-					printf("true détecté\n");
+						if(niveau_trace >= 1)
+						{
+									printf("true détecté\n");
+						}
 					return TOK_TRUE;
 					}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 81 "lexico.l"
+#line 84 "lexico.l"
 {
 						if(niveau_trace >= 1)
 						{
@@ -911,7 +914,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 88 "lexico.l"
+#line 91 "lexico.l"
 {
 						if(niveau_trace >= 1)
 						{
@@ -922,7 +925,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 95 "lexico.l"
+#line 98 "lexico.l"
 {
 						if(niveau_trace >= 1)
 						{
@@ -933,7 +936,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 102 "lexico.l"
+#line 105 "lexico.l"
 {
 						if(niveau_trace >= 1)
 						{
@@ -944,7 +947,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 109 "lexico.l"
+#line 112 "lexico.l"
 {
 						if(niveau_trace >= 1)
 						{
@@ -955,7 +958,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 116 "lexico.l"
+#line 119 "lexico.l"
 {
 						if(niveau_trace >= 1)
 						{
@@ -966,158 +969,158 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 123 "lexico.l"
+#line 126 "lexico.l"
 return TOK_AFFECT;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 124 "lexico.l"
-return TOK_GE;
+#line 127 "lexico.l"
+return TOK_LE;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 125 "lexico.l"
-return TOK_LE;
+#line 128 "lexico.l"
+return TOK_GE;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 126 "lexico.l"
+#line 129 "lexico.l"
 return TOK_GT;
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 127 "lexico.l"
+#line 130 "lexico.l"
 return TOK_LT;
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 128 "lexico.l"
+#line 131 "lexico.l"
 return TOK_EQ;
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 129 "lexico.l"
+#line 132 "lexico.l"
 return TOK_NE;
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 130 "lexico.l"
+#line 133 "lexico.l"
 return TOK_PLUS;
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 131 "lexico.l"
+#line 134 "lexico.l"
 return TOK_MINUS;
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 132 "lexico.l"
+#line 135 "lexico.l"
 return TOK_MUL;
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 133 "lexico.l"
+#line 136 "lexico.l"
 return TOK_DIV;
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 134 "lexico.l"
+#line 137 "lexico.l"
 return TOK_MOD;/*
 "-"    		return TOK_UMINUS;*/
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 136 "lexico.l"
+#line 139 "lexico.l"
 return TOK_SEMICOL;
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 137 "lexico.l"
+#line 140 "lexico.l"
 return TOK_COMMA;
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 138 "lexico.l"
+#line 141 "lexico.l"
 return TOK_LPAR;
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 139 "lexico.l"
+#line 142 "lexico.l"
 return TOK_RPAR;
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 140 "lexico.l"
+#line 143 "lexico.l"
 return TOK_LACC;
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 141 "lexico.l"
+#line 144 "lexico.l"
 return TOK_RACC;
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 142 "lexico.l"
+#line 145 "lexico.l"
 return TOK_DO;
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 143 "lexico.l"
+#line 146 "lexico.l"
 return TOK_THEN;
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 144 "lexico.l"
+#line 147 "lexico.l"
 return TOK_OR;
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 145 "lexico.l"
+#line 148 "lexico.l"
 return TOK_AND;
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 146 "lexico.l"
+#line 149 "lexico.l"
 return TOK_BOR;
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 147 "lexico.l"
+#line 150 "lexico.l"
 return TOK_BXOR;
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 148 "lexico.l"
+#line 151 "lexico.l"
 return TOK_BAND;
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 149 "lexico.l"
+#line 152 "lexico.l"
 return TOK_SRL;
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 150 "lexico.l"
+#line 153 "lexico.l"
 return TOK_SRA;
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 151 "lexico.l"
+#line 154 "lexico.l"
 return TOK_SLL;
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 152 "lexico.l"
+#line 155 "lexico.l"
 return TOK_NOT;
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 153 "lexico.l"
+#line 156 "lexico.l"
 return TOK_BNOT;
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 159 "lexico.l"
+#line 162 "lexico.l"
 {
 			if(niveau_trace >= 1)
 			{
@@ -1130,7 +1133,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 169 "lexico.l"
+#line 172 "lexico.l"
 {
 		/* A completer : affecter yylval.intval et faire des verifications */
 
@@ -1141,7 +1144,7 @@ YY_RULE_SETUP
 
 		if((strlen(yytext) >= strlen("2147483647") && strcmp("2147483647", yytext) < 0) || (strlen(yytext) >= strlen("-2147483648") && strcmp("-2147483648", yytext) < 0))
 		{
-		 fprintf(stderr, "Error line %d: integer out of range\n", yylineno);
+		 fprintf(stderr, "\nError line %d: integer out of range\n", yylineno);
 		 exit(-1);
 		}
 		yylval.intval = atoi(yytext); // Vérifier ce qu'il faut vérifier
@@ -1151,7 +1154,7 @@ YY_RULE_SETUP
 case 43:
 /* rule 43 can match eol */
 YY_RULE_SETUP
-#line 186 "lexico.l"
+#line 189 "lexico.l"
 {
                 /* A completer : affecter yylval.strval */
 
@@ -1169,7 +1172,7 @@ case 44:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 198 "lexico.l"
+#line 201 "lexico.l"
 {
 		if(niveau_trace >= 1)
 		{
@@ -1180,23 +1183,23 @@ YY_RULE_SETUP
 case 45:
 /* rule 45 can match eol */
 YY_RULE_SETUP
-#line 206 "lexico.l"
+#line 209 "lexico.l"
 
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 208 "lexico.l"
+#line 211 "lexico.l"
 {
-                fprintf(stderr, "Error line %d: Lexical error\n", yylineno);
+                fprintf(stderr, "\nError line %d: Lexical error\n", yylineno);
                 exit(-1);
 }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 214 "lexico.l"
+#line 217 "lexico.l"
 ECHO;
 	YY_BREAK
-#line 1200 "lex.yy.c"
+#line 1203 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2213,7 +2216,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 214 "lexico.l"
+#line 217 "lexico.l"
 
 
 int yywrap(void) {
@@ -2269,7 +2272,7 @@ int main(int argc, char ** argv)
 		{
 			printf("\nAprès l'analyse tree\n\n");
 		}
-		
+
 		if(niveau_trace >= 1)
 		{
 			printf("\nAvant le dump_tree de fin \n\n");

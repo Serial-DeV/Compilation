@@ -437,7 +437,7 @@ node_t make_node(node_nature nature, int nops, ...)
 		nt->type = TYPE_BOOL;
 		//nt->str = va_arg(ap, char*);
 		char* bool_val = va_arg(ap, char*);
-		printf("BOOL_VALUE = %s", bool_val);
+		//printf("BOOL_VALUE = %s", bool_val);
 		if(bool_val == "true")
 		{
 			nt->value = 1;
@@ -566,6 +566,6 @@ void analyse_tree(node_t root)
 
 
 void yyerror(node_t * program_root, char * s) {
-    fprintf(stderr, "Error line %d: %s\n", yylineno, s);
+    fprintf(stderr, "\nError line %d: %s\n", yylineno, s);
     exit(1);
 }

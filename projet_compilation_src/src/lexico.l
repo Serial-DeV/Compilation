@@ -75,7 +75,10 @@ COMMENTAIRE     "//".*$
 					return TOK_BOOL;
 					}
 "true"    {
-					printf("true détecté\n");
+						if(niveau_trace >= 1)
+						{
+									printf("true détecté\n");
+						}
 					return TOK_TRUE;
 					}
 "false"   {
@@ -121,8 +124,8 @@ COMMENTAIRE     "//".*$
 					return TOK_PRINT;
 					}
 "="    		return TOK_AFFECT;
-"<="    	return TOK_GE;
-">="    	return TOK_LE;
+"<="    	return TOK_LE;
+">="    	return TOK_GE;
 ">"    		return TOK_GT;
 "<"    		return TOK_LT;
 "=="    	return TOK_EQ;
@@ -176,7 +179,7 @@ COMMENTAIRE     "//".*$
 
 		if((strlen(yytext) >= strlen("2147483647") && strcmp("2147483647", yytext) < 0) || (strlen(yytext) >= strlen("-2147483648") && strcmp("-2147483648", yytext) < 0))
 		{
-		 fprintf(stderr, "Error line %d: integer out of range\n", yylineno);
+		 fprintf(stderr, "\nError line %d: integer out of range\n", yylineno);
 		 exit(-1);
 		}
 		yylval.intval = atoi(yytext); // Vérifier ce qu'il faut vérifier
@@ -206,7 +209,7 @@ COMMENTAIRE     "//".*$
 [ \t\n]+
 
 . {
-                fprintf(stderr, "Error line %d: Lexical error\n", yylineno);
+                fprintf(stderr, "\nError line %d: Lexical error\n", yylineno);
                 exit(-1);
 }
 
@@ -266,7 +269,7 @@ int main(int argc, char ** argv)
 		{
 			printf("\nAprès l'analyse tree\n\n");
 		}
-		
+
 		if(niveau_trace >= 1)
 		{
 			printf("\nAvant le dump_tree de fin \n\n");
