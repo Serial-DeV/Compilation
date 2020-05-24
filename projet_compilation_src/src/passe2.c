@@ -19,7 +19,7 @@ void generator(node_t nt)
 
 
 	if(nt)
-	{	
+	{
 		printf("NODE DETECTED\n");
 		opening_closing_node(nt);
 		next_node(nt);
@@ -29,7 +29,7 @@ void generator(node_t nt)
 		opening = true;
 		opening_closing_node(nt);
 		next_node(nt);
-		
+
 	}
 
 	create_addiu_inst(29, 29, offset_maxi);
@@ -37,7 +37,7 @@ void generator(node_t nt)
 	// Appel systeme 10 pour terminer le programme
 	create_ori_inst(2, r0, 10);
 	create_syscall_inst();
-	
+
 	dump_mips_program(outfile);
 	free_program();
 }
@@ -115,7 +115,7 @@ void opening_closing_node(node_t nt)
 			case NODE_STRINGVAL:
 				add_stringval(nt);
 				break;
-			
+
 			case NODE_PRINT:
 				add_print(nt);
 				break;
@@ -161,7 +161,7 @@ void add_decl(node_t nt)
 			{
 				printf("CREATE_WORD CASE 1\n");
 				create_word_inst(nt->opr[0]->ident, nt->opr[1]->value);
-				printf(" IDENT : %s, VALUE : %d\n", nt->opr[0]->ident, nt->opr[1]->value);
+				printf(" IDENT : %s, VALUE : %ld\n", nt->opr[0]->ident, nt->opr[1]->value);
 				glob_int_counter++;
 			}
 			else if(nt->opr[1]->nature == NODE_IDENT)
@@ -181,7 +181,7 @@ void add_decl(node_t nt)
 					offset_maxi = offset_maxi + 4;
 				}
 				else if(!verif)
-				{		
+				{
 					create_ori_inst(get_current_reg(), r0, nt->opr[1]->value);
 					create_sw_inst(get_current_reg(), nt->opr[0]->offset, 29);
 					offset_curr = offset_curr + 4;
@@ -194,12 +194,12 @@ void add_decl(node_t nt)
 					offset_maxi = offset_maxi + 4;
 				}
 				else if(!verif)
-				{		
+				{
 					create_ori_inst(get_current_reg(), r0, nt->opr[0]->value);
 					create_sw_inst(get_current_reg(), nt->opr[1]->offset, 29);
 					offset_curr = offset_curr + 4;
 				}
-				
+
 			}
 		}
 	}
@@ -251,13 +251,13 @@ void add_affect(node_t nt)
 	{
 		if(is_global)
 		{
-			//nt = get_decl_node(nt->decl_node);	
+			//nt = get_decl_node(nt->decl_node);
 		}
 		else
 		{
 			create_ori_inst(get_current_reg(), r0, nt->opr[1]->value);
 			create_sw_inst(get_current_reg(), nt->opr[0]->offset, 29);
-			printf("%d\n\n\n", nt->opr[1]->value);
+			printf("%ld\n\n\n", nt->opr[1]->value);
 		}
 	}
 
@@ -279,7 +279,7 @@ void add_stringval(node_t nt)
 {
 
 	if(verif && is_global)
-	{	
+	{
 		create_asciiz_inst(create_labels_for_glob_str(glob_str), nt->str);
 		glob_str = glob_str + 1;
 	}
@@ -309,7 +309,7 @@ void add_print(node_t nt)
 				printf("OFFSET[%d] = %d ", i, str_offset[i]);
 			}
 			//printf("OOOOOOOOOOFFFFFFFFSET STR_CURR = %d\n", str_curr);
-			
+
 			//printf("OOOOOOOOOOFFFFFFFFSET = %d\n", str_offset_val);
 			create_lui_inst(4, 0x1001);
 			create_ori_inst(4, 4, str_offset_val);
@@ -333,7 +333,7 @@ void add_print(node_t nt)
 				create_ori_inst(2, r0, 1);
 				create_syscall_inst();
 			}
-			
+
 		}
 	}
 }
