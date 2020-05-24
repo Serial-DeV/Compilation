@@ -530,16 +530,24 @@ void analyse_tree(node_t root)
     if (!stop_after_syntax)
     {
         // Appeler la passe 1
+        if(niveau_trace >= 1)
+        {
+          printf("\nPasse de vérification\n\n");
+        }
         passe1(root);
 
         if (!stop_after_verif)
         {
             // Appeler la passe 2
+            if(niveau_trace >= 1)
+            {
+              printf("\nGénération du code assembleur MIPS\n\n");
+            }
           generator(root);
         }
         else
         {
-          if(niveau_trace >= 4)
+          if(niveau_trace >= 1)
           {
             printf("\nOn s'arrête après la passe de vérification\n\n");
           }

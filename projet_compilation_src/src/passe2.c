@@ -47,8 +47,12 @@ void generator(node_t nt)
 
 void next_node(node_t nt)
 {
-	printf("NEXT NODE\n");
-	printf("NOPS = %d\n", nt->nops);
+	if(niveau_trace == 5)
+	{
+		printf("NEXT NODE\n");
+		printf("NOPS = %d\n", nt->nops);
+	}
+
 	for(int n = 0; n < nt->nops; n++)
 	{
 		if(nt->opr[n] != NULL && ((nt->opr[n]->nature != NODE_IDENT || nt->opr[n]->nature != NODE_INTVAL) || (nt->opr[n]->nature == NODE_IDENT && nt->opr[n]->type == TYPE_VOID)))
@@ -68,7 +72,7 @@ void next_node(node_t nt)
 			{
 				printf("NODE CLOSING\n");
 			}
-			
+
 			opening_closing_node(nt->opr[n]);
 			}
 	}
@@ -81,7 +85,7 @@ void opening_closing_node(node_t nt)
 	{
 		if(niveau_trace == 5)
 		{
-			printf("Nature du noeud détecté : %s\n", node_nature2string(nt->nature));
+			printf("\nNature du noeud détecté : %s\n", node_nature2string(nt->nature));
 		}
 		switch(nt->nature)
 		{
@@ -264,7 +268,11 @@ void add_affect(node_t nt)
 		{
 			create_ori_inst(get_current_reg(), r0, nt->opr[1]->value);
 			create_sw_inst(get_current_reg(), nt->opr[0]->offset, 29);
-			printf("%ld\n\n\n", nt->opr[1]->value);
+
+			if(niveau_trace == 5)
+			{
+				printf("%ld\n\n\n", nt->opr[1]->value);
+			}
 		}
 	}
 
