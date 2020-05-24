@@ -3,18 +3,7 @@ int n = 217;
 
 void main()
 {
-	//int j = 10;
-	//int s = 20;
-	int n = 34;
+	n = 5 + 7;
 	print(n);
-	n = 123;
-	print(n);
-	//print("Hello\n");
-	//print(s);
-	//print("III\n");
-	//print(j);
-	//print("A\n");
-	//print("BBB");
-	//print(k);
 }
 

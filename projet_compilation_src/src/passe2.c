@@ -13,8 +13,6 @@ int print_offset = 0;
 int str_curr = 0;
 int glob_int_counter = 0;
 
-
-
 void generator(node_t nt)
 {
 
@@ -134,6 +132,9 @@ void opening_closing_node(node_t nt)
 			case NODE_PRINT:
 				add_print(nt);
 				break;
+			
+			case NODE_PLUS:
+				add_arith_op(nt);
 
 			default:
 				break;
@@ -262,13 +263,13 @@ void add_affect(node_t nt)
 	{
 		if(is_global)
 		{
-			//nt = get_decl_node(nt->decl_node);
+		
 		}
 		else
 		{
 			create_ori_inst(get_current_reg(), r0, nt->opr[1]->value);
 			create_sw_inst(get_current_reg(), nt->opr[0]->offset, 29);
-
+			
 			if(niveau_trace == 5)
 			{
 				printf("%ld\n\n\n", nt->opr[1]->value);
@@ -277,11 +278,23 @@ void add_affect(node_t nt)
 	}
 
 
-	else
+/*	else if(!opening && !verif)
 	{
+		if(is_global)
+		{
 
+		}
+		else
+		{
+			//create_ori_inst(get_current_reg(), r0, nt->opr[1]->value);
+			create_sw_inst(get_current_reg(), nt->opr[0]->offset, 29);
+			if(niveau_trace == 5)
+			{
+				printf("%ld\n\n\n", nt->opr[1]->value);
+			}
+		}
 	}
-
+*/
 }
 
 void add_intval(node_t nt)
@@ -353,7 +366,61 @@ void add_print(node_t nt)
 }
 
 
+
+
+void add_arith_op(node_t nt)
+{
+	int32_t reg0, reg1;
+
+	if(!verif)
+	{
+		if(opening) 
+		{// Cas où les opérandes sont soit une variable globale ou locale, soit des entiers immédiats
+			if(nt->opr[0]->nature == NODE_INTVAL)
+			{
+				reg0 = get_current_reg();
+				if(nt->opr[1]->nature == NODE_INTVAL)
+				{// Cas avec 2 entiers immédiats
+					create_ori_inst(reg0, r0, nt->opr[0]->value);
+					allocate_reg();
+					reg1 = get_current_reg();
+					create_ori_inst(reg1, r0, nt->opr[1]->value);
+					release_reg();
+					select_arith_op(nt->nature, reg0, reg1);
+				}
+			}
+		}
+		
+		else if(!opening) 
+		{// Sinon il faut attendre la réduction des expressions en entier
+			
+		}  
+	}
+}
+
+
+
+void select_arith_op(node_nature nature, int32_t reg0, int32_t reg1)
+{
+	switch(nature)
+	{
+		case NODE_PLUS:
+			create_addu_inst(reg0, reg0, reg1);
+			break;
+	}
+}
+
+
+
+
+
 void add_type(node_t nt)
 {
 
 }
+
+
+
+
+
+
