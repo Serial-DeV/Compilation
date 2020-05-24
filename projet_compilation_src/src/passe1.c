@@ -260,13 +260,41 @@ void passe1(node_t node)
     case NODE_GE :
       if(node->opr[0]->type != TYPE_INT || node->opr[1]->type != TYPE_INT)
       {
-        yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+	node_t node_decl;
+
+	if(node->opr[0]->type != TYPE_INT)
+	{
+		node_decl = (node_t)get_decl_node(node->opr[0]->ident);
+	}
+	else if(node->opr[1]->type != TYPE_INT)
+	{
+		node_decl = (node_t)get_decl_node(node->opr[1]->ident);
+	}
+	
+	if(node_decl->type != TYPE_INT)
+        {
+        	yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+	}
       }
       break;
     case NODE_DIV :
       if(node->opr[0]->type != TYPE_INT || node->opr[1]->type != TYPE_INT)
       {
-        yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+	node_t node_decl;
+
+	if(node->opr[0]->type != TYPE_INT)
+	{
+		node_decl = (node_t)get_decl_node(node->opr[0]->ident);
+	}
+	else if(node->opr[1]->type != TYPE_INT)
+	{
+		node_decl = (node_t)get_decl_node(node->opr[1]->ident);
+	}
+	
+	if(node_decl->type != TYPE_INT)
+        {
+        	yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+	}
       }
       if(node->opr[1]->value == 0)
       {
@@ -276,7 +304,21 @@ void passe1(node_t node)
     case NODE_MOD :
       if(node->opr[0]->type != TYPE_INT || node->opr[1]->type != TYPE_INT)
       {
-        yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+	node_t node_decl;
+
+	if(node->opr[0]->type != TYPE_INT)
+	{
+		node_decl = (node_t)get_decl_node(node->opr[0]->ident);
+	}
+	else if(node->opr[1]->type != TYPE_INT)
+	{
+		node_decl = (node_t)get_decl_node(node->opr[1]->ident);
+	}
+	
+	if(node_decl->type != TYPE_INT)
+        {
+        	yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+	}
       }
       if(node->opr[1]->value == 0)
       {
