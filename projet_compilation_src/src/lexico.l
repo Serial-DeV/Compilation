@@ -274,7 +274,7 @@ int main(int argc, char ** argv)
 		{
 			printf("\nAvant le dump_tree de fin \n\n");
 		}
-    dump_tree(program_root, "fichier_dump_fin.dot");
+    //dump_tree(program_root, "fichier_dump_fin.dot");
 
     fclose(yyin);
     yylex_destroy();

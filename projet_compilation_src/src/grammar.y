@@ -448,7 +448,7 @@ node_t make_node(node_nature nature, int nops, ...)
 		}
 		else
 		{
-			printf("Error line %d: %s ne peut être un booléen\n", yylineno, bool_val);
+			//printf("Error line %d: %s ne peut être un booléen\n", yylineno, bool_val);
 		}
 	}
 
@@ -509,7 +509,7 @@ node_t make_node(node_nature nature, int nops, ...)
 		for(int i = 0; i < nops; i++)
 		{
   			nt->opr[i] = va_arg(ap, node_t);
-			if(nature == NODE_DECL)
+			if(nt->opr[i] != NULL && nature == NODE_DECL)
 			{
 				nt->opr[i]->global_decl = true;
 			}
