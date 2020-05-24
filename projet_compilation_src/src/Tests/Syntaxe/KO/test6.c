@@ -1,4 +1,4 @@
 void main()
 {
-	bool b = 20;
+	int b = 77777777777777;
 }

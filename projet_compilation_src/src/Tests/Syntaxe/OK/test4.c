@@ -1,8 +1,6 @@
-bool b;
-bool c;
+int a;
 
 void main()
 {
-	b = true;
-	bool c = false;
+	a = 7/0;
 }

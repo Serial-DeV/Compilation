@@ -1,5 +1,6 @@
 void main()
 {
 	int n = 7;
-	n *= n;
+	int b = 7;
+	n = n * b;
 }

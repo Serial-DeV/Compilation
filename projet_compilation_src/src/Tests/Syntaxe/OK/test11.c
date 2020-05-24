@@ -5,10 +5,10 @@ int o = 0;
 
 void main()
 {
-	n = 3 + 2;
+	n = 3 + z;
 	while (n > 1)
 	{
-		n = n - z;
+		n = n - 1;
 		print(" OK ");
 	}
 

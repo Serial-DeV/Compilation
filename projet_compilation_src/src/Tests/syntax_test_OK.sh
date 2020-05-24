@@ -1,3 +1,6 @@
-for i in ./Syntaxe/OK/*.c ; do 
- ../minicc $i
+for i in ./Syntaxe/OK/*.c ; do
+  echo -e "\n"
+  message='Fichier testé :'
+  echo $message $i
+ ../minicc $i -s
 done
