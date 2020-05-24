@@ -1,5 +1,6 @@
 #include "passe2.h"
 
+extern int niveau_trace;
 bool end_of_tree = false;
 bool is_global = true;
 bool opening = true;
@@ -12,15 +13,16 @@ int print_offset = 0;
 int str_curr = 0;
 int glob_int_counter = 0;
 
+
+
 void generator(node_t nt)
 {
-	printf("GENERATOR\n");
+
 	create_program();
 
 
 	if(nt)
 	{
-		printf("NODE DETECTED\n");
 		opening_closing_node(nt);
 		next_node(nt);
 		verif = false;
@@ -52,11 +54,21 @@ void next_node(node_t nt)
 		if(nt->opr[n] != NULL && ((nt->opr[n]->nature != NODE_IDENT || nt->opr[n]->nature != NODE_INTVAL) || (nt->opr[n]->nature == NODE_IDENT && nt->opr[n]->type == TYPE_VOID)))
 		{
 			opening = true;
-			printf("NODE OPEN\n");
+
+			if(niveau_trace == 5)
+			{
+				printf("NODE OPENING\n");
+			}
+
 			opening_closing_node(nt->opr[n]);
 			next_node(nt->opr[n]);
 			opening = false;
-			printf("NODE CLOSE\n");
+
+			if(niveau_trace == 5)
+			{
+				printf("NODE CLOSING\n");
+			}
+			
 			opening_closing_node(nt->opr[n]);
 			}
 	}
@@ -67,7 +79,10 @@ void opening_closing_node(node_t nt)
 {
 	if(opening)
 	{
-		printf("NODE NATURE : %s\n", node_nature2string(nt->nature));
+		if(niveau_trace == 5)
+		{
+			printf("Nature du noeud détecté : %s\n", node_nature2string(nt->nature));
+		}
 		switch(nt->nature)
 		{
 			case NODE_PROGRAM:
@@ -76,7 +91,6 @@ void opening_closing_node(node_t nt)
 				{
 					create_data_sec_inst();
 				}
-				//printf("NODE_PROGRAM\n");
 				break;
 
 			case NODE_FUNC:
@@ -88,9 +102,6 @@ void opening_closing_node(node_t nt)
 			case NODE_LIST:
 				break;
 
-				case NODE_DECLS:
-				// Ne rien faire de particulier
-				break;
 
 			case NODE_DECL:
 				add_decl(nt);
@@ -159,14 +170,16 @@ void add_decl(node_t nt)
 		{
 			if(nt->opr[0]->nature == NODE_IDENT)
 			{
-				printf("CREATE_WORD CASE 1\n");
 				create_word_inst(nt->opr[0]->ident, nt->opr[1]->value);
-				printf(" IDENT : %s, VALUE : %ld\n", nt->opr[0]->ident, nt->opr[1]->value);
+				if(niveau_trace == 5)
+				{
+					printf("Création d'une nouvelle variable globale\n");
+					printf(" IDENT : %s, VALUE : %ld\n", nt->opr[0]->ident, nt->opr[1]->value);
+				}
 				glob_int_counter++;
 			}
 			else if(nt->opr[1]->nature == NODE_IDENT)
 			{
-				printf("CREATE_WORD CASE 2\n");
 				create_word_inst(nt->opr[1]->ident, nt->opr[0]->value);
 				glob_int_counter++;
 			}
@@ -182,6 +195,11 @@ void add_decl(node_t nt)
 				}
 				else if(!verif)
 				{
+					if(niveau_trace == 5)
+					{
+						printf("Création d'une nouvelle variable locale\n");
+						printf(" IDENT : %s, VALUE : %ld\n", nt->opr[0]->ident, nt->opr[1]->value);
+					}
 					create_ori_inst(get_current_reg(), r0, nt->opr[1]->value);
 					create_sw_inst(get_current_reg(), nt->opr[0]->offset, 29);
 					offset_curr = offset_curr + 4;
@@ -204,12 +222,6 @@ void add_decl(node_t nt)
 		}
 	}
 
-
-	else
-	{
-
-	}
-
 }
 
 void add_ident(node_t nt)
@@ -227,11 +239,6 @@ void add_ident(node_t nt)
 				create_label_str_inst(nt->ident);
 				create_addiu_inst(29, 29, -offset_maxi);
 			}
-			/*else if(nt->type == TYPE_NONE)
-			{
-				create_ori_inst(get_current_reg(), r0, nt->decl_node->value);
-				create_sw_inst(get_current_reg(), nt->offset, 29);
-			}*/
 		}
 	}
 
@@ -304,13 +311,12 @@ void add_print(node_t nt)
 			{
 				str_offset_val = str_offset_val + str_offset[i];
 			}
-			for(int i = 0; i <= str_curr; i++)
-			{
-				printf("OFFSET[%d] = %d ", i, str_offset[i]);
-			}
-			//printf("OOOOOOOOOOFFFFFFFFSET STR_CURR = %d\n", str_curr);
 
-			//printf("OOOOOOOOOOFFFFFFFFSET = %d\n", str_offset_val);
+			if(niveau_trace == 5)
+			{
+				printf("L'offset vaut : %d\n", str_offset_val);
+			}
+
 			create_lui_inst(4, 0x1001);
 			create_ori_inst(4, 4, str_offset_val);
 			create_ori_inst(2, r0, 4);
