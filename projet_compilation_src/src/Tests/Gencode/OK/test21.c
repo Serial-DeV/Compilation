@@ -2,6 +2,6 @@ int n = 2;
 
 void main()
 {
-	n = n >> 1;
+	n = n << 1;
 	print(n);
 }
