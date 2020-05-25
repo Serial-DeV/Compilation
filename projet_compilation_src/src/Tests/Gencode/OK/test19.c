@@ -11,5 +11,5 @@ void main()
 	}
 	while(n <= 10 && o < 9);
 	
-	print(n);//11
+	print(n);
 }

@@ -12,8 +12,9 @@ void main()
 	if(p != o)
 	{
 		int k = 10;
-		print("test vrai");
+		print("test vrai\n");
 		print(k);
+		print("\n");
 		int c = 0;
 		bool b = true;
 
@@ -23,17 +24,22 @@ void main()
 			b = !b;
 			c = c + 1;
 			print(c);
+			print("\n");
 			print(b);
+			print("\n");
 			print(n);
+			print("\n");
 			if(b)
 			{
 				int l = 458;
 				c = c * c;
 				print(l);
+				print("\n");
 			}
 			else
 			{
 				print(b);
+				print("\n");
 			}
 		}
 		
@@ -41,10 +47,11 @@ void main()
 	
 	else
 	{
-		print("test faux");
+		print("test faux\n");
 	}
 	
 	
 	
 	print(o);
+	print("\n");
 }

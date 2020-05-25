@@ -9,14 +9,15 @@ void main()
 	if(p == o)
 	{
 		int k = 10;
-		print("test 1 vrai");
+		print("test 1 vrai\n");
 		print(k);
+		print("\n");
 		int c = 0;
 		bool b = true;
 
-		while(n < 2 * k)
+		while(n < 1 * k)
 		{
-			n = n + 1;
+			n = n + 3;
 			b = !b;
 			c = c + 1;
 			print(c);
@@ -34,45 +35,47 @@ void main()
 	
 	else
 	{
-		print("test 1 faux");
+		print("test 1 faux\n");
 	}
 	
 	if(k < 12+1)
 	{
 		int o = 50;
-		print("test 2 vrai");
+		print("test 2 vrai\n");
 		print(o);
 	}
 	
 	else
 	{
-		print("test 2 faux");
+		print("test 2 faux\n");
 	}
 
 	if(k >= l)
 	{
 		bool l = false;
 		k = 14;
-		print("test 3 vrai");
-		print(l);	
+		print("test 3 vrai\n");
+		print(l);
+		print("\n");	
 	}
 	
 	else
 	{
-		print("test 3 faux");
+		print("test 3 faux\n");
 	}
 	
 	if(k <= 14)
 	{
 		int o = 200;
-		print("test 4 vrai");
+		print("test 4 vrai\n");
 		print(o);
 	}
 	
 	else
 	{
-		print("test 4 faux");
+		print("test 4 faux\n");
 	}
 	
 	print(o);
+	print("\n");
 }

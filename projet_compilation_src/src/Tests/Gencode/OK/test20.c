@@ -6,5 +6,5 @@ void main()
 
 	o = n * o + o * (2 + o) - o/(2*2);
 	
-	print(o);//20
+	print(o);
 }

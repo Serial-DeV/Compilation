@@ -10,8 +10,9 @@ void main()
 	if(p != o)
 	{
 		int k = 10;
-		print("test 1 vrai");
+		print("test 1 vrai\n");
 		print(k);
+		print("\n");
 		int c = 0;
 		bool b = true;
 
@@ -21,13 +22,17 @@ void main()
 			b = !b;
 			c = c + 1;
 			print(c);
+			print("\n");
 			print(b);
+			print("\n");
 			print(n);
+			print("\n");
 			if(b)
 			{
 				int l = 458;
 				c = c * c;
 				print(l);
+				print("\n");
 			}
 		}
 		
@@ -35,13 +40,13 @@ void main()
 	
 	else
 	{
-		print("test 1 faux");
+		print("test 1 faux\n");
 	}
 	
 	if(k < 12+1)
 	{
 		int o = 50;
-		print("test 2 vrai");
+		print("test 2 vrai\n");
 		print(o);
 	}
 	
@@ -51,10 +56,12 @@ void main()
 		for(i = 0; i < 10; i = i + 1)
 		{
 			print(i);
-			print("test 2 faux");
+			print("\n");
+			print("test 2 faux\n");
 		}
 	}
 
 	
 	print(o);
+	print("\n");
 }
