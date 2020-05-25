@@ -1,10 +1,11 @@
-int b = 0;
-bool c = false;
+int b;
+bool c;
 
 void main()
 {
-	if(b > c)
+	b = 3;
+	while(true)
 	{
-		b = b - 5;
+		c = false;
 	}
 }

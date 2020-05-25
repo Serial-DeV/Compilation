@@ -295,9 +295,28 @@ void passe1(node_t node)
       break;
     case NODE_FOR :
     case NODE_DOWHILE :
-      if (node->opr[1]->type != TYPE_BOOL)
+      if (node->opr[1]->nature != NODE_IDENT && node->opr[1]->type != TYPE_BOOL)
       {
         yyerror(&node, "La condition n'est pas de type 'bool'.");
+      }
+      else if(node->opr[1]->nature == NODE_IDENT)
+      {
+
+        node_temp = (node_t)get_decl_node(node->opr[1]->ident);
+
+        if (node_temp == NULL)
+        {
+          sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[0]->ident);
+          yyerror(&node, message);
+        }
+
+        type2 = node_temp->type;
+
+        if(type2 != TYPE_BOOL)
+        {
+          yyerror(&node, "La condition n'est pas de type 'bool'.");
+
+        }
       }
       break;
     // Opérations entre 1 ou 2 nombres, vérification du type des arguments

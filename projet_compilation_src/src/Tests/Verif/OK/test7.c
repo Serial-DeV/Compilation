@@ -3,7 +3,7 @@ bool c = true;
 
 void main()
 {
-	if(b <= c)
+	for(b = 0; c; b = b + 6)
 	{
 		b = b - 5;
 	}

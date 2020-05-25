@@ -1,9 +1,14 @@
+int b;
+bool c;
+bool d;
+
 void main()
 {
-	int b = 7;
-	do
+	b = 3;
+  c = true;
+
+	while(c)
 	{
-		print("AH");
+    b = 5;
 	}
-	while(b);
 }

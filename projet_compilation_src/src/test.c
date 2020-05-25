@@ -1,11 +1,10 @@
+int b = 5;
+bool c = true;
 
 void main()
 {
-	int a = 5;
-	bool b = true;
-	if(a)
+	for(b = 0; c; b = b + 6)
 	{
-		a = 6;
+		b = b - 5;
 	}
-
 }

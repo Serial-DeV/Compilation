@@ -1,5 +1,5 @@
 int b = 0;
-bool c = false;
+int c = 5;
 
 void main()
 {

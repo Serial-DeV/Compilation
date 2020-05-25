@@ -4,7 +4,7 @@ bool c;
 void main()
 {
 	b = 3;
-	if(b)
+	if(true)
 	{
 		c = false;
 	}

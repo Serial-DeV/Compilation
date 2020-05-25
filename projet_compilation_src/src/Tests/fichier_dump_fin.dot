@@ -125,7 +125,9 @@ digraph global_vars {
     edge[tailclip=true];
     N32 -> N33
     N44 [shape=record, label="{{NODE IF|Nb. ops: 2}}"];
-    N45 [shape=record, label="{{NODE BOOLVAL|Type: TYPE BOOL}|{Value: 1}}"];
+    N45 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: c|Offset: 4}}"];
+    edge[tailclip=false];
+    "N45":decl:c -> "N15" [style=dashed]
     N46 [shape=record, label="{{NULL}}"];
     edge[tailclip=true];
     N45 -> N46

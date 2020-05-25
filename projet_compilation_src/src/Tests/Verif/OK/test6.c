@@ -1,9 +1,9 @@
 int b = 0;
-bool c = true;
+int c = 5;
 
 void main()
 {
-	if(b >= c)
+	while(b < c)
 	{
 		b = b - 5;
 	}
