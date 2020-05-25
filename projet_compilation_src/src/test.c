@@ -1,6 +1,8 @@
+
 void main()
 {
-	int n = 7;
+	int a = 5;
 	bool b = true;
-	n = n * b;
+	a = b;
+
 }

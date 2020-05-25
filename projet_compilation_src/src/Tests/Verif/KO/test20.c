@@ -1,7 +1,10 @@
-int b;
-bool c;
+int b = 5;
+bool c = true;
 
 void main()
 {
-	c = b <= c;
+	if(b <= c)
+	{
+		b = b - 5;
+	}
 }

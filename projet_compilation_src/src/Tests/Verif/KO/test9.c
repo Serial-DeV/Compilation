@@ -1,6 +1,5 @@
-bool b = true;
 
 void main()
 {
-	print(b);
+  bool b = 5;
 }

@@ -1,5 +1,10 @@
+int b = 5;
+bool c = true;
+
 void main()
 {
-	int n = 6;
-	print(n);
+	if(b || c)
+	{
+		b = b - 5;
+	}
 }

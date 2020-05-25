@@ -182,6 +182,7 @@ void passe1(node_t node)
 
       break;
     case NODE_AFFECT :
+
       if(node->opr[1]->nature == NODE_INTVAL)
       {
           type1 = node->opr[1]->type;
@@ -192,6 +193,46 @@ void passe1(node_t node)
           type1 = node->opr[1]->type;
           node->type = type1;
       }
+
+      if(node->opr[0]->nature == NODE_IDENT)
+      {
+        node_temp = (node_t)get_decl_node(node->opr[0]->ident);
+
+        if (node_temp == NULL)
+        {
+          sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[0]->ident);
+          yyerror(&node, message);
+        }
+
+        type2 = node_temp->type;
+
+        if(node->opr[1]->nature != NODE_IDENT && node->opr[1]->type != type2)
+        {
+          yyerror(&node, "Les deux arguments ne sont pas de même type.");
+
+        }
+      }
+
+      if(node->opr[1]->nature == NODE_IDENT)
+      {
+        node_temp = (node_t)get_decl_node(node->opr[1]->ident);
+
+        if (node_temp == NULL)
+        {
+          sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[1]->ident);
+          yyerror(&node, message);
+        }
+
+        type1 = node_temp->type;
+
+        if(type2 != type1)
+        {
+          yyerror(&node, "Les deux arguments ne sont pas de même type.");
+        }
+      }
+
+
+
       break;
     case NODE_TYPE :
       dernier_type_rencontre = node->type;
