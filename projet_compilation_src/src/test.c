@@ -3,6 +3,9 @@ void main()
 {
 	int a = 5;
 	bool b = true;
-	a = b;
+	if(a)
+	{
+		a = 6;
+	}
 
 }

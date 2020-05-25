@@ -268,23 +268,32 @@ void passe1(node_t node)
 
       break;
     case NODE_IF :
-      if (node->opr[0]->type != TYPE_BOOL)
+    case NODE_WHILE :
+      if (node->opr[0]->nature != NODE_IDENT && node->opr[0]->type != TYPE_BOOL)
       {
         yyerror(&node, "La condition n'est pas de type 'bool'.");
       }
-      break;
-    case NODE_WHILE :
-      if (node->opr[0]->type != TYPE_BOOL)
+      else if(node->opr[0]->nature == NODE_IDENT)
       {
-        yyerror(&node, "La condition n'est pas de type 'bool'.");
+
+        node_temp = (node_t)get_decl_node(node->opr[0]->ident);
+
+        if (node_temp == NULL)
+        {
+          sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[0]->ident);
+          yyerror(&node, message);
+        }
+
+        type2 = node_temp->type;
+
+        if(type2 != TYPE_BOOL)
+        {
+          yyerror(&node, "La condition n'est pas de type 'bool'.");
+
+        }
       }
       break;
     case NODE_FOR :
-      if (node->opr[1]->type != TYPE_BOOL)
-      {
-        yyerror(&node, "La condition n'est pas de type 'bool'.");
-      }
-      break;
     case NODE_DOWHILE :
       if (node->opr[1]->type != TYPE_BOOL)
       {
