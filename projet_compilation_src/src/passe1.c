@@ -31,6 +31,7 @@ void passe1(node_t node)
   char message[50];
   node_t node_temp;
   node_t node_temp2;
+  node_t node_temp3;
 
   if(niveau_trace >= 3)
   {
@@ -206,7 +207,7 @@ void passe1(node_t node)
 
         type2 = node_temp->type;
 
-        if(node->opr[1]->nature != NODE_IDENT && node->opr[1]->type != type2)
+        if((node->opr[1]->nature == NODE_INTVAL || node->opr[1]->nature == NODE_BOOLVAL) && node->opr[1]->type != type2)
         {
           yyerror(&node, "Les deux arguments ne sont pas de même type.");
 
@@ -333,16 +334,22 @@ void passe1(node_t node)
     case NODE_GT :
     case NODE_LE :
     case NODE_GE :
+    case NODE_EQ :
+    case NODE_NE :
 
     	if(node->opr[0]->nature == NODE_IDENT)
     	{
     		node_temp = (node_t)get_decl_node(node->opr[0]->ident);
-
+        // type_string2 = node_type2string(type2);
+        // type_string3 = node_type2string(type3);
         if (node_temp == NULL)
         {
           sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[0]->ident);
           yyerror(&node, message);
         }
+
+        // type_string1 = node_type2string(node_temp->type);
+        // printf("Type observé : %s\n", type_string1);
 
         if(node_temp->type != TYPE_INT)
         {
@@ -381,15 +388,15 @@ void passe1(node_t node)
     case NODE_MOD :
       if(node->opr[0]->nature == NODE_IDENT)
       {
-        node_temp = (node_t)get_decl_node(node->opr[0]->ident);
+        node_temp3 = (node_t)get_decl_node(node->opr[0]->ident);
 
-        if (node_temp == NULL)
+        if (node_temp3 == NULL)
         {
           sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[0]->ident);
           yyerror(&node, message);
         }
 
-        if(node_temp->type != TYPE_INT)
+        if(node_temp3->type != TYPE_INT)
         {
           yyerror(&node, "Un des arguments n'est pas de type 'int'.");
         }
@@ -401,15 +408,15 @@ void passe1(node_t node)
 
       if(node->opr[1]->nature == NODE_IDENT)
       {
-        node_temp = (node_t)get_decl_node(node->opr[1]->ident);
+        node_temp2 = (node_t)get_decl_node(node->opr[1]->ident);
 
 
-        if (node_temp == NULL)
+        if (node_temp2 == NULL)
         {
           sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[1]->ident);
           yyerror(&node, message);
         }
-        if(node_temp->type != TYPE_INT)
+        if(node_temp2->type != TYPE_INT)
         {
 
           yyerror(&node, "Un des arguments n'est pas de type 'int'.");
@@ -421,9 +428,8 @@ void passe1(node_t node)
         yyerror(&node, "Un des arguments n'est pas de type 'int'.");
       }
 
-      // if(node->opr[1]->nature == NODE_INTVAL && node->opr[1]->value == 0 )
-      if(node->opr[1]->value == 0 )
-
+      // if(node->opr[1]->value == 0)
+      if(node->opr[1]->nature == NODE_INTVAL && node->opr[1]->value == 0 )
       {
         if(node->nature == NODE_DIV)
         {
@@ -431,39 +437,109 @@ void passe1(node_t node)
         }
         else if(node->nature == NODE_MOD)
         {
+          printf("%ld %ld\n", node_temp3->decl_node->value, node_temp2->value);
           sprintf(message, "'%ld mod 0' n'est pas défini.", node->opr[0]->value);
           yyerror(&node, message);
         }
       }
+
       break;
       // Opérations entre 1 ou 2 nombres qui retournent un entier, vérification du type des arguments
     case NODE_AND :
     case NODE_OR :
-      if(node->opr[0]->type != TYPE_BOOL || node->opr[1]->type != TYPE_BOOL)
+      if(node->opr[0]->nature == NODE_IDENT)
       {
-        yyerror(&node, "Un des arguments n'est pas de type 'bool'");
+        node_temp3 = (node_t)get_decl_node(node->opr[0]->ident);
+
+        if (node_temp3 == NULL)
+        {
+          sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[0]->ident);
+          yyerror(&node, message);
+        }
+
+        if(node_temp3->type != TYPE_BOOL)
+        {
+          yyerror(&node, "Un des arguments n'est pas de type 'bool'.");
+        }
       }
-      break;
-    //On vérifie que la comparaison se fait entre deux noeuds de même type
-    case NODE_EQ :
-    case NODE_NE :
-      if(node->opr[0]->type != node->opr[1]->type)
+      else if(node->opr[0]->nature == NODE_INTVAL)
       {
-        yyerror(&node, "Les arguments ne sont pas du même type.");
+        yyerror(&node, "Un des arguments n'est pas de type 'bool'.");
       }
+
+      if(node->opr[1]->nature == NODE_IDENT)
+      {
+        node_temp2 = (node_t)get_decl_node(node->opr[1]->ident);
+
+
+        if (node_temp2 == NULL)
+        {
+          sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[1]->ident);
+          yyerror(&node, message);
+        }
+        if(node_temp2->type != TYPE_BOOL)
+        {
+
+          yyerror(&node, "Un des arguments n'est pas de type 'bool'.");
+        }
+        // if(node_temp->value == 0 )
+      }
+      else if(node->opr[1]->nature == NODE_INTVAL)
+      {
+        yyerror(&node, "Un des arguments n'est pas de type 'bool'.");
+      }
+
       break;
+
     case NODE_NOT :
-      if(node->opr[0]->type != TYPE_BOOL)
+
+    if(node->opr[0]->nature == NODE_IDENT)
+    {
+      node_temp3 = (node_t)get_decl_node(node->opr[0]->ident);
+
+      if (node_temp3 == NULL)
       {
-        yyerror(&node, "L'argument n'est pas de type 'bool'");
+        sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[0]->ident);
+        yyerror(&node, message);
       }
+
+      if(node_temp3->type != TYPE_BOOL)
+      {
+        yyerror(&node, "Un des arguments n'est pas de type 'bool'.");
+      }
+    }
+    else if(node->opr[0]->nature == NODE_INTVAL)
+    {
+      yyerror(&node, "Un des arguments n'est pas de type 'bool'.");
+    }
       break;
     case NODE_BNOT :
     case NODE_UMINUS :
-      if(node->opr[0]->type != TYPE_INT)
+
+      if(node->opr[0]->nature == NODE_IDENT)
       {
-        yyerror(&node, "L'argument n'est pas de type 'int'.");
+        node_temp = (node_t)get_decl_node(node->opr[0]->ident);
+        // type_string2 = node_type2string(type2);
+        // type_string3 = node_type2string(type3);
+        if (node_temp == NULL)
+        {
+          sprintf(message, "La variable '%s' n'est pas déclarée.", node->opr[0]->ident);
+          yyerror(&node, message);
+        }
+
+        // type_string1 = node_type2string(node_temp->type);
+        // printf("Type observé : %s\n", type_string1);
+
+        if(node_temp->type != TYPE_INT)
+        {
+          yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+        }
       }
+      else if(node->opr[0]->nature == NODE_BOOLVAL)
+      {
+        yyerror(&node, "Un des arguments n'est pas de type 'int'.");
+      }
+
       break;
     case NODE_PRINT :
       node_Liste_print(node);
