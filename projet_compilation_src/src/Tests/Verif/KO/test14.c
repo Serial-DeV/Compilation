@@ -1,4 +1,4 @@
-int b;
+int b = 7;
 bool c = true;
 
 void main()

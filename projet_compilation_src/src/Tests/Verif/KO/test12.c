@@ -6,6 +6,6 @@ void main()
 	b = 3;
 	if(b)
 	{
-		bool c = false;
+		c = false;
 	}
 }

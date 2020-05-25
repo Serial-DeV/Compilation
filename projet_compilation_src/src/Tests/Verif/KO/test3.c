@@ -1,6 +1,7 @@
-int n;
-int b = 6;
+int a = 5;
+bool b = true;
+
 void main()
 {
-
+  a = b - a;
 }

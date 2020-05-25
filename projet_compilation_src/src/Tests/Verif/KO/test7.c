@@ -1,4 +1,10 @@
+int b = 5;
+bool c = true;
+
 void main()
 {
-	print("Hello world");
+	if(b && c)
+	{
+		b = b - 5;
+	}
 }

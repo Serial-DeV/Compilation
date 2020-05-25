@@ -1,6 +1,6 @@
 void main()
 {
 	int n = 7;
-	int b = 7;
+	bool b = true;
 	n = n * b;
 }

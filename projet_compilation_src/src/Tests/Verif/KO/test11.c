@@ -1,15 +1,10 @@
-bool b;
-bool z = false;
-int n;
 int o = 0;
+bool b;
+int n;
+bool z = false;
 
 void main()
 {
-	n = 3 + z;
-	while (n > 1)
-	{
-		n = n - 1;
-		print(" OK ");
-	}
+	n = z + 3;
 
 }
