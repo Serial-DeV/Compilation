@@ -1,19 +1,21 @@
 
 .data
 
-b: .word 5
-c: .word 1
+n: .word 6
 
 .text
 
 main:
-    addiu $29, $29, 0
-    ori   $8, $0, 0x0
-    sw    $8, 0($29)
-    ori   $8, $0, 0x0
-    sw    $8, 0($29)
-    ori   $8, $0, 0x0
-    sw    $8, 0($29)
-    addiu $29, $29, 0
+    addiu $29, $29, -4
+    ori   $8, $0, 0x9
+    sw    $8, 4($29)
+    lui   $4, 0x1001
+    lw    $4, 0($4)
+    ori   $2, $0, 0x1
+    syscall
+    lw    $4, 4($29)
+    ori   $2, $0, 0x1
+    syscall
+    addiu $29, $29, 4
     ori   $2, $0, 0xa
     syscall

@@ -1,9 +1,8 @@
-int i;
+int n = 6;
 
-void main() 
+void main()
 {
-	for(i = 0; i < 10; i = i + 1){}
+	int k = 9;
+	print(n);
+	print(k);
 }
-
-
-

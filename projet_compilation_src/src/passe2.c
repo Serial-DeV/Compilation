@@ -347,7 +347,8 @@ void add_print(node_t nt)
 
 		else if(nt->opr[0]->nature == NODE_IDENT)
 		{
-			if(nt->opr[0]->global_decl == true)
+			node_t node_decl = (node_t)get_decl_node(nt->opr[0]->ident);
+			if(node_decl != NULL && node_decl->global_decl == true)
 			{
 				create_lui_inst(4, 0x1001);
 				create_lw_inst(4, nt->opr[0]->offset, 4);

@@ -1,41 +1,64 @@
 digraph global_vars {
     N1 [shape=record, label="{{NODE PROGRAM|Nb. ops: 2}}"];
-    N2 [shape=record, label="{{NULL}}"];
+    N2 [shape=record, label="{{NODE DECLS|Nb. ops: 2}}"];
+    N3 [shape=record, label="{{NODE TYPE|Type: TYPE INT}}"];
+    edge[tailclip=true];
+    N2 -> N3
+    N4 [shape=record, label="{{NODE DECL|Nb. ops: 2}}"];
+    N5 [shape=record, label="{{NODE IDENT|Type: TYPE INT}|{<decl>Decl      |Ident: n|Offset: 0}}"];
+    edge[tailclip=true];
+    N4 -> N5
+    N6 [shape=record, label="{{NODE INTVAL|Type: TYPE INT}|{Value: 6}}"];
+    edge[tailclip=true];
+    N4 -> N6
+    edge[tailclip=true];
+    N2 -> N4
     edge[tailclip=true];
     N1 -> N2
-    N3 [shape=record, label="{{NODE FUNC|Nb. ops: 3}|{stack_size: 4|offset: 4}}"];
-    N4 [shape=record, label="{{NODE TYPE|Type: TYPE VOID}}"];
-    edge[tailclip=true];
-    N3 -> N4
-    N5 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: main|Offset: -1}}"];
-    edge[tailclip=true];
-    N3 -> N5
-    N6 [shape=record, label="{{NODE BLOCK|Nb. ops: 2}}"];
-    N7 [shape=record, label="{{NODE DECLS|Nb. ops: 2}}"];
-    N8 [shape=record, label="{{NODE TYPE|Type: TYPE INT}}"];
+    N7 [shape=record, label="{{NODE FUNC|Nb. ops: 3}|{stack_size: 4|offset: 4}}"];
+    N8 [shape=record, label="{{NODE TYPE|Type: TYPE VOID}}"];
     edge[tailclip=true];
     N7 -> N8
-    N9 [shape=record, label="{{NODE DECL|Nb. ops: 2}}"];
-    N10 [shape=record, label="{{NODE IDENT|Type: TYPE INT}|{<decl>Decl      |Ident: n|Offset: 0}}"];
-    edge[tailclip=true];
-    N9 -> N10
-    N11 [shape=record, label="{{NODE INTVAL|Type: TYPE INT}|{Value: 123}}"];
-    edge[tailclip=true];
-    N9 -> N11
+    N9 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: main|Offset: -1}}"];
     edge[tailclip=true];
     N7 -> N9
+    N10 [shape=record, label="{{NODE BLOCK|Nb. ops: 2}}"];
+    N11 [shape=record, label="{{NODE DECLS|Nb. ops: 2}}"];
+    N12 [shape=record, label="{{NODE TYPE|Type: TYPE INT}}"];
     edge[tailclip=true];
-    N6 -> N7
-    N12 [shape=record, label="{{NODE PRINT|Nb. ops: 1}}"];
-    N13 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: n|Offset: -1}}"];
+    N11 -> N12
+    N13 [shape=record, label="{{NODE DECL|Nb. ops: 2}}"];
+    N14 [shape=record, label="{{NODE IDENT|Type: TYPE INT}|{<decl>Decl      |Ident: k|Offset: 0}}"];
+    edge[tailclip=true];
+    N13 -> N14
+    N15 [shape=record, label="{{NODE INTVAL|Type: TYPE INT}|{Value: 9}}"];
+    edge[tailclip=true];
+    N13 -> N15
+    edge[tailclip=true];
+    N11 -> N13
+    edge[tailclip=true];
+    N10 -> N11
+    N16 [shape=record, label="{{NODE LIST}}"];
+    N17 [shape=record, label="{{NODE PRINT|Nb. ops: 1}}"];
+    N18 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: n|Offset: -1}}"];
     edge[tailclip=false];
-    "N13":decl:c -> "N10" [style=dashed]
+    "N18":decl:c -> "N5" [style=dashed]
     edge[tailclip=true];
-    N12 -> N13
+    N17 -> N18
     edge[tailclip=true];
-    N6 -> N12
+    N16 -> N17
+    N19 [shape=record, label="{{NODE PRINT|Nb. ops: 1}}"];
+    N20 [shape=record, label="{{NODE IDENT|Type: TYPE NONE}|{<decl>Decl      |Ident: k|Offset: -1}}"];
+    edge[tailclip=false];
+    "N20":decl:c -> "N14" [style=dashed]
     edge[tailclip=true];
-    N3 -> N6
+    N19 -> N20
     edge[tailclip=true];
-    N1 -> N3
+    N16 -> N19
+    edge[tailclip=true];
+    N10 -> N16
+    edge[tailclip=true];
+    N7 -> N10
+    edge[tailclip=true];
+    N1 -> N7
 }
