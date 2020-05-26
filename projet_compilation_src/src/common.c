@@ -114,6 +114,15 @@ void parse_args(int argc, char ** argv)
         break;
 
         case 'h':
+          printf("\nAffichage des options disponibles : \n\n");
+          printf("-b : Affiche une bannière indiquant le nom du compilateur et des membres du binôme.\n");
+          printf("-o <filename> : Définit le nom du fichier assembleur produit (défaut : out.s).\n");
+          printf("-t <int> : Définit le niveau de trace à utiliser entre 0 et 5 (0 = pas de trace ; 5 = toutes les traces. defaut = 0).\n");
+          printf("-r <int> : Définit le nombre maximum de registres à utiliser, entre 4 et 8 (défaut : 8).\n");
+          printf("-s : Arrêter la compilation après l’analyse syntaxique (défaut = non).\n");
+          printf("-v : Arrêter la compilation après la passe de vérifications (défaut = non).\n");
+          printf("-h : Afficher la liste des options (fonction d’usage) et arrêter le parsing des arguments.\n\n");
+          exit(0);
         break;
 
         case 'w':
@@ -125,7 +134,6 @@ void parse_args(int argc, char ** argv)
         break;
 
         default:
-                printf("\nHein\n");
         break;
       }
 	/*
@@ -136,7 +144,7 @@ void parse_args(int argc, char ** argv)
         printf("\nargv[2] = %s\n", argv[2]);
         printf("\nargv[3] = %s\n", argv[3]);
         printf("\nargv[4] = %s\n", argv[4]);
-	
+
         printf("\nargc = %d\n", argc);
         printf("\noptind = %d\n", optind);
       }
@@ -154,7 +162,7 @@ void parse_args(int argc, char ** argv)
 
     if(indice != argc)
     {
-      printf("\nIl n'est possible de passer qu'un seul fichier source en argument.\n");
+      printf("\nErreur : Vous devez fournir un fichier source mais il n'est possible de passer qu'un seul et unique fichier source en argument.\n");
       exit(-1);
     }
 	/*
