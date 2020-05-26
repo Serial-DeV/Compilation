@@ -21,13 +21,17 @@ void main()
 			b = !b;
 			c = c + 1;
 			print(c);
+			print("\n");
 			print(b);
+			print("\n");
 			print(n);
+			print("\n");
 			if(b)
 			{
 				int l = 458;
 				c = c * c;
 				print(l);
+				print("\n");
 			}
 		}
 		
@@ -43,6 +47,7 @@ void main()
 		int o = 50;
 		print("test 2 vrai\n");
 		print(o);
+		print("\n");
 	}
 	
 	else
@@ -77,5 +82,4 @@ void main()
 	}
 	
 	print(o);
-	print("\n");
 }

@@ -69,5 +69,4 @@ void main()
 
 	
 	print(o);
-	print("\n");
 }

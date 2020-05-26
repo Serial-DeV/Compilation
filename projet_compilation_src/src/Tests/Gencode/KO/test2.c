@@ -1,11 +1,8 @@
 int n = 1;
-
+int o = -0;
 
 void main()
 {
-	while(true)
-	{
-		n = n + 2147483647;
-	}
+	n = n / o;	
 	print(n);
 }

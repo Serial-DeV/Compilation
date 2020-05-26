@@ -55,5 +55,4 @@ void main()
 	
 	
 	print(n);
-	print("\n");
 }
