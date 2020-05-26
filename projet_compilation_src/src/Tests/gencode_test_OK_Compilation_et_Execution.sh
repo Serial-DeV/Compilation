@@ -3,7 +3,7 @@ for ((i=1;i<=35;i++)) ; do
   echo -e "\n"
   message='Fichier testé :'
   echo $message $f
-  Compilateur/minicc $f
+  ../minicc $f
   java -jar Mars_4_2.jar out.s|sed '1d'|sed '1d' >> Gencode/OK/Sorties_attendues/tmp
   cpt=$(diff Gencode/OK/Sorties_attendues/$i Gencode/OK/Sorties_attendues/tmp|wc -l)
   rm Gencode/OK/Sorties_attendues/tmp
