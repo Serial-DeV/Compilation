@@ -50,6 +50,12 @@ void parse_args(int argc, char ** argv)
       switch (option)
       {
         case 'b':
+
+          if(argc >= 2)
+          {
+            printf("\nErreur : l’option '-b' ne peut être utilisée que sans autre option, et sans fichier source.\n");
+            exit(-1);
+          }
           printf("\nVoici le compilateur NOM_DU_COMPILATEUR réalisé par Emmanuel COLLIN et René - Mervis MUDRY.\n\n");
           exit(0);
         break;
@@ -119,14 +125,22 @@ void parse_args(int argc, char ** argv)
         break;
 
         default:
+                printf("\nHein\n");
         break;
       }
-
+	/*
       if(niveau_trace >= 2)
       {
+        printf("\nargv[0] = %s\n", argv[0]);
+        printf("\nargv[1] = %s\n", argv[1]);
+        printf("\nargv[2] = %s\n", argv[2]);
+        printf("\nargv[3] = %s\n", argv[3]);
+        printf("\nargv[4] = %s\n", argv[4]);
+	
         printf("\nargc = %d\n", argc);
         printf("\noptind = %d\n", optind);
       }
+	*/
       option = getopt(argc, argv, optstring);
 
     }
@@ -135,22 +149,30 @@ void parse_args(int argc, char ** argv)
 
     //Affiche un argument si il y en a un
 
-    int indice = optind;
-    /*
+    int indice = optind + 1;
+    //printf("\noptind = %d\n", optind);
+
+    if(indice != argc)
+    {
+      printf("\nIl n'est possible de passer qu'un seul fichier source en argument.\n");
+      exit(-1);
+    }
+	/*
     while (indice < argc)
     {
       printf("\nVoici un argument :\n");
       printf("%s\n", argv[indice]);
       indice++;
 
-    }
-    */
-    /*Revoir comment trouver l'indice correctement
-    printf("\nargv[0] = %s\n", argv[0]);
+    }*/
+
+    //Revoir comment trouver l'indice correctement
+   /*printf("\nargv[0] = %s\n", argv[0]);
     printf("\nargv[1] = %s\n", argv[1]);
     printf("\nargv[2] = %s\n", argv[2]);
     printf("\nargv[3] = %s\n", argv[3]);
-    */
+    printf("\nargv[4] = %s\n", argv[4]);
+	*/
 
     infile = argv[optind];
 

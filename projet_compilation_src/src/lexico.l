@@ -180,7 +180,7 @@ COMMENTAIRE     "//".*$
 		if((strlen(yytext) >= strlen("2147483647") && strcmp("2147483647", yytext) < 0) || (strlen(yytext) >= strlen("-2147483648") && strcmp("-2147483648", yytext) < 0))
 		{
 		 fprintf(stderr, "\nError line %d: integer out of range\n", yylineno);
-		 exit(-1);
+		 exit(0);
 		}
 		yylval.intval = atoi(yytext); // Vérifier ce qu'il faut vérifier
                 return TOK_INTVAL;
@@ -210,7 +210,7 @@ COMMENTAIRE     "//".*$
 
 . {
                 fprintf(stderr, "\nError line %d: Lexical error\n", yylineno);
-                exit(-1);
+                exit(0);
 }
 
 
