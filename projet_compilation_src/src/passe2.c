@@ -134,7 +134,29 @@ void opening_closing_node(node_t nt)
 				break;
 			
 			case NODE_PLUS:
+			case NODE_MINUS:
+			case NODE_MUL:
+			case NODE_DIV:
+			case NODE_MOD:	
+			case NODE_GT:
+			case NODE_GE:
+			case NODE_LT:
+			case NODE_LE:
+			case NODE_EQ:
+			case NODE_NE:
+			case NODE_BXOR:
+			case NODE_BAND:
+			case NODE_BOR:
+			case NODE_AND:
+			case NODE_OR:
+			case NODE_SRL:
+			case NODE_SRA:
+			case NODE_SLL:
 				add_arith_op(nt);
+				break;
+					
+			case NODE_UMINUS:
+				break;
 
 			default:
 				break;
@@ -380,14 +402,14 @@ void add_arith_op(node_t nt)
 			if(nt->opr[0]->nature == NODE_INTVAL)
 			{
 				reg0 = get_current_reg();
+				create_ori_inst(reg0, r0, nt->opr[0]->value);
 				if(nt->opr[1]->nature == NODE_INTVAL)
 				{// Cas avec 2 entiers immédiats
-					create_ori_inst(reg0, r0, nt->opr[0]->value);
+					
 					allocate_reg();
 					reg1 = get_current_reg();
 					create_ori_inst(reg1, r0, nt->opr[1]->value);
-					release_reg();
-					select_arith_op(nt->nature, reg0, reg1);
+					suite_arith_op(nt->nature, reg0, reg1);
 				}
 			}
 		}
@@ -401,14 +423,81 @@ void add_arith_op(node_t nt)
 
 
 
-void select_arith_op(node_nature nature, int32_t reg0, int32_t reg1)
+void suite_arith_op(node_nature nature, int32_t reg0, int32_t reg1)
 {
 	switch(nature)
 	{
 		case NODE_PLUS:
 			create_addu_inst(reg0, reg0, reg1);
 			break;
+
+		case NODE_MINUS:
+			create_subu_inst(reg0, reg0, reg1);
+			break;
+
+		case NODE_MUL:
+			create_mult_inst(reg0, reg1);
+			create_mflo_inst(reg0);
+			break;
+
+		case NODE_DIV:
+			create_div_inst(reg0, reg1);
+			create_mflo_inst(reg0);
+			break;
+
+		case NODE_MOD:
+			create_div_inst(reg0, reg1);
+			create_mfhi_inst(reg0);
+			break;
+
+		case NODE_GT:
+			break;
+
+		case NODE_GE:
+			break;
+
+		case NODE_LT:
+			break;
+
+		case NODE_LE:
+			break;
+
+		case NODE_EQ:
+			break;
+
+		case NODE_NE:
+			break;
+
+		case NODE_BXOR:
+			create_xor_inst(reg0, reg0, reg1);
+			break;
+
+
+		case NODE_AND:
+		case NODE_BAND:
+			create_and_inst(reg0, reg0, reg1);
+			break;
+
+		case NODE_OR:
+		case NODE_BOR:
+			create_or_inst(reg0, reg0, reg1);
+			break;
+
+		case NODE_SRL:
+			create_srlv_inst(reg0, reg0, reg1);
+			break;
+
+		case NODE_SRA:
+			create_srav_inst(reg0, reg0, reg1);
+			break;
+
+		case NODE_SLL:
+			create_sllv_inst(reg0, reg0, reg1);
+			break;
 	}
+	
+	release_reg();
+	push_temporary(reg0);
 }
 
 

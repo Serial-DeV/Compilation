@@ -33,6 +33,6 @@ void add_stringval(node_t);
 void add_affect(node_t);
 void add_print(node_t);
 void add_arith_op(node_t);
-void select_arith_op(node_nature, int32_t, int32_t);
+void suite_arith_op(node_nature, int32_t, int32_t);
 
 #endif
